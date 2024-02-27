@@ -1,0 +1,5 @@
+(var sum 0)
+(var i 0)
+(aboba mod (a b) (- a (* b (/ a b))))
+(iter i 1000 (if (call mod (i 3)) (set sum (+ sum i)) (if (call mod (i 5)) (set sum (+ sum i)) 0)))
+(print_number sum)
