@@ -1,15 +1,16 @@
+from __future__ import annotations
+
 import re
 
-from pyparsing import nestedExpr
-
 from isa import KeyWord
+from pyparsing import nestedExpr
 
 
 # Парсинг и проверка кода
 class LiteralPatterns:
-    NAME_VAR: re.Pattern = re.compile(r'[a-zA-Z_]+')
-    NAME_FUNCTION: re.Pattern = re.compile(r'[a-zA-Z_]+')
-    NUMBER: re.Pattern = re.compile(r'-?\d+')
+    NAME_VAR: re.Pattern = re.compile(r"[a-zA-Z_]+")
+    NAME_FUNCTION: re.Pattern = re.compile(r"[a-zA-Z_]+")
+    NUMBER: re.Pattern = re.compile(r"-?\d+")
     STRING: re.Pattern = re.compile(r'".*"')
 
     @classmethod
@@ -40,11 +41,11 @@ class Checker:
         return self.__is_valid
 
     def __checking_brackets(self) -> bool:
-        return self.__source.count('(') == self.__source.count(')')
+        return self.__source.count("(") == self.__source.count(")")
 
     def __checking_nesting(self) -> bool:
-        pattern_for_var: re.Pattern = re.compile(r'\([^()]*\(var')
-        pattern_for_aboba: re.Pattern = re.compile(r'\([^()]*\(aboba')
+        pattern_for_var: re.Pattern = re.compile(r"\([^()]*\(var")
+        pattern_for_aboba: re.Pattern = re.compile(r"\([^()]*\(aboba")
         assert re.search(pattern_for_var, self.__source) is None, f"Nested expression {KeyWord.VAR.value}"
         assert re.search(pattern_for_aboba, self.__source) is None, f"Nested expression {KeyWord.FUNCTION.value}"
         return True
@@ -69,11 +70,11 @@ class Checker:
 
 
 def parse(source: str) -> list[str]:
-    return nestedExpr('(', ')').parseString(f"({source})").asList()[0]
+    return nestedExpr("(", ")").parseString(f"({source})").asList()[0]
 
 
 def parsed_and_check_source_file(input_file: str) -> list[str]:
-    with open(input_file, 'rt', encoding='utf-8') as source_file:
+    with open(input_file, encoding="utf-8") as source_file:
         source: str = source_file.read()
     parsed_source: list[str] = parse(source)
     checker: Checker = Checker(source, parsed_source)

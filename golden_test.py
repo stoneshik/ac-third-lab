@@ -22,9 +22,9 @@ def test_translator_and_machine(golden, caplog):
         target_data = os.path.join(tmp_dir_name, "data.bin")
         target_mnemonics = os.path.join(tmp_dir_name, "mnemonics.txt")
         # Записываем входные данные в файлы. Данные берутся из теста.
-        with open(source, "wt", encoding="utf-8") as file:
+        with open(source, "w", encoding="utf-8") as file:
             file.write(golden["in_source"])
-        with open(input_stream, "wt", encoding="utf-8") as file:
+        with open(input_stream, "w", encoding="utf-8") as file:
             file.write(golden["in_stdin"])
         # Запускаем транслятор и собираем весь стандартный вывод в переменную stdout
         with contextlib.redirect_stdout(io.StringIO()) as stdout:

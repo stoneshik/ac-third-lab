@@ -1,21 +1,34 @@
 #!/usr/bin/python3
-import sys
-import math
+from __future__ import annotations
 
-from memory_config import InstrMemoryConfig, DataMemoryConfig
+import math
+import sys
+
 from checker import LiteralPatterns, parsed_and_check_source_file
+from exceptions import (
+    IncorrectArgsPassedToFunctionError,
+    IncorrectArgumentForPrintError,
+    IncorrectArgumentInIfExpError,
+    IncorrectLiteralError,
+    IncorrectSecondArgumentError,
+    NotFoundKeywordError,
+    StringNotDefinedInMemoryError,
+    ValueNotNumberOrNameVariableError,
+    VariableNotDefinedInMemoryError,
+)
 from isa import (
     KeyWord,
     Opcode,
     all_keywords,
-    number_to_hex,
-    string_to_hex_list,
-    get_opcode_word,
     get_direct_abs_address,
     get_direct_offset_address,
+    get_direct_reg_address,
     get_indirect_sp_address,
-    get_direct_reg_address
+    get_opcode_word,
+    number_to_hex,
+    string_to_hex_list,
 )
+from memory_config import DataMemoryConfig, InstrMemoryConfig
 from mnemonic import MnemonicCreator
 
 
@@ -26,7 +39,7 @@ def traverse(o, tree_types=(list,)):
     if isinstance(o, tree_types):
         for value in o:
             for sub_value in traverse(value, tree_types):
-                yield sub_value
+                yield from sub_value
     else:
         yield o
 
@@ -40,9 +53,9 @@ class Translator:
         self.__parsed_source: list[str] = parsed_source
         self.__instruction_words: list[bytes] = [
             bytes.fromhex(get_opcode_word(Opcode.JMP)),
-            bytes.fromhex('a000')
+            bytes.fromhex("a000")
         ]
-        zero_word_data_memory: str = '0' * DataMemoryConfig.word_hex_num
+        zero_word_data_memory: str = "0" * DataMemoryConfig.word_hex_num
         self.__data_words: list[bytes] = [bytes.fromhex(zero_word_data_memory)] * DataMemoryConfig.size
         # Индекс ближайшей свободной ячейки в именованной памяти, 3 т.к. 0 и 1 - порты ввода и вывода,
         # 2 значение для Heap Counter
@@ -92,12 +105,12 @@ class Translator:
         return buffer_address
 
     def save_instruction_words_in_file(self, output_file_name: str) -> None:
-        with open(output_file_name, 'wb') as output_file:
+        with open(output_file_name, "wb") as output_file:
             for word in self.__instruction_words:
                 output_file.write(word)
 
     def save_data_memory_in_file(self, output_file_name: str) -> None:
-        with open(output_file_name, 'wb') as output_file:
+        with open(output_file_name, "wb") as output_file:
             for word in self.__data_words:
                 output_file.write(word)
 
@@ -117,7 +130,7 @@ class Translator:
                 string_value: str = value[1:-1]  # убираем ""
                 self.__add_var_string(var_name, string_value)
             else:
-                raise Exception("Incorrect literal - not number or string")
+                raise IncorrectLiteralError()
 
     def __add_var_num(self, var_name: str, value: int) -> None:
         assert self.__var_counter < DataMemoryConfig.named_memory_size, \
@@ -157,7 +170,7 @@ class Translator:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
             self.__data_words[self.__heap_counter] = bytes.fromhex(word)
             self.__heap_counter += 1
-        if words_storing_string[-1][:2] != '00':  # Если в последнем слове последний символ '\0'
+        if words_storing_string[-1][:2] != "00":  # Если в последнем слове последний символ '\0'
             self.__create_buffer(1)  # то добавляем пустое слово
         # обновляем счетчик переменной
         self.__var_counter += 1
@@ -217,7 +230,7 @@ class Translator:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
             self.__data_words[self.__heap_counter] = bytes.fromhex(word)
             self.__heap_counter += 1
-        if words_storing_string[-1][:2] != '00':  # Если в последнем слове последний символ '\0'
+        if words_storing_string[-1][:2] != "00":  # Если в последнем слове последний символ '\0'
             self.__create_buffer(1)  # то добавляем пустое слово
 
     # Создание функций
@@ -235,10 +248,9 @@ class Translator:
             assert len(param_names) == len(frozenset(param_names)), \
                 f"Repeated names of function parameters - {name_function}"
             for param_name in param_names:
-                assert LiteralPatterns.is_name_var(param_name), \
-                    f"Incorrect names of function parameters - {param_name}"
-                assert param_name not in self.__functions.keys() and param_name not in self.__vars.keys(), \
-                    f"Parameter named as function or variable {param_name}"
+                assert LiteralPatterns.is_name_var(param_name), f"Incorrect names of function parameters - {param_name}"
+                assert param_name not in self.__functions.keys(), f"Parameter named as function {param_name}"
+                assert param_name not in self.__vars.keys(), f"Parameter named as variable {param_name}"
             assert isinstance(expression[3], list), f"Incorrect nested expression in function - {name_function}"
             nested_expression: list[str | list] = expression[3]
             function_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
@@ -246,7 +258,7 @@ class Translator:
             self.__functions_by_address[function_address] = name_function
             self.__offset_params = 1  # 1 т.к. 0-й всегда адрес возврата
             self.__create_expression(nested_expression, param_names)
-            self.__add_pop_instruction('0')
+            self.__add_pop_instruction("0")
             self.__add_zero_args_instruction(Opcode.RET)
             self.__offset_params -= 1
         self.__instruction_words[1] = bytes.fromhex(get_direct_abs_address(
@@ -260,7 +272,7 @@ class Translator:
         ]
         for expression in source_for_expressions:
             self.__create_expression(expression, None)
-            self.__add_pop_instruction('0')
+            self.__add_pop_instruction("0")
         self.__add_zero_args_instruction(Opcode.HALT)
         self.__data_words[2] = bytes.fromhex(
             number_to_hex(DataMemoryConfig.word_hex_num, self.__heap_counter)
@@ -269,7 +281,8 @@ class Translator:
     # Методы для создания выражений
     def __create_expression(self, exp: list[str | list], param_names: tuple[str] | None) -> None:
         key_word: str = exp[0]
-        assert key_word != KeyWord.VAR and key_word != KeyWord.FUNCTION, f"Nested expression - {key_word}"
+        assert key_word != KeyWord.VAR, f"Nested expression - {key_word}"
+        assert key_word != KeyWord.FUNCTION, f"Nested expression - {key_word}"
         assert key_word in all_keywords, f"Unknown keyword - {key_word}"
         match key_word:
             case KeyWord.PRINT_NUMBER.value:
@@ -325,7 +338,7 @@ class Translator:
                     f"Max iter value is not number - {max_iter_value_raw}"
                 max_iter_value: int = int(max_iter_value_raw)
                 nested_expression: list[str | list] = exp[3]
-                assert isinstance(nested_expression, list), f"Incorrect nested expression"
+                assert isinstance(nested_expression, list), "Incorrect nested expression"
                 self.__create_machine_code_for_iter_expression(
                     name_iter_var,
                     max_iter_value,
@@ -333,7 +346,7 @@ class Translator:
                     param_names
                 )
             case _:
-                raise Exception("Not found keyword")
+                raise NotFoundKeywordError()
 
     def __create_machine_code_for_print_number_expression(
             self,
@@ -356,7 +369,7 @@ class Translator:
             self.__create_machine_code_for_convert_number_to_string(number_address, direct_end_string_pointer_address)
             self.__create_machine_code_for_print_converted_number_to_string_by_pointer_address(direct_pointer_address)
         else:
-            raise Exception(f"Incorrect argument for print - {first_raw_arg}")
+            raise IncorrectArgumentForPrintError(first_raw_arg)
 
     def __create_machine_code_for_convert_number_to_string(
             self,
@@ -367,24 +380,24 @@ class Translator:
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
         address_const_10: str = get_direct_abs_address(self.__number_consts[10])
-        self.__add_binary_instruction(Opcode.LOAD, '0', direct_end_string_pointer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '1', number_address)
+        self.__add_binary_instruction(Opcode.LOAD, "0", direct_end_string_pointer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "1", number_address)
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
         # Начало цикла
-        self.__add_binary_instruction(Opcode.LOAD, '3', address_const_0)
+        self.__add_binary_instruction(Opcode.LOAD, "3", address_const_0)
         for _ in range(DataMemoryConfig.word_size):
-            self.__add_binary_instruction(Opcode.STORE, '1', direct_buffer_address)
-            self.__add_binary_instruction(Opcode.LOAD, '2', direct_buffer_address)
-            self.__add_binary_instruction(Opcode.MOD, '2', address_const_10)
-            self.__add_unary_instruction(Opcode.CHAR, '2')
-            self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
-            self.__add_unary_instruction(Opcode.SLB, '3')
-            self.__add_binary_instruction(Opcode.ADD, '3', direct_buffer_address)
-            self.__add_binary_instruction(Opcode.DIV, '1', address_const_10)
-        self.__add_binary_instruction(Opcode.STORE, '0', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.STORE, '3', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.DEC, '0')
-        self.__add_binary_instruction(Opcode.CMP, '1', address_const_0)
+            self.__add_binary_instruction(Opcode.STORE, "1", direct_buffer_address)
+            self.__add_binary_instruction(Opcode.LOAD, "2", direct_buffer_address)
+            self.__add_binary_instruction(Opcode.MOD, "2", address_const_10)
+            self.__add_unary_instruction(Opcode.CHAR, "2")
+            self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
+            self.__add_unary_instruction(Opcode.SLB, "3")
+            self.__add_binary_instruction(Opcode.ADD, "3", direct_buffer_address)
+            self.__add_binary_instruction(Opcode.DIV, "1", address_const_10)
+        self.__add_binary_instruction(Opcode.STORE, "0", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.STORE, "3", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.DEC, "0")
+        self.__add_binary_instruction(Opcode.CMP, "1", address_const_0)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_argument_address)
 
     def __create_machine_code_for_print_expression(self, raw_arg: str, param_names: tuple[str]) -> None:
@@ -396,29 +409,29 @@ class Translator:
         elif LiteralPatterns.is_name_var(raw_arg):
             pointer_address: str = self.__get_variable_address(param_names, raw_arg)
         else:
-            raise Exception(f"Incorrect argument for print - {raw_arg}")
+            raise IncorrectArgumentForPrintError(raw_arg)
         self.__create_machine_code_for_print_string_by_pointer_address(pointer_address)
 
     def __create_machine_code_for_print_string_by_pointer_address(self, pointer_address: str) -> None:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
-        self.__add_binary_instruction(Opcode.LOAD, '2', pointer_address)
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "2", pointer_address)
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
         # Начало цикла записи
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "3", offset_buffer_address)
         for _ in range(DataMemoryConfig.word_size):
-            self.__add_unary_instruction(Opcode.PRINT, '3')
-            self.__add_unary_instruction(Opcode.SRB, '3')
-        self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.IES, '3')
-        self.__add_unary_instruction(Opcode.INC, '2')
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
+            self.__add_unary_instruction(Opcode.PRINT, "3")
+            self.__add_unary_instruction(Opcode.SRB, "3")
+        self.__add_binary_instruction(Opcode.LOAD, "3", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.IES, "3")
+        self.__add_unary_instruction(Opcode.INC, "2")
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_argument_address)
         # Конец цикла записи
-        self.__add_binary_instruction(Opcode.LOAD, '0', address_const_0)
-        self.__add_push_instruction('0')
+        self.__add_binary_instruction(Opcode.LOAD, "0", address_const_0)
+        self.__add_push_instruction("0")
 
     def __create_machine_code_for_print_converted_number_to_string_by_pointer_address(
             self,
@@ -431,87 +444,87 @@ class Translator:
         address_const_low_byte_filter_num: str = get_direct_abs_address(self.__number_consts[self.LOW_BYTE_FILTER_NUM])
         address_const_low_zero_ascii_num: str = get_direct_abs_address(self.__number_consts[self.ZERO_ASCII_NUM])
         # Пропуск пустых слов
-        self.__add_binary_instruction(Opcode.LOAD, '1', address_const_data_word_size)
-        self.__add_binary_instruction(Opcode.LOAD, '2', pointer_address)
-        self.__add_unary_instruction(Opcode.DEC, '2')
+        self.__add_binary_instruction(Opcode.LOAD, "1", address_const_data_word_size)
+        self.__add_binary_instruction(Opcode.LOAD, "2", pointer_address)
+        self.__add_unary_instruction(Opcode.DEC, "2")
         jz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        self.__add_unary_instruction(Opcode.INC, '2')
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
-        self.__add_binary_instruction(Opcode.CMP, '3', address_const_0)
-        self.__add_unary_instruction(Opcode.DEC, '1')
+        self.__add_unary_instruction(Opcode.INC, "2")
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "3", offset_buffer_address)
+        self.__add_binary_instruction(Opcode.CMP, "3", address_const_0)
+        self.__add_unary_instruction(Opcode.DEC, "1")
         self.__add_unary_instruction_with_operand_address(Opcode.JZ, jz_argument_address)
-        self.__add_binary_instruction(Opcode.CMP, '1', address_const_0)
-        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')  # Если это последнее
+        self.__add_binary_instruction(Opcode.CMP, "1", address_const_0)
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, "000")  # Если это последнее
         jz_address_start_zero_skip_index: int = len(self.__instruction_words) - 1  # слово то проверяем
-        self.__add_binary_instruction(Opcode.CMP, '3', address_const_zero_last_word)  # является ли нулем
-        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')
+        self.__add_binary_instruction(Opcode.CMP, "3", address_const_zero_last_word)  # является ли нулем
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, "000")
         jnz_address_start_print_index_from_start: int = len(self.__instruction_words) - 1
-        self.__add_unary_instruction(Opcode.PRINT, '3')
-        self.__add_unary_instruction_with_operand_address(Opcode.JMP, '000')
+        self.__add_unary_instruction(Opcode.PRINT, "3")
+        self.__add_unary_instruction_with_operand_address(Opcode.JMP, "000")
         jmp_address_end_index: int = len(self.__instruction_words) - 1
         # пропускаем возможные нули перед числом по типу 00121212
         self.__update_arg_for_jmp_instruction(jz_address_start_zero_skip_index)
-        self.__add_binary_instruction(Opcode.LOAD, '1', address_const_data_word_size)
-        self.__add_binary_instruction(Opcode.STORE, '3', direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "1", address_const_data_word_size)
+        self.__add_binary_instruction(Opcode.STORE, "3", direct_buffer_address)
         jnz_start_zero_skip_address: str = number_to_hex(
             InstrMemoryConfig.address_hex_num, len(self.__instruction_words)
         )
-        self.__add_binary_instruction(Opcode.LOAD, '0', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.AND, '0', address_const_low_byte_filter_num)
-        self.__add_binary_instruction(Opcode.CMP, '0', address_const_low_zero_ascii_num)
-        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')
+        self.__add_binary_instruction(Opcode.LOAD, "0", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.AND, "0", address_const_low_byte_filter_num)
+        self.__add_binary_instruction(Opcode.CMP, "0", address_const_low_zero_ascii_num)
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, "000")
         jnz_address_print_last_chars_index: int = len(self.__instruction_words) - 1
-        self.__add_unary_instruction(Opcode.SRB, '3')
-        self.__add_binary_instruction(Opcode.STORE, '3', direct_buffer_address)
-        self.__add_unary_instruction(Opcode.DEC, '1')
-        self.__add_binary_instruction(Opcode.CMP, '1', address_const_0)
+        self.__add_unary_instruction(Opcode.SRB, "3")
+        self.__add_binary_instruction(Opcode.STORE, "3", direct_buffer_address)
+        self.__add_unary_instruction(Opcode.DEC, "1")
+        self.__add_binary_instruction(Opcode.CMP, "1", address_const_0)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_start_zero_skip_address)
         # Проверка является ли выведенное слово последним
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '0', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.IES, '0')
-        self.__add_unary_instruction_with_operand_address(Opcode.JZ, '000')
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "0", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.IES, "0")
+        self.__add_unary_instruction_with_operand_address(Opcode.JZ, "000")
         jz_address_end_index: int = len(self.__instruction_words) - 1
-        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, "000")
         jnz_address_start_print_index: int = len(self.__instruction_words) - 1
         # Дозапись оставшихся символов в слове
         self.__update_arg_for_jmp_instruction(jnz_address_print_last_chars_index)
         jnz_start_zero_print_last_chars_address: str = number_to_hex(
             InstrMemoryConfig.address_hex_num, len(self.__instruction_words)
         )
-        self.__add_unary_instruction(Opcode.PRINT, '3')
-        self.__add_unary_instruction(Opcode.SRB, '3')
-        self.__add_unary_instruction(Opcode.DEC, '1')
-        self.__add_binary_instruction(Opcode.CMP, '1', address_const_0)
+        self.__add_unary_instruction(Opcode.PRINT, "3")
+        self.__add_unary_instruction(Opcode.SRB, "3")
+        self.__add_unary_instruction(Opcode.DEC, "1")
+        self.__add_binary_instruction(Opcode.CMP, "1", address_const_0)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_start_zero_print_last_chars_address)
         # Проверка является ли выведенное слово последним
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '0', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.IES, '0')
-        self.__add_unary_instruction_with_operand_address(Opcode.JZ, '000')
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "0", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.IES, "0")
+        self.__add_unary_instruction_with_operand_address(Opcode.JZ, "000")
         jz_address_end_index_second: int = len(self.__instruction_words) - 1
         # Начало основного цикла записи
         self.__update_arg_for_jmp_instruction(jnz_address_start_print_index)
-        self.__add_unary_instruction(Opcode.INC, '2')
+        self.__add_unary_instruction(Opcode.INC, "2")
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
         self.__update_arg_for_jmp_instruction(jnz_address_start_print_index_from_start)
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "3", offset_buffer_address)
         for _ in range(DataMemoryConfig.word_size):
-            self.__add_unary_instruction(Opcode.PRINT, '3')
-            self.__add_unary_instruction(Opcode.SRB, '3')
-        self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.IES, '3')
-        self.__add_unary_instruction(Opcode.INC, '2')
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
+            self.__add_unary_instruction(Opcode.PRINT, "3")
+            self.__add_unary_instruction(Opcode.SRB, "3")
+        self.__add_binary_instruction(Opcode.LOAD, "3", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.IES, "3")
+        self.__add_unary_instruction(Opcode.INC, "2")
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_argument_address)
         # Конец цикла записи
         self.__update_arg_for_jmp_instruction(jmp_address_end_index)
         self.__update_arg_for_jmp_instruction(jz_address_end_index)
         self.__update_arg_for_jmp_instruction(jz_address_end_index_second)
-        self.__add_binary_instruction(Opcode.LOAD, '0', address_const_0)
-        self.__add_push_instruction('0')
+        self.__add_binary_instruction(Opcode.LOAD, "0", address_const_0)
+        self.__add_push_instruction("0")
 
     def __create_machine_code_for_read_expression(
             self,
@@ -524,24 +537,24 @@ class Translator:
         pointer_var_address: str = self.__get_variable_address(param_names, name_var)
         direct_start_string_address: str = self.__create_buffer(buffer_size)
         pointer_value_address: str = self.__create_pointer_value(int(direct_start_string_address, 16))
-        self.__add_binary_instruction(Opcode.LOAD, '2', pointer_value_address)
-        self.__add_binary_instruction(Opcode.STORE, '2', pointer_var_address)
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
+        self.__add_binary_instruction(Opcode.LOAD, "2", pointer_value_address)
+        self.__add_binary_instruction(Opcode.STORE, "2", pointer_var_address)
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
         # Начало цикла чтения
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        self.__add_binary_instruction(Opcode.LOAD, '3', address_const_0)
+        self.__add_binary_instruction(Opcode.LOAD, "3", address_const_0)
         for _ in range(DataMemoryConfig.word_size):
-            self.__add_unary_instruction(Opcode.SRB, '3')
-            self.__add_unary_instruction(Opcode.READ, '3')
-        self.__add_binary_instruction(Opcode.STORE, '3', offset_buffer_address)
-        self.__add_unary_instruction(Opcode.IES, '3')
-        self.__add_unary_instruction(Opcode.INC, '2')
-        self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
+            self.__add_unary_instruction(Opcode.SRB, "3")
+            self.__add_unary_instruction(Opcode.READ, "3")
+        self.__add_binary_instruction(Opcode.STORE, "3", offset_buffer_address)
+        self.__add_unary_instruction(Opcode.IES, "3")
+        self.__add_unary_instruction(Opcode.INC, "2")
+        self.__add_binary_instruction(Opcode.STORE, "2", direct_buffer_address)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_argument_address)
         # Конец цикла чтения
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
-        self.__add_binary_instruction(Opcode.LOAD, '0', address_const_0)
-        self.__add_push_instruction('0')
+        self.__add_binary_instruction(Opcode.LOAD, "0", address_const_0)
+        self.__add_push_instruction("0")
 
     def __create_pointer_value(self, pointer_value: int) -> str:
         self.__create_number_const(pointer_value)
@@ -564,33 +577,33 @@ class Translator:
         else:
             second_arg: str = second_raw_arg
         if first_arg is None and second_arg is None:
-            first_arg_address: str = get_indirect_sp_address('1')  # &1
-            second_arg_address: str = get_indirect_sp_address('0')  # &0
+            first_arg_address: str = get_indirect_sp_address("1")  # &1
+            second_arg_address: str = get_indirect_sp_address("0")  # &0
             assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {first_arg_address}"
             assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {second_arg_address}"
-            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, '0')
-            self.__add_pop_instruction('1')  # R1 <- pop
-            self.__add_pop_instruction('1')  # R1 <- pop
+            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
+            self.__add_pop_instruction("1")  # R1 <- pop
+            self.__add_pop_instruction("1")  # R1 <- pop
         elif first_arg is not None and second_arg is None:
             first_arg_address: str = self.__get_arg_address_for_math_exp(first_arg, param_names)
-            second_arg_address: str = get_indirect_sp_address('0')  # &0
+            second_arg_address: str = get_indirect_sp_address("0")  # &0
             assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {first_arg_address}"
             assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {second_arg_address}"
-            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, '0')
-            self.__add_pop_instruction('1')  # R1 <- pop
+            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
+            self.__add_pop_instruction("1")  # R1 <- pop
         elif first_arg is None and second_arg is not None:
-            first_arg_address: str = get_indirect_sp_address('0')  # &0
+            first_arg_address: str = get_indirect_sp_address("0")  # &0
             second_arg_address: str = self.__get_arg_address_for_math_exp(second_arg, param_names)
             assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {first_arg_address}"
             assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {second_arg_address}"
-            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, '0')
-            self.__add_pop_instruction('1')  # R1 <- pop
+            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
+            self.__add_pop_instruction("1")  # R1 <- pop
         else:
             first_arg_address: str = self.__get_arg_address_for_math_exp(first_arg, param_names)
             second_arg_address: str = self.__get_arg_address_for_math_exp(second_arg, param_names)
@@ -598,8 +611,8 @@ class Translator:
                 f"Incorrect word length - {first_arg_address}"
             assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
                 f"Incorrect word length - {second_arg_address}"
-            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, '0')
-        self.__add_push_instruction('0')
+            self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
+        self.__add_push_instruction("0")
 
     def __get_arg_address_for_math_exp(self, raw_arg_value: str, param_names: tuple[str] | None) -> str:
         if LiteralPatterns.is_number(raw_arg_value):
@@ -608,7 +621,7 @@ class Translator:
         elif LiteralPatterns.is_name_var(raw_arg_value):
             arg_address: str = self.__get_variable_address(param_names, raw_arg_value)
         else:
-            raise Exception(f"Value is not number or name variable - {raw_arg_value}")
+            raise ValueNotNumberOrNameVariableError(raw_arg_value)
         return arg_address
 
     def __create_machine_code_for_if_expression(
@@ -619,26 +632,26 @@ class Translator:
             param_names: tuple[str] | None) -> None:
         first_arg_address: str | None = self.__get_argument_for_if_expression(first_raw_arg, param_names)
         if first_arg_address is None:
-            self.__add_pop_instruction('0')
+            self.__add_pop_instruction("0")
         else:
-            self.__add_binary_instruction(Opcode.LOAD, '0', first_arg_address)
+            self.__add_binary_instruction(Opcode.LOAD, "0", first_arg_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
-        self.__add_binary_instruction(Opcode.CMP, '0', address_const_0)
-        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')
+        self.__add_binary_instruction(Opcode.CMP, "0", address_const_0)
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, "000")
         jnz_argument_address_index: int = len(self.__instruction_words) - 1
         second_arg_address: str | None = self.__get_argument_for_if_expression(second_raw_arg, param_names)
         if second_arg_address is not None:
             second_arg_address = get_direct_abs_address(second_arg_address)
-            self.__add_binary_instruction(Opcode.LOAD, '0', second_arg_address)
-            self.__add_push_instruction('0')
-        self.__add_unary_instruction_with_operand_address(Opcode.JMP, '000')
+            self.__add_binary_instruction(Opcode.LOAD, "0", second_arg_address)
+            self.__add_push_instruction("0")
+        self.__add_unary_instruction_with_operand_address(Opcode.JMP, "000")
         jmp_argument_address_index: int = len(self.__instruction_words) - 1
         self.__update_arg_for_jmp_instruction(jnz_argument_address_index)
         third_arg_address: str | None = self.__get_argument_for_if_expression(third_raw_arg, param_names)
         if third_arg_address is not None:
             third_arg_address = get_direct_abs_address(third_arg_address)
-            self.__add_binary_instruction(Opcode.LOAD, '0', third_arg_address)
-            self.__add_push_instruction('0')
+            self.__add_binary_instruction(Opcode.LOAD, "0", third_arg_address)
+            self.__add_push_instruction("0")
         self.__update_arg_for_jmp_instruction(jmp_argument_address_index)
 
     def __get_argument_for_if_expression(self, raw_arg: str | list, param_names: tuple[str] | None) -> str | None:
@@ -652,12 +665,12 @@ class Translator:
             elif LiteralPatterns.is_name_var(raw_arg):
                 arg_address: str = self.__get_variable_address(param_names, raw_arg)
             else:
-                raise Exception(f"Incorrect argument in if expression - {raw_arg}")
+                raise IncorrectArgumentInIfExpError(raw_arg)
         elif isinstance(raw_arg, list):
             self.__create_expression(raw_arg, param_names)
             arg_address: None = None
         else:
-            raise Exception(f"Incorrect argument in if expression - {raw_arg}")
+            raise IncorrectArgumentInIfExpError(raw_arg)
         return arg_address
 
     def __create_machine_code_for_set_expression(
@@ -679,13 +692,13 @@ class Translator:
             elif LiteralPatterns.is_name_var(second_arg_raw):
                 second_arg_address: str = self.__get_variable_address(param_names, second_arg_raw)
             else:
-                raise Exception(f"Incorrect second argument - {second_arg_raw}")
+                raise IncorrectSecondArgumentError(second_arg_raw)
         if second_arg_address is None:
-            self.__add_pop_instruction('0')
+            self.__add_pop_instruction("0")
         else:
-            self.__add_binary_instruction(Opcode.LOAD, '0', second_arg_address)
-        self.__add_binary_instruction(Opcode.STORE, '0', name_var_address)
-        self.__add_push_instruction('0')
+            self.__add_binary_instruction(Opcode.LOAD, "0", second_arg_address)
+        self.__add_binary_instruction(Opcode.STORE, "0", name_var_address)
+        self.__add_push_instruction("0")
 
     def __create_machine_code_for_call_expression(self, name_function: str, raw_args: list[str]) -> None:
         assert name_function in self.__functions.keys(), f"Undefined name function {name_function}"
@@ -698,22 +711,22 @@ class Translator:
                 if arg in self.__string_consts.keys():
                     arg_address: str = get_direct_abs_address(self.__string_consts[arg])
                 else:
-                    raise Exception(f"String not defined in data memory - {arg}")
+                    raise StringNotDefinedInMemoryError(arg)
             elif LiteralPatterns.is_name_var(raw_arg):
                 if raw_arg in self.__vars.keys():
                     arg_address: str = get_direct_abs_address(self.__vars[raw_arg])
                 else:
-                    raise Exception(f"Variable not defined in data memory - {raw_arg}")
+                    raise VariableNotDefinedInMemoryError(raw_arg)
             else:
-                raise Exception(f"Incorrect args passed to function {name_function}")
-            self.__add_binary_instruction(Opcode.LOAD, '1', arg_address)
-            self.__add_push_instruction('1')
+                raise IncorrectArgsPassedToFunctionError(name_function)
+            self.__add_binary_instruction(Opcode.LOAD, "1", arg_address)
+            self.__add_push_instruction("1")
         function_address: str = self.__functions[name_function]
         self.__offset_params += 1
         self.__add_unary_instruction_with_operand_address(Opcode.CALL, function_address)
         for _ in raw_args:
-            self.__add_pop_instruction('1')
-        self.__add_push_instruction('0')
+            self.__add_pop_instruction("1")
+        self.__add_push_instruction("0")
 
     def __create_machine_code_for_iter_expression(
             self,
@@ -725,14 +738,14 @@ class Translator:
         iter_var_address: str = get_direct_abs_address(self.__vars[name_iter_var])
         max_iter_value_address: str = get_direct_abs_address(self.__number_consts[max_iter_value])
         start_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        self.__add_binary_instruction(Opcode.LOAD, '1', max_iter_value_address)
-        self.__add_binary_instruction(Opcode.CMP, '1', iter_var_address)
-        self.__add_unary_instruction_with_operand_address(Opcode.JZ, '000')
+        self.__add_binary_instruction(Opcode.LOAD, "1", max_iter_value_address)
+        self.__add_binary_instruction(Opcode.CMP, "1", iter_var_address)
+        self.__add_unary_instruction_with_operand_address(Opcode.JZ, "000")
         jz_address_end_index: int = len(self.__instruction_words) - 1
         self.__create_expression(nested_expression, param_names)
-        self.__add_binary_instruction(Opcode.LOAD, '1', iter_var_address)
-        self.__add_unary_instruction(Opcode.INC, '1')
-        self.__add_binary_instruction(Opcode.STORE, '1', iter_var_address)
+        self.__add_binary_instruction(Opcode.LOAD, "1", iter_var_address)
+        self.__add_unary_instruction(Opcode.INC, "1")
+        self.__add_binary_instruction(Opcode.STORE, "1", iter_var_address)
         self.__add_unary_instruction_with_operand_address(Opcode.JMP, start_address)
         self.__update_arg_for_jmp_instruction(jz_address_end_index)
 
@@ -780,7 +793,7 @@ class Translator:
             case KeyWord.DIV.value:
                 opcode = Opcode.DIV
             case _:
-                raise Exception("Not found keyword")
+                raise NotFoundKeywordError()
         self.__add_binary_instruction(opcode, reg_num, second_arg_address)
 
     def __add_zero_args_instruction(self, opcode: Opcode) -> None:
@@ -849,7 +862,7 @@ def main(input_file: str, output_instruction_file: str, output_data_file: str, o
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     assert len(sys.argv) == 5, \
         "Wrong args: translator.py <input_file> <output_instruction_file> <output_data_file> <output_mnemonic_file>"
     _, input_file_arg, output_instruction_file_arg, output_data_file_arg, output_mnemonic_file_arg = sys.argv

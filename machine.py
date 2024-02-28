@@ -1,19 +1,21 @@
 #!/usr/bin/python3
+from __future__ import annotations
+
 import logging
 import sys
 from typing import Callable
 
-
+from exceptions import AluNotSupportedInstrError, IncorrectSelectorError, InternalError, RegisterReadingError
+from isa import AddressCode, Opcode, number_to_hex, processed_special_symbols_in_string
 from memory_config import DataMemoryConfig, InstrMemoryConfig
-from isa import Opcode, AddressCode, number_to_hex, processed_special_symbols_in_string
 
 
 class Registers:
     def __init__(self) -> None:
-        self.r0: str = '0' * DataMemoryConfig.word_hex_num
-        self.r1: str = '0' * DataMemoryConfig.word_hex_num
-        self.r2: str = '0' * DataMemoryConfig.word_hex_num
-        self.r3: str = '0' * DataMemoryConfig.word_hex_num
+        self.r0: str = "0" * DataMemoryConfig.word_hex_num
+        self.r1: str = "0" * DataMemoryConfig.word_hex_num
+        self.r2: str = "0" * DataMemoryConfig.word_hex_num
+        self.r3: str = "0" * DataMemoryConfig.word_hex_num
         self.__oer0: bool = True
         self.__oer1: bool = False
         self.__oer2: bool = False
@@ -58,14 +60,13 @@ class Registers:
     def output_data(self) -> str:
         if self.__oer0:
             return self.r0
-        elif self.__oer1:
+        if self.__oer1:
             return self.r1
-        elif self.__oer2:
+        if self.__oer2:
             return self.r2
-        elif self.__oer3:
+        if self.__oer3:
             return self.r3
-        else:
-            raise Exception("register from which data should be read has not been selected")
+        raise RegisterReadingError()
 
     def __repr__(self) -> str:
         state_repr: str = (
@@ -86,7 +87,7 @@ class Registers:
 
 class ALU:
     def __init__(self) -> None:
-        self.__result: str = '0' * DataMemoryConfig.word_hex_num
+        self.__result: str = "0" * DataMemoryConfig.word_hex_num
         self.__zero: bool = False
 
     @property
@@ -154,14 +155,14 @@ class ALU:
                 self.__result = number_to_hex(
                     DataMemoryConfig.word_hex_num, int(first_operand, 16) - int(second_operand, 16)
                 )
-                self.__zero = self.__result == '0' * DataMemoryConfig.word_hex_num
+                self.__zero = self.__result == "0" * DataMemoryConfig.word_hex_num
             case Opcode.IES.value:
                 self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) & int('FF000000', 16)
+                    DataMemoryConfig.word_hex_num, int(first_operand, 16) & int("FF000000", 16)
                 )
-                self.__zero = self.__result == '0' * DataMemoryConfig.word_hex_num
+                self.__zero = self.__result == "0" * DataMemoryConfig.word_hex_num
             case _:
-                raise Exception(f"alu not supported instruction {opcode_hex}")
+                raise AluNotSupportedInstrError(opcode_hex)
 
     def __repr__(self) -> str:
         state_repr: str = "ALU - result: {} zero: {}".format(
@@ -177,11 +178,11 @@ class DataPath:
         self.__data_memory: list[str] = data_memory
         self.__input_buffer: list[str] = input_buffer
         self.__output_buffer: list[str] = []
-        self.__address_register: str = '000'
-        self.__stack_pointer: str = 'fff'
-        self.__stack_buffer: str = '000'
-        self.__heap_counter: str = '0ff'
-        self.__second_operand_buffer: str = '0' * DataMemoryConfig.word_hex_num
+        self.__address_register: str = "000"
+        self.__stack_pointer: str = "fff"
+        self.__stack_buffer: str = "000"
+        self.__heap_counter: str = "0ff"
+        self.__second_operand_buffer: str = "0" * DataMemoryConfig.word_hex_num
         self.__registers: Registers = Registers()
         self.__alu: ALU = ALU()
         self.__oea: bool = False
@@ -217,7 +218,7 @@ class DataPath:
                     DataMemoryConfig.address_hex_num, int(self.__stack_pointer, 16) - 1
                 )
             case _:
-                raise Exception(f"internal error, incorrect selector: {sel}")
+                raise IncorrectSelectorError(sel)
 
     def signal_latch_stack_buffer(self, sel: str) -> None:
         address_code_hex: str = sel[:1]
@@ -230,7 +231,7 @@ class DataPath:
                 assert int(self.__stack_buffer, 16) < DataMemoryConfig.size, \
                     f"internal error, indirect address (SP) go out memory data {self.__stack_buffer}"
             case _:
-                raise Exception(f"internal error, incorrect selector: {sel}")
+                raise IncorrectSelectorError(sel)
 
     def signal_latch_heap_counter(self) -> None:
         self.__heap_counter = self.__data_memory[DataMemoryConfig.heap_counter_value][5:]
@@ -255,7 +256,7 @@ class DataPath:
             case AddressCode.INDIRECT_SP.value:
                 self.__address_register = self.__stack_buffer
             case _:
-                raise Exception("internal error")
+                raise InternalError()
 
     def signal_latch_second_op_buf(self) -> None:
         self.__second_operand_buffer = self.__data_memory[int(self.__address_register, 16)]
@@ -304,7 +305,7 @@ class DataPath:
     def signal_oer3(self) -> None:
         self.__registers.signal_oer3()
 
-    def signal_write_in_mem(self, sel: str, pc_value: str = None) -> None:
+    def signal_write_in_mem(self, sel: str, pc_value: str | None = None) -> None:
         opcode_hex: str = sel[:2]
         if opcode_hex == Opcode.CALL.value:
             self.__data_memory[int(self.__address_register, 16)] = pc_value
@@ -342,10 +343,10 @@ class DataPath:
 
 class ControlUnit:
     def __init__(self, instructions: list[str], data_path: DataPath) -> None:
-        zero_word_instr_memory: str = '0' * InstrMemoryConfig.word_hex_num
+        zero_word_instr_memory: str = "0" * InstrMemoryConfig.word_hex_num
         self.__instr_memory: list[str] = [zero_word_instr_memory] * InstrMemoryConfig.size
         self.__fill_instr_memory(instructions)
-        self.__program_counter: str = '000'
+        self.__program_counter: str = "000"
         self.__instruction_buffer: str = zero_word_instr_memory
         self.__data_path: DataPath = data_path
         self.__tick: int = 0
@@ -436,8 +437,8 @@ class ControlUnit:
                 else:
                     self.__next_instr_word()
             case _:
-                raise Exception("internal error")
-    
+                raise InternalError()
+
     @staticmethod
     def __execute_zero_arg_instruction(instruction: str) -> None:
         opcode_hex: str = instruction[:2]
@@ -447,7 +448,7 @@ class ControlUnit:
             case Opcode.NOP.value:
                 return
             case _:
-                raise Exception("internal error")
+                raise InternalError()
 
     def __execute_one_arg_instruction(self, instruction: str) -> None:
         opcode_hex: str = instruction[:2]
@@ -459,7 +460,7 @@ class ControlUnit:
                 self.__calc()
                 self.__write_in_register(arg_word)
             case _:
-                raise Exception("internal error")
+                raise InternalError()
 
     def __execute_two_arg_instruction(self, instruction: str) -> None:
         opcode_hex: str = instruction[:2]
@@ -475,7 +476,7 @@ class ControlUnit:
                 self.__calc()
                 self.__write_in_register(first_arg_word)
             case _:
-                raise Exception("internal error")
+                raise InternalError()
 
     def __execute_load_instruction(self, instruction: str) -> None:
         opcode_hex: str = instruction[:2]
@@ -651,7 +652,7 @@ class ControlUnit:
                 self.__data_path.signal_latch_address_reg(arg_word)
                 self.__tick_inc()
             case _:
-                raise Exception("internal error")
+                raise InternalError()
 
     def __write_in_register(self, current_instruction_word: str) -> None:
         address_code_hex: str = current_instruction_word[:1]
@@ -660,13 +661,13 @@ class ControlUnit:
         num_register: str = current_instruction_word[1:]
         instruction: str = self.__instruction_buffer
         match num_register:
-            case '000':
+            case "000":
                 self.__data_path.signal_latch_r0(instruction)
-            case '001':
+            case "001":
                 self.__data_path.signal_latch_r1(instruction)
-            case '002':
+            case "002":
                 self.__data_path.signal_latch_r2(instruction)
-            case '003':
+            case "003":
                 self.__data_path.signal_latch_r3(instruction)
         self.__tick_inc()
 
@@ -676,13 +677,13 @@ class ControlUnit:
             f"address code doesn't reference to a register {address_code_hex}"
         num_register: str = current_instruction_word[1:]
         match num_register:
-            case '000':
+            case "000":
                 self.__data_path.signal_oer0()
-            case '001':
+            case "001":
                 self.__data_path.signal_oer1()
-            case '002':
+            case "002":
                 self.__data_path.signal_oer2()
-            case '003':
+            case "003":
                 self.__data_path.signal_oer3()
         self.__tick_inc()
 
@@ -722,7 +723,7 @@ def simulation(
 
 
 def read_input_file(input_file_name: str) -> list[str]:
-    with open(input_file_name, 'rt', encoding='utf-8') as source_file:
+    with open(input_file_name, encoding="utf-8") as source_file:
         source: str = source_file.read()
     chars: list[str] = processed_special_symbols_in_string(source)
     return chars
@@ -730,15 +731,15 @@ def read_input_file(input_file_name: str) -> list[str]:
 
 def read_input_byte_file(input_file_name: str, word_size: int) -> list[str]:
     result_list: list[str] = []
-    with open(input_file_name, 'rb') as source_file:
+    with open(input_file_name, "rb") as source_file:
         byte: bytes = source_file.read(word_size)
         byte_hex: str = byte.hex()
-        if byte_hex != '':
+        if byte_hex != "":
             result_list.append(byte.hex())
         while byte:
             byte = source_file.read(word_size)
             byte_hex: str = byte.hex()
-            if byte_hex != '':
+            if byte_hex != "":
                 result_list.append(byte.hex())
     return result_list
 

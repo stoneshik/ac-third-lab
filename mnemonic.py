@@ -1,9 +1,12 @@
+from __future__ import annotations
+
+from exceptions import NotFoundInstructionError, WrongAddressError
 from isa import (
-    Opcode,
     AddressCode,
+    Opcode,
+    address_by_hex_dict,
     number_to_hex,
     opcode_by_hex_dict,
-    address_by_hex_dict,
 )
 from memory_config import InstrMemoryConfig
 
@@ -29,7 +32,7 @@ class MnemonicCreator:
 
     def save_mnemonic_in_file(self, output_file_name: str) -> None:
         strings: list[str] = self.__create_mnemonics()
-        with open(output_file_name, 'wt', encoding='utf-8') as output_file:
+        with open(output_file_name, "w", encoding="utf-8") as output_file:
             output_file.writelines(strings)
 
     def __create_mnemonics(self) -> list[str]:
@@ -103,43 +106,23 @@ class MnemonicCreator:
                 mnemonic_string = f"{opcode_string} {reg_string}"
             case Opcode.ADD.value | Opcode.SUB.value | Opcode.MUL.value | (
                     Opcode.DIV.value) | Opcode.AND.value | Opcode.OR.value | Opcode.MOD.value:
-                reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
-                var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
-                var_address: str = var_data[0]
-                var_name: str | None = var_data[1]
-                var_value: str | None = var_data[2]
-                if var_name is None and var_value is None:
-                    mnemonic_string = f"{reg_string} <- {opcode_string} {reg_string}, {var_address}"
-                elif var_name is None and var_value is not None:
-                    mnemonic_string = \
-                        f"{reg_string} <- {opcode_string} {reg_string}, {var_address} | {var_address} -> {var_value}"
-                else:
-                    mnemonic_string = \
-                        f"{reg_string} <- {opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
+                mnemonic_string: str = self.__two_args_math_mnemonic(
+                    opcode_string,
+                    first_arg_hex_word,
+                    second_arg_hex_word
+                )
             case Opcode.LOAD.value:
-                reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
-                var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
-                var_address: str = var_data[0]
-                var_name: str | None = var_data[1]
-                var_value: str | None = var_data[2]
-                if var_name is None and var_value is None:
-                    mnemonic_string = f"{reg_string} <- {opcode_string} {var_address}"
-                elif var_name is None and var_value is not None:
-                    mnemonic_string = f"{reg_string} <- {opcode_string} {var_address} | {var_address} -> {var_value}"
-                else:
-                    mnemonic_string = f"{reg_string} <- {opcode_string} {var_name} | {var_name} -> {var_address}"
+                mnemonic_string: str = self.__load_mnemonic(
+                    opcode_string,
+                    first_arg_hex_word,
+                    second_arg_hex_word
+                )
             case Opcode.STORE.value:
-                reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
-                var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
-                var_address: str = var_data[0]
-                var_name: str | None = var_data[1]
-                var_value: str | None = var_data[2]
-                if var_name is None and var_value is None:
-                    mnemonic_string = f"{var_address} <- {opcode_string} {reg_string}"
-                elif var_name is None and var_value is not None:
-                    mnemonic_string = f"{var_address} <- {opcode_string} {reg_string} | {var_address} -> {var_value}"
-                else:
-                    mnemonic_string = f"{var_name} <- {opcode_string} {reg_string} | {var_name} -> {var_address}"
+                mnemonic_string: str = self.__store_mnemonic(
+                    opcode_string,
+                    first_arg_hex_word,
+                    second_arg_hex_word
+                )
             case Opcode.POP.value | Opcode.READ.value:
                 reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
                 mnemonic_string = f"{reg_string} <- {opcode_string}"
@@ -147,25 +130,13 @@ class MnemonicCreator:
                 reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
                 mnemonic_string = f"{opcode_string} {reg_string}"
             case Opcode.CMP.value:
-                reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
-                var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
-                var_address: str = var_data[0]
-                var_name: str | None = var_data[1]
-                var_value: str | None = var_data[2]
-                if var_name is None and var_value is None:
-                    mnemonic_string = f"{opcode_string} {reg_string}, {var_address}"
-                elif var_name is None and var_value is not None:
-                    mnemonic_string = f"{opcode_string} {reg_string}, {var_address} | {var_address} -> {var_value}"
-                else:
-                    mnemonic_string = f"{opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
+                mnemonic_string: str = self.__cmp_mnemonic(
+                    opcode_string,
+                    first_arg_hex_word,
+                    second_arg_hex_word
+                )
             case Opcode.JMP.value | Opcode.JZ.value | Opcode.JNZ.value:
-                var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(first_arg_hex_word)
-                var_address: str = var_data[0]
-                var_name: str | None = var_data[1]
-                if var_name is None:
-                    mnemonic_string = f"{opcode_string} {var_address}"
-                else:
-                    mnemonic_string = f"{opcode_string} {var_name} | {var_name} -> {var_address}"
+                mnemonic_string: str = self.__jmp_mnemonic(opcode_string, first_arg_hex_word)
             case Opcode.CALL.value:
                 function_address: str = first_arg_hex_word[1:]
                 assert function_address in self.__functions_by_address.keys(), \
@@ -173,11 +144,79 @@ class MnemonicCreator:
                 function_name: str = self.__functions_by_address[function_address]
                 mnemonic_string = f"{opcode_string} {function_name} | {function_name} -> {function_address}"
             case _:
-                raise Exception(f"Not found instruction - {instruction_opcode}")
+                raise NotFoundInstructionError(instruction_opcode.value)
         if address_string in self.__functions_by_address.keys():
             name_function: str = self.__functions_by_address[address_string]
             return f"{address_string} - {hex_code_string} - {mnemonic_string} | aboba {name_function}\n"
         return f"{address_string} - {hex_code_string} - {mnemonic_string}\n"
+
+    def __two_args_math_mnemonic(self, opcode_string: str, first_arg_hex_word: str, second_arg_hex_word: str) -> str:
+        reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
+        var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
+        var_address: str = var_data[0]
+        var_name: str | None = var_data[1]
+        var_value: str | None = var_data[2]
+        if var_name is None and var_value is None:
+            mnemonic_string = f"{reg_string} <- {opcode_string} {reg_string}, {var_address}"
+        elif var_name is None and var_value is not None:
+            mnemonic_string = \
+                f"{reg_string} <- {opcode_string} {reg_string}, {var_address} | {var_address} -> {var_value}"
+        else:
+            mnemonic_string = \
+                f"{reg_string} <- {opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
+        return mnemonic_string
+
+    def __load_mnemonic(self, opcode_string: str, first_arg_hex_word: str, second_arg_hex_word: str) -> str:
+        reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
+        var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
+        var_address: str = var_data[0]
+        var_name: str | None = var_data[1]
+        var_value: str | None = var_data[2]
+        if var_name is None and var_value is None:
+            mnemonic_string = f"{reg_string} <- {opcode_string} {var_address}"
+        elif var_name is None and var_value is not None:
+            mnemonic_string = f"{reg_string} <- {opcode_string} {var_address} | {var_address} -> {var_value}"
+        else:
+            mnemonic_string = f"{reg_string} <- {opcode_string} {var_name} | {var_name} -> {var_address}"
+        return mnemonic_string
+
+    def __store_mnemonic(self, opcode_string: str, first_arg_hex_word: str, second_arg_hex_word: str) -> str:
+        reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
+        var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
+        var_address: str = var_data[0]
+        var_name: str | None = var_data[1]
+        var_value: str | None = var_data[2]
+        if var_name is None and var_value is None:
+            mnemonic_string = f"{var_address} <- {opcode_string} {reg_string}"
+        elif var_name is None and var_value is not None:
+            mnemonic_string = f"{var_address} <- {opcode_string} {reg_string} | {var_address} -> {var_value}"
+        else:
+            mnemonic_string = f"{var_name} <- {opcode_string} {reg_string} | {var_name} -> {var_address}"
+        return mnemonic_string
+
+    def __cmp_mnemonic(self, opcode_string: str, first_arg_hex_word: str, second_arg_hex_word: str) -> str:
+        reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
+        var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(second_arg_hex_word)
+        var_address: str = var_data[0]
+        var_name: str | None = var_data[1]
+        var_value: str | None = var_data[2]
+        if var_name is None and var_value is None:
+            mnemonic_string = f"{opcode_string} {reg_string}, {var_address}"
+        elif var_name is None and var_value is not None:
+            mnemonic_string = f"{opcode_string} {reg_string}, {var_address} | {var_address} -> {var_value}"
+        else:
+            mnemonic_string = f"{opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
+        return mnemonic_string
+
+    def __jmp_mnemonic(self, opcode_string: str, first_arg_hex_word: str) -> str:
+        var_data: tuple[str, str | None, str | None] = self.__get_var_string_from_hex_code(first_arg_hex_word)
+        var_address: str = var_data[0]
+        var_name: str | None = var_data[1]
+        if var_name is None:
+            mnemonic_string = f"{opcode_string} {var_address}"
+        else:
+            mnemonic_string = f"{opcode_string} {var_name} | {var_name} -> {var_address}"
+        return mnemonic_string
 
     def __get_var_string_from_hex_code(self, hex_code_string: str) -> tuple[str, str | None, str | None]:
         assert hex_code_string[:1] in address_by_hex_dict.keys(), "Not address"
@@ -187,9 +226,9 @@ class MnemonicCreator:
         var_value: str | None = None
         match address_code.value:
             case AddressCode.DIRECT_ABS.value:
-                var_address = '$' + address_hex_string
+                var_address = "$" + address_hex_string
                 if is_var:
-                    var_name = '$' + self.__vars_by_address[address_hex_string]
+                    var_name = "$" + self.__vars_by_address[address_hex_string]
                 else:
                     if address_hex_string in self.__number_consts_by_address.keys():
                         var_value = str(self.__number_consts_by_address[address_hex_string])
@@ -203,11 +242,11 @@ class MnemonicCreator:
                 else:
                     var_name = None
             case AddressCode.INDIRECT_SP.value:
-                var_address = '&' + address_hex_string
+                var_address = "&" + address_hex_string
                 if is_var:
-                    var_name = '&' + self.__vars_by_address[address_hex_string]
+                    var_name = "&" + self.__vars_by_address[address_hex_string]
                 else:
                     var_name = None
             case _:
-                raise Exception("Wrong address")
+                raise WrongAddressError()
         return var_address, var_name, var_value
