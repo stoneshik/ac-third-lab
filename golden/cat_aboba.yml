@@ -523,14 +523,14 @@ out_log:
 - '142 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: qwertyuiop[]asdfgh << \0"
+- 'zero value skipped for output: qwertyuiop[]asdfgh << \0'
 - '143 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - '144 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: qwertyuiop[]asdfgh << \0"
+- 'zero value skipped for output: qwertyuiop[]asdfgh << \0'
 - '145 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'

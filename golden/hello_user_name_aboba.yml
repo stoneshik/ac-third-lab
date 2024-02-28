@@ -215,7 +215,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-   <<  
+   << \0
 - '67 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -460,7 +460,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello,  <<  
+  Hello,  << \0
 - '138 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -556,7 +556,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya <<  
+  Hello, Ilya << \0
 - '165 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -565,7 +565,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya <<  
+  Hello, Ilya << \0
 - '167 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -574,7 +574,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya <<  
+  Hello, Ilya << \0
 - '169 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -583,7 +583,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya <<  
+  Hello, Ilya << \0
 - '171 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -634,7 +634,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya! <<  
+  Hello, Ilya! << \0
 - '186 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -643,7 +643,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya! <<  
+  Hello, Ilya! << \0
 - '188 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
@@ -652,7 +652,7 @@ out_log:
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'
 - |-
   zero value skipped for output: What is your name?
-  Hello, Ilya! <<  
+  Hello, Ilya! << \0
 - '190 | TICK: 1242 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 145 SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010f R3: 00000021 oer0: True oer1: False oer2: False oer3: False))'

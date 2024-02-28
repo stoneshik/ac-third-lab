@@ -322,8 +322,7 @@ class DataPath:
     def signal_output(self) -> None:
         value_output: ord = ord(bytes.fromhex(self.__registers.output_data()[6:]))
         if value_output == 0:
-            logging.debug("zero value skipped for output: %s << %s",
-                          str("".join(self.output_buffer)), chr(value_output))
+            logging.debug("zero value skipped for output: %s << \\0", str("".join(self.output_buffer)))
             return
         logging.debug("output: %s << %s", str("".join(self.output_buffer)), chr(value_output))
         self.__output_buffer.append(chr(value_output))

@@ -631,28 +631,28 @@ out_log:
 - '205 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: 4294967295 << \0"
+- 'zero value skipped for output: 4294967295 << \0'
 - '206 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
 - '207 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: 4294967295 << \0"
+- 'zero value skipped for output: 4294967295 << \0'
 - '208 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
 - '209 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: 4294967295 << \0"
+- 'zero value skipped for output: 4294967295 << \0'
 - '210 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
 - '211 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
-- "zero value skipped for output: 4294967295 << \0"
+- 'zero value skipped for output: 4294967295 << \0'
 - '212 | TICK: 1617 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
   R2: 0000010c R3: 00000000 oer0: True oer1: False oer2: False oer3: False))'
