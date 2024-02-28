@@ -9,7 +9,7 @@ in_stdin: |-
 out_stdout: |
   ============================================================
   qwertyuiop[]asdfgh
-  code_byte:  188 instr_counter:  154 ticks:  938
+  code_byte:  188 code_instr:  94 instr_counter:  154 ticks:  938
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>

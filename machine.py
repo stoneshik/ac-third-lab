@@ -157,7 +157,7 @@ class ALU:
                 self.__zero = self.__result == '0' * DataMemoryConfig.word_hex_num
             case Opcode.IES.value:
                 self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) & int('F0000000', 16)
+                    DataMemoryConfig.word_hex_num, int(first_operand, 16) & int('FF000000', 16)
                 )
                 self.__zero = self.__result == '0' * DataMemoryConfig.word_hex_num
             case _:
@@ -749,8 +749,9 @@ def main(input_file: str, input_instruction_file: str, input_data_file: str) -> 
     data_memory: list[str] = read_input_byte_file(input_data_file, DataMemoryConfig.word_size)
     output, instr_counter, ticks = simulation(input_tokens, instructions, data_memory, 1000000)
     code_byte: int = len(instructions) * InstrMemoryConfig.word_size
+    code_instr: int = len(instructions)
     print("".join(output))
-    print("code_byte: ", code_byte, "instr_counter: ", instr_counter, "ticks: ", ticks)
+    print("code_byte: ", code_byte, "code_instr: ", code_instr, "instr_counter: ", instr_counter, "ticks: ", ticks)
 
 
 if __name__ == "__main__":

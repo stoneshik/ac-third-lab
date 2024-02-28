@@ -7,7 +7,7 @@ in_stdin: |
 out_stdout: |
   ============================================================
   4294967295
-  code_byte:  510 instr_counter:  221 ticks:  1617
+  code_byte:  510 code_instr:  255 instr_counter:  221 ticks:  1617
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>

@@ -13,7 +13,7 @@ out_stdout: |
   ============================================================
   What is your name?
   Hello, Ilya!
-  code_byte:  452 instr_counter:  199 ticks:  1242
+  code_byte:  452 code_instr:  226 instr_counter:  199 ticks:  1242
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>
