@@ -5,7 +5,7 @@ from typing import Callable
 
 
 from memory_config import DataMemoryConfig, InstrMemoryConfig
-from isa import Opcode, AddressCode, number_to_hex
+from isa import Opcode, AddressCode, number_to_hex, processed_special_symbols_in_string
 
 
 class Registers:
@@ -724,7 +724,8 @@ def simulation(
 def read_input_file(input_file_name: str) -> list[str]:
     with open(input_file_name, 'rt', encoding='utf-8') as source_file:
         source: str = source_file.read()
-    return list(source)
+    chars: list[str] = processed_special_symbols_in_string(source)
+    return chars
 
 
 def read_input_byte_file(input_file_name: str, word_size: int) -> list[str]:

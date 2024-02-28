@@ -125,8 +125,23 @@ def number_to_hex(word_hex_num: int, value: int) -> str:
 
 
 def string_to_hex_list(word_hex_num: int, word_size: int, value: str) -> list[str]:
+    chars: list[str] = processed_special_symbols_in_string(value)
+    grouped_chars: list[list[str]] = [chars[i:i + word_size] for i in range(0, len(chars), word_size)]
+    hex_list: list[str] = []
+    for group_char in grouped_chars:
+        hex_value: str = ''
+        for char in group_char:
+            symbol_code = ord(char)
+            assert -128 <= symbol_code <= 127, f"it's not ascii symbol: code - {symbol_code}"
+            hex_value = hex(symbol_code)[2:] + hex_value
+        hex_value = '0' * (word_hex_num - len(hex_value)) + hex_value
+        hex_list.append(hex_value)
+    return hex_list
+
+
+def processed_special_symbols_in_string(string: str) -> list[str]:
     chars: list[str] = []
-    for char in reversed(value):
+    for char in reversed(string):
         if char == '\\':
             if chars[-1] == 'n':
                 chars[-1] = '\n'
@@ -139,17 +154,7 @@ def string_to_hex_list(word_hex_num: int, word_size: int, value: str) -> list[st
             continue
         chars.append(char)
     chars.reverse()
-    grouped_chars: list[list[str]] = [chars[i:i + word_size] for i in range(0, len(chars), word_size)]
-    hex_list: list[str] = []
-    for group_char in grouped_chars:
-        hex_value: str = ''
-        for char in group_char:
-            symbol_code = ord(char)
-            assert -128 <= symbol_code <= 127, f"it's not ascii symbol: code - {symbol_code}"
-            hex_value = hex(symbol_code)[2:] + hex_value
-        hex_value = '0' * (word_hex_num - len(hex_value)) + hex_value
-        hex_list.append(hex_value)
-    return hex_list
+    return chars
 
 
 def get_opcode_word(opcode: Opcode) -> str:
