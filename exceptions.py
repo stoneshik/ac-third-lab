@@ -26,7 +26,7 @@ class AluNotSupportedInstrError(MachineError):
 
 class IncorrectSelectorError(MachineError):
     def __init__(self, sel: str) -> None:
-        super().__init__(f"incorrect selector: {sel}")
+        super().__init__(f"internal error, incorrect selector: {sel}")
 
 
 class InternalError(MachineError):
