@@ -258,6 +258,7 @@ class Translator:
         ]
         for expression in source_for_expressions:
             self.__create_expression(expression, None)
+            self.__add_pop_instruction('0')
         self.__add_zero_args_instruction(Opcode.HALT)
         self.__data_words[2] = bytes.fromhex(
             number_to_hex(DataMemoryConfig.word_hex_num, self.__heap_counter)
@@ -340,16 +341,16 @@ class Translator:
             self.__create_string_const(first_raw_arg)
             string_address: str = self.__string_consts[first_raw_arg]
             pointer_value: int = int(string_address, 16)
-            direct_pointer_address: str = self.__create_pointer(pointer_value)
+            direct_pointer_address: str = self.__create_pointer_value(pointer_value)
             self.__create_machine_code_for_print_string_by_pointer_address(direct_pointer_address)
         elif LiteralPatterns.is_name_var(first_raw_arg):
             number_address: str = self.__get_variable_address(param_names, first_raw_arg)
             buffer_size: int = 3  # макс uint32 число состоит из 10 символов
             pointer_value: int = self.__heap_counter + 1
-            direct_pointer_address: str = self.__create_pointer(pointer_value)
+            direct_pointer_address: str = self.__create_pointer_value(pointer_value)
             self.__create_buffer(buffer_size)
             end_string_address_value: int = self.__heap_counter
-            direct_end_string_pointer_address: str = self.__create_pointer(end_string_address_value)
+            direct_end_string_pointer_address: str = self.__create_pointer_value(end_string_address_value)
             self.__create_machine_code_for_convert_number_to_string(number_address, direct_end_string_pointer_address)
             self.__create_machine_code_for_print_converted_number_to_string_by_pointer_address(direct_pointer_address)
         else:
@@ -389,16 +390,12 @@ class Translator:
             arg: str = raw_arg[1:-1]  # убираем ""
             string_address: str = self.__string_consts[arg]
             pointer_value: int = int(string_address, 16)
-            pointer_address: str = self.__create_pointer(pointer_value)
+            pointer_address: str = self.__create_pointer_value(pointer_value)
         elif LiteralPatterns.is_name_var(raw_arg):
             pointer_address: str = self.__get_variable_address(param_names, raw_arg)
         else:
             raise Exception(f"Incorrect argument for print - {raw_arg}")
         self.__create_machine_code_for_print_string_by_pointer_address(pointer_address)
-
-    def __create_pointer(self, pointer_value: int) -> str:
-        self.__create_number_const(pointer_value)
-        return get_direct_abs_address(self.__number_consts[pointer_value])
 
     def __create_machine_code_for_print_string_by_pointer_address(self, pointer_address: str) -> None:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
@@ -504,13 +501,18 @@ class Translator:
             name_var: str,
             buffer_size: int,
             param_names: tuple[str]) -> None:
-        pointer_address: str = self.__get_variable_address(param_names, name_var)
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
-        self.__add_binary_instruction(Opcode.LOAD, '2', pointer_address)
+        address_const_0: str = get_direct_abs_address(self.__number_consts[0])
+        pointer_var_address: str = self.__get_variable_address(param_names, name_var)
+        direct_start_string_address: str = self.__create_buffer(buffer_size)
+        pointer_value_address: str = self.__create_pointer_value(int(direct_start_string_address, 16))
+        self.__add_binary_instruction(Opcode.LOAD, '2', pointer_value_address)
+        self.__add_binary_instruction(Opcode.STORE, '2', pointer_var_address)
         self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
         # Начало цикла чтения
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
+        self.__add_binary_instruction(Opcode.LOAD, '3', address_const_0)
         for _ in range(DataMemoryConfig.word_size):
             self.__add_unary_instruction(Opcode.SRB, '3')
             self.__add_unary_instruction(Opcode.READ, '3')
@@ -523,7 +525,10 @@ class Translator:
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
         self.__add_binary_instruction(Opcode.LOAD, '0', address_const_0)
         self.__add_push_instruction('0')
-        self.__create_buffer(buffer_size)
+
+    def __create_pointer_value(self, pointer_value: int) -> str:
+        self.__create_number_const(pointer_value)
+        return get_direct_abs_address(self.__number_consts[pointer_value])
 
     def __create_machine_code_for_binary_math_expression(
             self,

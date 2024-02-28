@@ -233,7 +233,7 @@ class DataPath:
                 raise Exception(f"internal error, incorrect selector: {sel}")
 
     def signal_latch_heap_counter(self) -> None:
-        self.__heap_counter = self.__data_memory[DataMemoryConfig.heap_counter_value]
+        self.__heap_counter = self.__data_memory[DataMemoryConfig.heap_counter_value][5:]
         assert DataMemoryConfig.named_memory_size < int(self.__heap_counter, 16) < DataMemoryConfig.size, \
             f"internal error heap counter value go out permissible range {self.__heap_counter}"
 
