@@ -34,6 +34,7 @@ def traverse(o, tree_types=(list,)):
 class Translator:
     LOW_BYTE_FILTER_NUM: int = 255  # число 0000 00FF
     ZERO_ASCII_NUM: int = 48  # номер ascii символа 0
+    ZERO_LAST_WORD: int = 808464432  # если из переменной выводится 0, то последнее слово равно 3030 3030
 
     def __init__(self, parsed_source: list[str]) -> None:
         self.__parsed_source: list[str] = parsed_source
@@ -171,6 +172,7 @@ class Translator:
         self.__create_number_const(DataMemoryConfig.word_size)
         self.__create_number_const(self.LOW_BYTE_FILTER_NUM)
         self.__create_number_const(self.ZERO_ASCII_NUM)
+        self.__create_number_const(self.ZERO_LAST_WORD)
         for value in traverse(source_for_consts):
             if LiteralPatterns.is_number(value):
                 value_number: int = int(value)
@@ -424,10 +426,12 @@ class Translator:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
+        address_const_zero_last_word: str = get_direct_abs_address(self.__number_consts[self.ZERO_LAST_WORD])
         address_const_data_word_size: str = get_direct_abs_address(self.__number_consts[DataMemoryConfig.word_size])
         address_const_low_byte_filter_num: str = get_direct_abs_address(self.__number_consts[self.LOW_BYTE_FILTER_NUM])
         address_const_low_zero_ascii_num: str = get_direct_abs_address(self.__number_consts[self.ZERO_ASCII_NUM])
         # Пропуск пустых слов
+        self.__add_binary_instruction(Opcode.LOAD, '1', address_const_data_word_size)
         self.__add_binary_instruction(Opcode.LOAD, '2', pointer_address)
         self.__add_unary_instruction(Opcode.DEC, '2')
         jz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
@@ -435,8 +439,19 @@ class Translator:
         self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
         self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
         self.__add_binary_instruction(Opcode.CMP, '3', address_const_0)
+        self.__add_unary_instruction(Opcode.DEC, '1')
         self.__add_unary_instruction_with_operand_address(Opcode.JZ, jz_argument_address)
+        self.__add_binary_instruction(Opcode.CMP, '1', address_const_0)
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')  # Если это последнее
+        jz_address_start_zero_skip_index: int = len(self.__instruction_words) - 1  # слово то проверяем
+        self.__add_binary_instruction(Opcode.CMP, '3', address_const_zero_last_word)  # является ли нулем
+        self.__add_unary_instruction_with_operand_address(Opcode.JNZ, '000')
+        jnz_address_start_print_index_from_start: int = len(self.__instruction_words) - 1
+        self.__add_unary_instruction(Opcode.PRINT, '3')
+        self.__add_unary_instruction_with_operand_address(Opcode.JMP, '000')
+        jmp_address_end_index: int = len(self.__instruction_words) - 1
         # пропускаем возможные нули перед числом по типу 00121212
+        self.__update_arg_for_jmp_instruction(jz_address_start_zero_skip_index)
         self.__add_binary_instruction(Opcode.LOAD, '1', address_const_data_word_size)
         self.__add_binary_instruction(Opcode.STORE, '3', direct_buffer_address)
         jnz_start_zero_skip_address: str = number_to_hex(
@@ -480,6 +495,7 @@ class Translator:
         self.__update_arg_for_jmp_instruction(jnz_address_start_print_index)
         self.__add_unary_instruction(Opcode.INC, '2')
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
+        self.__update_arg_for_jmp_instruction(jnz_address_start_print_index_from_start)
         self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
         self.__add_binary_instruction(Opcode.LOAD, '3', offset_buffer_address)
         for _ in range(DataMemoryConfig.word_size):
@@ -491,6 +507,7 @@ class Translator:
         self.__add_binary_instruction(Opcode.STORE, '2', direct_buffer_address)
         self.__add_unary_instruction_with_operand_address(Opcode.JNZ, jnz_argument_address)
         # Конец цикла записи
+        self.__update_arg_for_jmp_instruction(jmp_address_end_index)
         self.__update_arg_for_jmp_instruction(jz_address_end_index)
         self.__update_arg_for_jmp_instruction(jz_address_end_index_second)
         self.__add_binary_instruction(Opcode.LOAD, '0', address_const_0)

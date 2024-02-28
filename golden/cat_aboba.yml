@@ -14,7 +14,7 @@ out_stdout: |
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>
   000 - 7000 a002 - jmp $002
-  002 - 4000 a11a d002 - R2 <- load $11a | $11a -> 262
+  002 - 4000 a11b d002 - R2 <- load $11b | $11b -> 263
   005 - 4100 a003 d002 - $r <- store R2 | $r -> $003
   008 - 4100 a0ff d002 - $0ff <- store R2
   00b - 4000 a100 d003 - R3 <- load $100 | $100 -> 0
@@ -56,509 +56,509 @@ out_mnemonics: |
   05d - 1000 - halt
 
 out_log:
-- '0 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '0 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '1 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '1 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '2 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '2 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '3 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '3 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '4 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '4 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '5 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '5 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '6 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '6 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'q'"
-- '7 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '7 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '8 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '8 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'w'"
-- '9 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '9 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '10 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '10 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'e'"
-- '11 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '11 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '12 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '12 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'r'"
-- '13 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '13 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '14 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '14 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '15 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '15 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '16 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '16 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '17 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '17 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '18 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '18 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '19 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '19 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '20 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '20 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 't'"
-- '21 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '21 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '22 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '22 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'y'"
-- '23 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '23 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '24 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '24 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'u'"
-- '25 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '25 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '26 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '26 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'i'"
-- '27 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '27 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '28 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '28 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '29 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '29 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '30 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '30 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '31 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '31 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '32 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '32 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '33 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '33 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '34 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '34 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'o'"
-- '35 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '35 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '36 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '36 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'p'"
-- '37 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '37 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '38 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '38 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: '['"
-- '39 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '39 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '40 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '40 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: ']'"
-- '41 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '41 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '42 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '42 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '43 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '43 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '44 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '44 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '45 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '45 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '46 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '46 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '47 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '47 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '48 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '48 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'a'"
-- '49 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '49 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '50 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '50 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 's'"
-- '51 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '51 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '52 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '52 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'd'"
-- '53 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '53 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '54 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '54 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'f'"
-- '55 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '55 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '56 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '56 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '57 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '57 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '58 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '58 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '59 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '59 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '60 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '60 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '61 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '61 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '62 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '62 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'g'"
-- '63 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '63 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '64 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '64 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "input: 'h'"
-- '65 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '65 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '66 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '66 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - Input buffer is empty!
-- '67 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '67 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '68 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '68 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '69 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '69 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - Input buffer is empty!
-- '70 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '70 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '71 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '71 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '72 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '72 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '73 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '73 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '74 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '74 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '75 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '75 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '76 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '76 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '77 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '77 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '78 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '78 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '79 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '79 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '80 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '80 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '81 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '81 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '82 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '82 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output:  << q'
-- '83 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '83 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '84 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '84 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: q << w'
-- '85 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '85 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '86 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '86 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qw << e'
-- '87 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '87 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '88 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '88 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwe << r'
-- '89 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '89 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '90 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '90 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '91 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '91 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '92 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '92 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '93 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '93 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '94 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '94 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '95 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '95 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '96 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '96 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwer << t'
-- '97 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '97 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '98 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '98 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwert << y'
-- '99 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '99 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '100 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '100 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwerty << u'
-- '101 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '101 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '102 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '102 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyu << i'
-- '103 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '103 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '104 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '104 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '105 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '105 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '106 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '106 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '107 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '107 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '108 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '108 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '109 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '109 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '110 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '110 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyui << o'
-- '111 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '111 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '112 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '112 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuio << p'
-- '113 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '113 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '114 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '114 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop << ['
-- '115 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '115 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '116 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '116 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[ << ]'
-- '117 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '117 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '118 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '118 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '119 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '119 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '120 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '120 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '121 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '121 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '122 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '122 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '123 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '123 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '124 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '124 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[] << a'
-- '125 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '125 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '126 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '126 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[]a << s'
-- '127 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '127 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '128 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '128 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[]as << d'
-- '129 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '129 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '130 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '130 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[]asd << f'
-- '131 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '131 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '132 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '132 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '133 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '133 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '134 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '134 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '135 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '135 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '136 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '136 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '137 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '137 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '138 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '138 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[]asdf << g'
-- '139 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '139 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '140 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '140 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - 'output: qwertyuiop[]asdfg << h'
-- '141 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '141 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '142 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '142 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "zero value skipped for output: qwertyuiop[]asdfgh << \0"
-- '143 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '143 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '144 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '144 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "zero value skipped for output: qwertyuiop[]asdfgh << \0"
-- '145 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+- '145 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '146 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '146 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '147 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '147 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '148 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '148 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '149 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '149 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '150 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '150 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '151 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '151 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '152 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '152 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '153 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '153 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
-- '154 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11b SOB:
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+- '154 | TICK: 938 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB:
   00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010b R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
+  R2: 0000010c R3: 00006867 oer0: True oer1: False oer2: False oer3: False))'
 - "output_buffer: 'qwertyuiop[]asdfgh'"
