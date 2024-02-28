@@ -748,8 +748,9 @@ def main(input_file: str, input_instruction_file: str, input_data_file: str) -> 
     instructions: list[str] = read_input_byte_file(input_instruction_file, InstrMemoryConfig.word_size)
     data_memory: list[str] = read_input_byte_file(input_data_file, DataMemoryConfig.word_size)
     output, instr_counter, ticks = simulation(input_tokens, instructions, data_memory, 1000000)
+    code_byte: int = len(instructions) * InstrMemoryConfig.word_size
     print("".join(output))
-    print("instr_counter: ", instr_counter, "ticks: ", ticks)
+    print("code_byte: ", code_byte, "instr_counter: ", instr_counter, "ticks: ", ticks)
 
 
 if __name__ == "__main__":

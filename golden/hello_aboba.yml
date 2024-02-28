@@ -6,7 +6,7 @@ in_stdin: |
 out_stdout: |
   ============================================================
   Hello world!
-  instr_counter:  61 ticks:  382
+  code_byte:  90 instr_counter:  61 ticks:  382
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>

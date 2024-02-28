@@ -12,7 +12,7 @@ in_stdin: |-
 out_stdout: |
   ============================================================
   What is your name?\nHello, Ilya!
-  instr_counter:  205 ticks:  1259
+  code_byte:  420 instr_counter:  205 ticks:  1259
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>

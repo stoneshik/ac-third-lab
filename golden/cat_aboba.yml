@@ -9,7 +9,7 @@ in_stdin: |-
 out_stdout: |
   ============================================================
 
-  instr_counter:  90 ticks:  520
+  code_byte:  168 instr_counter:  90 ticks:  520
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>
