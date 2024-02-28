@@ -1,0 +1,6 @@
+(var name 0)
+(print "What is your name?\n")
+(read name 50)
+(print "Hello, ")
+(print name)
+(print "!")

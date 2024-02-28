@@ -705,7 +705,7 @@ def simulation(
     control_unit: ControlUnit = ControlUnit(instructions, data_path)
     instr_counter: int = 0
     control_unit.signal_latch_heap_counter()
-    logging.debug("%s", control_unit)
+    logging.debug("%s | %s", instr_counter, control_unit)
     try:
         while instr_counter < limit:
             try:
@@ -713,7 +713,7 @@ def simulation(
             except EOFError:
                 logging.warning("Input buffer is empty!")
             instr_counter += 1
-            logging.debug("%s", control_unit)
+            logging.debug("%s | %s", instr_counter, control_unit)
     except StopIteration:
         pass
     if instr_counter >= limit:
@@ -753,10 +753,7 @@ def main(input_file: str, input_instruction_file: str, input_data_file: str) -> 
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        filename='aboba.log',
-        filemode='w',
-        level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG)
     assert len(sys.argv) == 4, "Wrong arguments: machine.py <input_file> <input_instruction_file> <input_data_file>"
     _, input_file_arg, input_instruction_file_arg, input_data_file_arg = sys.argv
     main(input_file_arg, input_instruction_file_arg, input_data_file_arg)
