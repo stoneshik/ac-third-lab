@@ -38,8 +38,7 @@ def traverse(o, tree_types=(list,)):
     """
     if isinstance(o, tree_types):
         for value in o:
-            for sub_value in traverse(value, tree_types):
-                yield from sub_value
+            yield from traverse(value, tree_types)
     else:
         yield o
 
