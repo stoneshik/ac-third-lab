@@ -125,7 +125,21 @@ def number_to_hex(word_hex_num: int, value: int) -> str:
 
 
 def string_to_hex_list(word_hex_num: int, word_size: int, value: str) -> list[str]:
-    grouped_chars: list[str] = [value[i:i + word_size] for i in range(0, len(value), word_size)]
+    chars: list[str] = []
+    for char in reversed(value):
+        if char == '\\':
+            if chars[-1] == 'n':
+                chars[-1] = '\n'
+            elif chars[-1] == 't':
+                chars[-1] = '\t'
+            elif chars[-1] == 'r':
+                chars[-1] = '\r'
+            else:
+                raise Exception(f"Incorrect special char \\{char[-1]}")
+            continue
+        chars.append(char)
+    chars.reverse()
+    grouped_chars: list[list[str]] = [chars[i:i + word_size] for i in range(0, len(chars), word_size)]
     hex_list: list[str] = []
     for group_char in grouped_chars:
         hex_value: str = ''

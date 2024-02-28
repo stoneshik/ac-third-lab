@@ -1,6 +1,6 @@
 in_source: |-
-  (var zero 4294967295)
-  (print_number zero)
+  (var max 4294967295)
+  (print_number max)
 
 in_stdin: |
 
@@ -13,7 +13,7 @@ out_mnemonics: |
   <address> - <hex_code> - <mnemonic>
   000 - 7000 a002 - jmp $002
   002 - 4000 a10a d000 - R0 <- load $10a | $10a -> 266
-  005 - 4000 a003 d001 - R1 <- load $zero | $zero -> $003
+  005 - 4000 a003 d001 - R1 <- load $max | $max -> $003
   008 - 4000 a100 d003 - R3 <- load $100 | $100 -> 0
   00b - 4100 a0ff d001 - $0ff <- store R1
   00e - 4000 a0ff d002 - R2 <- load $0ff

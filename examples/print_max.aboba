@@ -1,0 +1,2 @@
+(var max 4294967295)
+(print_number max)
