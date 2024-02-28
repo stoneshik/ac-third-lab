@@ -3,7 +3,6 @@ name = "AbobaLisp"
 version = "0.1.0"
 description = "Third lab for Computer System Architecture"
 authors = ["Strelbitskiy Ilya <strebilly@mail.ru>"]
-license = "BSD"
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -28,7 +27,7 @@ log_format = "%(levelname)-7s %(module)s:%(funcName)-13s %(message)s"
 
 [tool.ruff]
 line-length = 120
-lint.select = [
+select = [
     # A set of chosen linter rules is specified here.
     # See https://beta.ruff.rs/docs/rules/ for more info.
     # pyflakes (simple obvious errors)
@@ -79,7 +78,7 @@ lint.select = [
     # ruff-specific advices
     "RUF",
 ]
-lint.ignore = [
+ignore = [
     "COM812", # The following rules may cause conflicts when used with the formatter: `COM812`.
     "E501",   # allow lines longer than 80 symbols (up to 120)
     "T201",   # `print` found
@@ -90,10 +89,10 @@ lint.ignore = [
     "PTH118", # `os.path.join()` should be replaced by `Path` with `/` operator
     "UP032",  # [*] Use f-string instead of `format` call
 ]
-lint.unfixable = [
+unfixable = [
     "ERA001", # prohibit to "auto-fix" (=remove) commented-out code
 ]
 src = ["src"]
 
-[tool.ruff.lint.mccabe]
+[tool.ruff.mccabe]
 max-complexity = 7
