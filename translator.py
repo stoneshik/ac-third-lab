@@ -156,6 +156,8 @@ class Translator:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
             self.__data_words[self.__heap_counter] = bytes.fromhex(word)
             self.__heap_counter += 1
+        if words_storing_string[-1][:2] != '00':  # Если в последнем слове последний символ '\0'
+            self.__create_buffer(1)  # то добавляем пустое слово
         # обновляем счетчик переменной
         self.__var_counter += 1
 
@@ -213,6 +215,8 @@ class Translator:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
             self.__data_words[self.__heap_counter] = bytes.fromhex(word)
             self.__heap_counter += 1
+        if words_storing_string[-1][:2] != '00':  # Если в последнем слове последний символ '\0'
+            self.__create_buffer(1)  # то добавляем пустое слово
 
     # Создание функций
     def __create_functions(self) -> None:
