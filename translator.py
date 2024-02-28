@@ -50,10 +50,7 @@ class Translator:
 
     def __init__(self, parsed_source: list[str]) -> None:
         self.__parsed_source: list[str] = parsed_source
-        self.__instruction_words: list[bytes] = [
-            bytes.fromhex(get_opcode_word(Opcode.JMP)),
-            bytes.fromhex("a000")
-        ]
+        self.__instruction_words: list[bytes] = [bytes.fromhex(get_opcode_word(Opcode.JMP)), bytes.fromhex("a000")]
         zero_word_data_memory: str = "0" * DataMemoryConfig.word_hex_num
         self.__data_words: list[bytes] = [bytes.fromhex(zero_word_data_memory)] * DataMemoryConfig.size
         # Индекс ближайшей свободной ячейки в именованной памяти, 3 т.к. 0 и 1 - порты ввода и вывода,
@@ -132,8 +129,9 @@ class Translator:
                 raise IncorrectLiteralError()
 
     def __add_var_num(self, var_name: str, value: int) -> None:
-        assert self.__var_counter < DataMemoryConfig.named_memory_size, \
-            f"Number of variables exceeded - {self.__var_counter}"
+        assert (
+            self.__var_counter < DataMemoryConfig.named_memory_size
+        ), f"Number of variables exceeded - {self.__var_counter}"
         # добавление значения переменной
         hex_value: str = number_to_hex(DataMemoryConfig.word_hex_num, value)
         assert len(hex_value) == DataMemoryConfig.word_hex_num, f"Incorrect value length - {hex_value}"
@@ -148,8 +146,9 @@ class Translator:
 
     def __add_var_string(self, var_name: str, value: str) -> None:
         assert self.__var_counter < DataMemoryConfig.named_memory_size, "Number of variables exceeded"
-        assert (math.floor(len(value) / DataMemoryConfig.word_size) + self.__heap_counter <
-                DataMemoryConfig.size), "Space in the heap is over"
+        assert (
+            math.floor(len(value) / DataMemoryConfig.word_size) + self.__heap_counter < DataMemoryConfig.size
+        ), "Space in the heap is over"
         # добавление значения переменной (равно адресу начала строки)
         hex_value: str = number_to_hex(DataMemoryConfig.word_hex_num, self.__heap_counter)
         assert len(hex_value) == DataMemoryConfig.word_hex_num, "Incorrect value length"
@@ -161,9 +160,7 @@ class Translator:
         self.__vars_by_address[hex_address] = var_name
         # добавление строки в кучу
         words_storing_string: list[str] = string_to_hex_list(
-            DataMemoryConfig.word_hex_num,
-            DataMemoryConfig.word_size,
-            value
+            DataMemoryConfig.word_hex_num, DataMemoryConfig.word_size, value
         )
         for word in words_storing_string:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
@@ -176,9 +173,7 @@ class Translator:
 
     # Создание всех констант, используемых программой
     def __create_consts(self) -> None:
-        source_for_consts: list[str | list] = [
-            exp for exp in self.__parsed_source if exp[0] != KeyWord.VAR.value
-        ]
+        source_for_consts: list[str | list] = [exp for exp in self.__parsed_source if exp[0] != KeyWord.VAR.value]
         self.__create_number_const(0)
         self.__create_number_const(10)
         self.__create_number_const(DataMemoryConfig.word_size)
@@ -212,8 +207,9 @@ class Translator:
         self.__heap_counter += 1
 
     def __create_string_const(self, value: str) -> None:
-        assert (math.floor(len(value) / DataMemoryConfig.word_size) + self.__heap_counter <
-                DataMemoryConfig.size), "Space in the heap is over"
+        assert (
+            math.floor(len(value) / DataMemoryConfig.word_size) + self.__heap_counter < DataMemoryConfig.size
+        ), "Space in the heap is over"
         # добавление адреса переменной в словарь
         hex_address: str = number_to_hex(DataMemoryConfig.address_hex_num, self.__heap_counter)
         assert len(hex_address) == DataMemoryConfig.address_hex_num, "Incorrect address length"
@@ -221,9 +217,7 @@ class Translator:
         self.__string_consts_by_address[hex_address] = value
         # добавление строки в кучу
         words_storing_string: list[str] = string_to_hex_list(
-            DataMemoryConfig.word_hex_num,
-            DataMemoryConfig.word_size,
-            value
+            DataMemoryConfig.word_hex_num, DataMemoryConfig.word_size, value
         )
         for word in words_storing_string:
             assert len(word) == DataMemoryConfig.word_hex_num, "Incorrect value length"
@@ -244,8 +238,9 @@ class Translator:
             assert name_function not in self.__vars.keys(), f"Function named as variable - {name_function}"
             assert isinstance(expression[2], list), f"Incorrect names of function parameters - {name_function}"
             param_names: tuple[str] = tuple(expression[2])
-            assert len(param_names) == len(frozenset(param_names)), \
-                f"Repeated names of function parameters - {name_function}"
+            assert len(param_names) == len(
+                frozenset(param_names)
+            ), f"Repeated names of function parameters - {name_function}"
             for param_name in param_names:
                 assert LiteralPatterns.is_name_var(param_name), f"Incorrect names of function parameters - {param_name}"
                 assert param_name not in self.__functions.keys(), f"Parameter named as function {param_name}"
@@ -260,9 +255,9 @@ class Translator:
             self.__add_pop_instruction("0")
             self.__add_zero_args_instruction(Opcode.RET)
             self.__offset_params -= 1
-        self.__instruction_words[1] = bytes.fromhex(get_direct_abs_address(
-            number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        ))
+        self.__instruction_words[1] = bytes.fromhex(
+            get_direct_abs_address(number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words)))
+        )
 
     # Создание остальных выражений
     def __create_expressions(self) -> None:
@@ -273,9 +268,7 @@ class Translator:
             self.__create_expression(expression, None)
             self.__add_pop_instruction("0")
         self.__add_zero_args_instruction(Opcode.HALT)
-        self.__data_words[2] = bytes.fromhex(
-            number_to_hex(DataMemoryConfig.word_hex_num, self.__heap_counter)
-        )
+        self.__data_words[2] = bytes.fromhex(number_to_hex(DataMemoryConfig.word_hex_num, self.__heap_counter))
 
     # Методы для создания выражений
     def __create_expression(self, exp: list[str | list], param_names: tuple[str] | None) -> None:
@@ -295,8 +288,7 @@ class Translator:
             case KeyWord.READ.value:
                 assert len(exp) == 3, f"Incorrect amount arguments of expression - {len(exp)}"
                 name_var: str = exp[1]
-                assert LiteralPatterns.is_name_var(name_var), \
-                    f"Variable name is incorrectly specified - {name_var}"
+                assert LiteralPatterns.is_name_var(name_var), f"Variable name is incorrectly specified - {name_var}"
                 second_raw_arg: str = exp[2]
                 assert LiteralPatterns.is_number(second_raw_arg), f"Second arg not number - {second_raw_arg}"
                 buffer_size: int = int(second_raw_arg)
@@ -306,10 +298,7 @@ class Translator:
                 first_raw_arg: str | list[str | list] = exp[1]
                 second_raw_arg: str | list[str | list] = exp[2]
                 self.__create_machine_code_for_binary_math_expression(
-                    key_word,
-                    first_raw_arg,
-                    second_raw_arg,
-                    param_names
+                    key_word, first_raw_arg, second_raw_arg, param_names
                 )
             case KeyWord.IF.value:
                 assert len(exp) == 4, f"Incorrect amount arguments of expression - {len(exp)}"
@@ -317,15 +306,15 @@ class Translator:
             case KeyWord.SET.value:
                 assert len(exp) == 3, f"Incorrect amount arguments of expression - {len(exp)}"
                 name_var: str = exp[1]
-                assert LiteralPatterns.is_name_var(name_var), \
-                    f"Variable name is incorrectly specified - {name_var}"
+                assert LiteralPatterns.is_name_var(name_var), f"Variable name is incorrectly specified - {name_var}"
                 second_raw_arg: str = exp[2]
                 self.__create_machine_code_for_set_expression(name_var, second_raw_arg, param_names)
             case KeyWord.CALL.value:
                 assert len(exp) == 3, f"Incorrect amount arguments of expression - {len(exp)}"
                 name_function: str = exp[1]
-                assert LiteralPatterns.is_name_function(name_function), \
-                    f"Function name is incorrectly specified - {name_function}"
+                assert LiteralPatterns.is_name_function(
+                    name_function
+                ), f"Function name is incorrectly specified - {name_function}"
                 raw_args: list[str] = exp[2]
                 self.__create_machine_code_for_call_expression(name_function, raw_args)
             case KeyWord.ITER.value:
@@ -333,24 +322,21 @@ class Translator:
                 name_iter_var: str = exp[1]
                 assert LiteralPatterns.is_name_var(name_iter_var), f"Incorrect iter variable name - {name_iter_var}"
                 max_iter_value_raw: str = exp[2]
-                assert LiteralPatterns.is_number(max_iter_value_raw), \
-                    f"Max iter value is not number - {max_iter_value_raw}"
+                assert LiteralPatterns.is_number(
+                    max_iter_value_raw
+                ), f"Max iter value is not number - {max_iter_value_raw}"
                 max_iter_value: int = int(max_iter_value_raw)
                 nested_expression: list[str | list] = exp[3]
                 assert isinstance(nested_expression, list), "Incorrect nested expression"
                 self.__create_machine_code_for_iter_expression(
-                    name_iter_var,
-                    max_iter_value,
-                    nested_expression,
-                    param_names
+                    name_iter_var, max_iter_value, nested_expression, param_names
                 )
             case _:
                 raise NotFoundKeywordError()
 
     def __create_machine_code_for_print_number_expression(
-            self,
-            first_raw_arg: str,
-            param_names: tuple[str] | None) -> None:
+        self, first_raw_arg: str, param_names: tuple[str] | None
+    ) -> None:
         if LiteralPatterns.is_number(first_raw_arg):
             self.__create_string_const(first_raw_arg)
             string_address: str = self.__string_consts[first_raw_arg]
@@ -371,9 +357,8 @@ class Translator:
             raise IncorrectArgumentForPrintError(first_raw_arg)
 
     def __create_machine_code_for_convert_number_to_string(
-            self,
-            number_address: str,
-            direct_end_string_pointer_address: str) -> None:
+        self, number_address: str, direct_end_string_pointer_address: str
+    ) -> None:
         # Запись идет в обратном порядке, в начале получившейся строки могут быть нули
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
@@ -433,8 +418,8 @@ class Translator:
         self.__add_push_instruction("0")
 
     def __create_machine_code_for_print_converted_number_to_string_by_pointer_address(
-            self,
-            pointer_address: str) -> None:
+        self, pointer_address: str
+    ) -> None:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
@@ -526,10 +511,8 @@ class Translator:
         self.__add_push_instruction("0")
 
     def __create_machine_code_for_read_expression(
-            self,
-            name_var: str,
-            buffer_size: int,
-            param_names: tuple[str]) -> None:
+        self, name_var: str, buffer_size: int, param_names: tuple[str]
+    ) -> None:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
@@ -560,11 +543,8 @@ class Translator:
         return get_direct_abs_address(self.__number_consts[pointer_value])
 
     def __create_machine_code_for_binary_math_expression(
-            self,
-            key_word: str,
-            first_raw_arg: str | None,
-            second_raw_arg: str | None,
-            param_names: tuple[str] | None) -> None:
+        self, key_word: str, first_raw_arg: str | None, second_raw_arg: str | None, param_names: tuple[str] | None
+    ) -> None:
         if isinstance(first_raw_arg, list):
             self.__create_expression(first_raw_arg, param_names)
             first_arg: None = None
@@ -578,38 +558,46 @@ class Translator:
         if first_arg is None and second_arg is None:
             first_arg_address: str = get_indirect_sp_address("1")  # &1
             second_arg_address: str = get_indirect_sp_address("0")  # &0
-            assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {first_arg_address}"
-            assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {second_arg_address}"
+            assert (
+                len(first_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {first_arg_address}"
+            assert (
+                len(second_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {second_arg_address}"
             self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
             self.__add_pop_instruction("1")  # R1 <- pop
             self.__add_pop_instruction("1")  # R1 <- pop
         elif first_arg is not None and second_arg is None:
             first_arg_address: str = self.__get_arg_address_for_math_exp(first_arg, param_names)
             second_arg_address: str = get_indirect_sp_address("0")  # &0
-            assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {first_arg_address}"
-            assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {second_arg_address}"
+            assert (
+                len(first_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {first_arg_address}"
+            assert (
+                len(second_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {second_arg_address}"
             self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
             self.__add_pop_instruction("1")  # R1 <- pop
         elif first_arg is None and second_arg is not None:
             first_arg_address: str = get_indirect_sp_address("0")  # &0
             second_arg_address: str = self.__get_arg_address_for_math_exp(second_arg, param_names)
-            assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {first_arg_address}"
-            assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {second_arg_address}"
+            assert (
+                len(first_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {first_arg_address}"
+            assert (
+                len(second_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {second_arg_address}"
             self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
             self.__add_pop_instruction("1")  # R1 <- pop
         else:
             first_arg_address: str = self.__get_arg_address_for_math_exp(first_arg, param_names)
             second_arg_address: str = self.__get_arg_address_for_math_exp(second_arg, param_names)
-            assert len(first_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {first_arg_address}"
-            assert len(second_arg_address) == InstrMemoryConfig.word_hex_num, \
-                f"Incorrect word length - {second_arg_address}"
+            assert (
+                len(first_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {first_arg_address}"
+            assert (
+                len(second_arg_address) == InstrMemoryConfig.word_hex_num
+            ), f"Incorrect word length - {second_arg_address}"
             self.__add_binary_math_instruction(key_word, first_arg_address, second_arg_address, "0")
         self.__add_push_instruction("0")
 
@@ -624,11 +612,12 @@ class Translator:
         return arg_address
 
     def __create_machine_code_for_if_expression(
-            self,
-            first_raw_arg: str | list,
-            second_raw_arg: str | list,
-            third_raw_arg: str | list,
-            param_names: tuple[str] | None) -> None:
+        self,
+        first_raw_arg: str | list,
+        second_raw_arg: str | list,
+        third_raw_arg: str | list,
+        param_names: tuple[str] | None,
+    ) -> None:
         first_arg_address: str | None = self.__get_argument_for_if_expression(first_raw_arg, param_names)
         if first_arg_address is None:
             self.__add_pop_instruction("0")
@@ -673,10 +662,8 @@ class Translator:
         return arg_address
 
     def __create_machine_code_for_set_expression(
-            self,
-            name_var: str | None,
-            second_arg_raw: str | None,
-            param_names: tuple[str] | None) -> None:
+        self, name_var: str | None, second_arg_raw: str | None, param_names: tuple[str] | None
+    ) -> None:
         name_var_address: str = self.__get_variable_address(param_names, name_var)
         if isinstance(second_arg_raw, list):
             self.__create_expression(second_arg_raw, param_names)
@@ -686,7 +673,7 @@ class Translator:
                 second_arg: int = int(second_arg_raw)
                 second_arg_address: str = get_direct_abs_address(self.__number_consts[second_arg])
             elif LiteralPatterns.is_string(second_arg_raw):
-                second_arg: str = second_arg_raw[1: -1]
+                second_arg: str = second_arg_raw[1:-1]
                 second_arg_address: str = get_direct_abs_address(self.__string_consts[second_arg])
             elif LiteralPatterns.is_name_var(second_arg_raw):
                 second_arg_address: str = self.__get_variable_address(param_names, second_arg_raw)
@@ -728,11 +715,12 @@ class Translator:
         self.__add_push_instruction("0")
 
     def __create_machine_code_for_iter_expression(
-            self,
-            name_iter_var: str,
-            max_iter_value: int,
-            nested_expression: list[str | list],
-            param_names: tuple[str] | None) -> None:
+        self,
+        name_iter_var: str,
+        max_iter_value: int,
+        nested_expression: list[str | list],
+        param_names: tuple[str] | None,
+    ) -> None:
         assert name_iter_var in self.__vars, f"Not defined iteration variable - {name_iter_var}"
         iter_var_address: str = get_direct_abs_address(self.__vars[name_iter_var])
         max_iter_value_address: str = get_direct_abs_address(self.__number_consts[max_iter_value])
@@ -751,19 +739,16 @@ class Translator:
     def __get_variable_address(self, param_names: tuple[str] | None, var_name: str) -> str:
         if param_names is not None and var_name in param_names:
             arg_address: str = get_indirect_sp_address(
-                number_to_hex(
-                    InstrMemoryConfig.address_hex_num,
-                    param_names.index(var_name) + self.__offset_params
-                )
+                number_to_hex(InstrMemoryConfig.address_hex_num, param_names.index(var_name) + self.__offset_params)
             )
         else:
             arg_address: str = get_direct_abs_address(self.__vars[var_name])
         return arg_address
 
     def __update_arg_for_jmp_instruction(self, jmp_argument_address_index: int) -> None:
-        self.__instruction_words[jmp_argument_address_index] = bytes.fromhex(get_direct_abs_address(
-            number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
-        ))
+        self.__instruction_words[jmp_argument_address_index] = bytes.fromhex(
+            get_direct_abs_address(number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words)))
+        )
 
     # Добавление инструкций
     def __add_push_instruction(self, reg_num: str) -> None:
@@ -775,11 +760,8 @@ class Translator:
         self.__offset_params -= 1
 
     def __add_binary_math_instruction(
-            self,
-            key_word: str,
-            first_arg_address: str,
-            second_arg_address: str,
-            reg_num: str) -> None:
+        self, key_word: str, first_arg_address: str, second_arg_address: str, reg_num: str
+    ) -> None:
         self.__add_binary_instruction(Opcode.LOAD, reg_num, first_arg_address)
         opcode: Opcode
         match key_word:
@@ -804,8 +786,7 @@ class Translator:
         opcode_word: str = get_opcode_word(opcode)
         reg_address_word: str = get_direct_reg_address(reg_num)
         assert len(opcode_word) == InstrMemoryConfig.word_hex_num, f"Incorrect word length - {opcode_word}"
-        assert len(reg_address_word) == InstrMemoryConfig.word_hex_num, \
-            f"Incorrect word length - {reg_address_word}"
+        assert len(reg_address_word) == InstrMemoryConfig.word_hex_num, f"Incorrect word length - {reg_address_word}"
         self.__instruction_words.append(bytes.fromhex(opcode_word))
         self.__instruction_words.append(bytes.fromhex(reg_address_word))
 
@@ -813,8 +794,9 @@ class Translator:
         opcode_word: str = get_opcode_word(opcode)
         operand_address_word: str = get_direct_abs_address(operand_address)
         assert len(opcode_word) == InstrMemoryConfig.word_hex_num, f"Incorrect word length - {opcode_word}"
-        assert len(operand_address_word) == InstrMemoryConfig.word_hex_num, \
-            f"Incorrect word length - {operand_address_word}"
+        assert (
+            len(operand_address_word) == InstrMemoryConfig.word_hex_num
+        ), f"Incorrect word length - {operand_address_word}"
         self.__instruction_words.append(bytes.fromhex(opcode_word))
         self.__instruction_words.append(bytes.fromhex(operand_address_word))
 
@@ -822,20 +804,18 @@ class Translator:
         opcode_word: str = get_opcode_word(opcode)
         reg_address_word: str = get_direct_reg_address(reg_num)
         assert len(opcode_word) == InstrMemoryConfig.word_hex_num, f"Incorrect word length - {opcode_word}"
-        assert len(reg_address_word) == InstrMemoryConfig.word_hex_num, \
-            f"Incorrect word length - {reg_address_word}"
-        assert len(second_argument_address_word) == InstrMemoryConfig.word_hex_num, \
-            f"Incorrect word length - {second_argument_address_word}"
+        assert len(reg_address_word) == InstrMemoryConfig.word_hex_num, f"Incorrect word length - {reg_address_word}"
+        assert (
+            len(second_argument_address_word) == InstrMemoryConfig.word_hex_num
+        ), f"Incorrect word length - {second_argument_address_word}"
         self.__instruction_words.append(bytes.fromhex(opcode_word))
         self.__instruction_words.append(bytes.fromhex(second_argument_address_word))
         self.__instruction_words.append(bytes.fromhex(reg_address_word))
 
 
 def translate_and_save_output_in_files(
-        parsed_source: list[str],
-        output_instruction_file: str,
-        output_data_file: str,
-        output_mnemonic_file: str) -> Translator:
+    parsed_source: list[str], output_instruction_file: str, output_data_file: str, output_mnemonic_file: str
+) -> Translator:
     translator: Translator = Translator(parsed_source)
     translator.translate()
     translator.save_instruction_words_in_file(output_instruction_file)
@@ -845,7 +825,7 @@ def translate_and_save_output_in_files(
         translator.vars_by_address,
         translator.number_consts_by_address,
         translator.string_consts_by_address,
-        translator.functions_by_address
+        translator.functions_by_address,
     )
     mnemonic_creator.save_mnemonic_in_file(output_mnemonic_file)
     return translator
@@ -853,16 +833,12 @@ def translate_and_save_output_in_files(
 
 def main(input_file: str, output_instruction_file: str, output_data_file: str, output_mnemonic_file: str) -> None:
     parsed_source: list = parsed_and_check_source_file(input_file)
-    translate_and_save_output_in_files(
-        parsed_source,
-        output_instruction_file,
-        output_data_file,
-        output_mnemonic_file
-    )
+    translate_and_save_output_in_files(parsed_source, output_instruction_file, output_data_file, output_mnemonic_file)
 
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 5, \
-        "Wrong args: translator.py <input_file> <output_instruction_file> <output_data_file> <output_mnemonic_file>"
+    assert (
+        len(sys.argv) == 5
+    ), "Wrong args: translator.py <input_file> <output_instruction_file> <output_data_file> <output_mnemonic_file>"
     _, input_file_arg, output_instruction_file_arg, output_data_file_arg, output_mnemonic_file_arg = sys.argv
     main(input_file_arg, output_instruction_file_arg, output_data_file_arg, output_mnemonic_file_arg)

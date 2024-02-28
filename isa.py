@@ -35,7 +35,7 @@ all_keywords: tuple = (
     KeyWord.VAR.value,
     KeyWord.SET.value,
     KeyWord.CALL.value,
-    KeyWord.ITER.value
+    KeyWord.ITER.value,
 )
 
 
@@ -99,7 +99,7 @@ opcode_by_hex_dict: dict[str, Opcode] = {
     "73": Opcode.JZ,
     "74": Opcode.JNZ,
     "80": Opcode.READ,
-    "81": Opcode.PRINT
+    "81": Opcode.PRINT,
 }
 
 
@@ -117,7 +117,7 @@ address_by_hex_dict: dict[str, AddressCode] = {
     "a": AddressCode.DIRECT_ABS,
     "b": AddressCode.DIRECT_OFFSET,
     "c": AddressCode.INDIRECT_SP,
-    "d": AddressCode.DIRECT_REG
+    "d": AddressCode.DIRECT_REG,
 }
 
 
@@ -128,7 +128,7 @@ def number_to_hex(word_hex_num: int, value: int) -> str:
 
 def string_to_hex_list(word_hex_num: int, word_size: int, value: str) -> list[str]:
     chars: list[str] = processed_special_symbols_in_string(value)
-    grouped_chars: list[list[str]] = [chars[i:i + word_size] for i in range(0, len(chars), word_size)]
+    grouped_chars: list[list[str]] = [chars[i : i + word_size] for i in range(0, len(chars), word_size)]
     hex_list: list[str] = []
     for group_char in grouped_chars:
         hex_value: str = ""
@@ -172,12 +172,16 @@ def get_direct_offset_address(address: str) -> str:
 
 
 def get_indirect_sp_address(offset: str) -> str:
-    return (AddressCode.INDIRECT_SP.value +
-            "0" * (InstrMemoryConfig.word_hex_num - len(AddressCode.INDIRECT_SP.value) - len(offset))
-            + offset)
+    return (
+        AddressCode.INDIRECT_SP.value
+        + "0" * (InstrMemoryConfig.word_hex_num - len(AddressCode.INDIRECT_SP.value) - len(offset))
+        + offset
+    )
 
 
 def get_direct_reg_address(reg_num: str) -> str:
-    return (AddressCode.DIRECT_REG.value +
-            "0" * (InstrMemoryConfig.word_hex_num - len(AddressCode.DIRECT_REG.value) - len(reg_num))
-            + reg_num)
+    return (
+        AddressCode.DIRECT_REG.value
+        + "0" * (InstrMemoryConfig.word_hex_num - len(AddressCode.DIRECT_REG.value) - len(reg_num))
+        + reg_num
+    )

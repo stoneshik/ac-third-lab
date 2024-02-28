@@ -69,18 +69,15 @@ class Registers:
         raise RegisterReadingError()
 
     def __repr__(self) -> str:
-        state_repr: str = (
-            "Registers - R0: {} R1: {} R2: {} R3: {} oer0: {} oer1: {} oer2: {} oer3: {}"
-            .format(
-                self.r0,
-                self.r1,
-                self.r2,
-                self.r3,
-                self.__oer0,
-                self.__oer1,
-                self.__oer2,
-                self.__oer3,
-            )
+        state_repr: str = "Registers - R0: {} R1: {} R2: {} R3: {} oer0: {} oer1: {} oer2: {} oer3: {}".format(
+            self.r0,
+            self.r1,
+            self.r2,
+            self.r3,
+            self.__oer0,
+            self.__oer1,
+            self.__oer2,
+            self.__oer3,
         )
         return state_repr
 
@@ -105,9 +102,7 @@ class ALU:
                 symbol: str = first_operand[6:]
                 symbol_code: ord = ord(str(int(symbol, 16)))
                 assert -128 <= symbol_code <= 127, f"input token is out of bound: {symbol_code}"
-                symbol_hex = number_to_hex(
-                    DataMemoryConfig.word_hex_num, symbol_code
-                )
+                symbol_hex = number_to_hex(DataMemoryConfig.word_hex_num, symbol_code)
                 self.__result = symbol_hex
             case Opcode.INC.value:
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) + 1)
@@ -130,13 +125,9 @@ class ALU:
                     DataMemoryConfig.word_hex_num, int(first_operand, 16) // int(second_operand, 16)
                 )
             case Opcode.SLB.value:
-                self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8
-                )
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8)
             case Opcode.SRB.value:
-                self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) >> 8
-                )
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) >> 8)
             case Opcode.MOD.value:
                 self.__result = number_to_hex(
                     DataMemoryConfig.word_hex_num, int(first_operand, 16) % int(second_operand, 16)
@@ -165,10 +156,7 @@ class ALU:
                 raise AluNotSupportedInstrError(opcode_hex)
 
     def __repr__(self) -> str:
-        state_repr: str = "ALU - result: {} zero: {}".format(
-            self.__result,
-            self.zero
-        )
+        state_repr: str = "ALU - result: {} zero: {}".format(self.__result, self.zero)
         return state_repr
 
 
@@ -225,18 +213,18 @@ class DataPath:
         n: int = int(sel[1:], 16)
         match address_code_hex:
             case AddressCode.INDIRECT_SP.value:
-                self.__stack_buffer = number_to_hex(
-                    DataMemoryConfig.address_hex_num, int(self.__stack_pointer, 16) + n
-                )
-                assert int(self.__stack_buffer, 16) < DataMemoryConfig.size, \
-                    f"internal error, indirect address (SP) go out memory data {self.__stack_buffer}"
+                self.__stack_buffer = number_to_hex(DataMemoryConfig.address_hex_num, int(self.__stack_pointer, 16) + n)
+                assert (
+                    int(self.__stack_buffer, 16) < DataMemoryConfig.size
+                ), f"internal error, indirect address (SP) go out memory data {self.__stack_buffer}"
             case _:
                 raise IncorrectSelectorError(sel)
 
     def signal_latch_heap_counter(self) -> None:
         self.__heap_counter = self.__data_memory[DataMemoryConfig.heap_counter_value][5:]
-        assert DataMemoryConfig.named_memory_size < int(self.__heap_counter, 16) < DataMemoryConfig.size, \
-            f"internal error heap counter value go out permissible range {self.__heap_counter}"
+        assert (
+            DataMemoryConfig.named_memory_size < int(self.__heap_counter, 16) < DataMemoryConfig.size
+        ), f"internal error heap counter value go out permissible range {self.__heap_counter}"
 
     def signal_latch_address_reg(self, sel: str) -> None:
         if self.__oea:
@@ -336,7 +324,7 @@ class DataPath:
             self.__heap_counter,
             self.__second_operand_buffer,
             self.__alu,
-            self.__registers
+            self.__registers,
         )
         return state_repr
 
@@ -377,8 +365,15 @@ class ControlUnit:
                 self.__execute_zero_arg_instruction(instruction)
             case Opcode.INC.value | Opcode.DEC.value | Opcode.SLB.value | Opcode.SRB.value | Opcode.CHAR.value:
                 self.__execute_one_arg_instruction(instruction)
-            case Opcode.ADD.value | Opcode.SUB.value | Opcode.MUL.value | Opcode.DIV.value | (
-                    Opcode.AND.value) | Opcode.OR.value | Opcode.MOD.value:
+            case (
+                Opcode.ADD.value
+                | Opcode.SUB.value
+                | Opcode.MUL.value
+                | Opcode.DIV.value
+                | (Opcode.AND.value)
+                | Opcode.OR.value
+                | Opcode.MOD.value
+            ):
                 self.__execute_two_arg_instruction(instruction)
             case Opcode.LOAD.value:
                 self.__execute_load_instruction(instruction)
@@ -409,9 +404,7 @@ class ControlUnit:
                 self.__next_instr_word()
                 self.__data_path.signal_write_in_mem(
                     self.__instruction_buffer,
-                    pc_value=number_to_hex(
-                        DataMemoryConfig.word_hex_num, int(self.__program_counter, 16)
-                    )
+                    pc_value=number_to_hex(DataMemoryConfig.word_hex_num, int(self.__program_counter, 16)),
                 )
                 self.__jump_to_instruction()
             case Opcode.RET.value:
@@ -465,8 +458,15 @@ class ControlUnit:
     def __execute_two_arg_instruction(self, instruction: str) -> None:
         opcode_hex: str = instruction[:2]
         match opcode_hex:
-            case Opcode.ADD.value | Opcode.SUB.value | Opcode.MUL.value | Opcode.DIV.value | (
-                    Opcode.AND.value) | Opcode.OR.value | Opcode.MOD.value:
+            case (
+                Opcode.ADD.value
+                | Opcode.SUB.value
+                | Opcode.MUL.value
+                | Opcode.DIV.value
+                | (Opcode.AND.value)
+                | Opcode.OR.value
+                | Opcode.MOD.value
+            ):
                 self.__save_instr_and_go_next(instruction)
                 second_arg_word: str = self.__get_current_instruction_word()
                 self.__mem_to_alu(second_arg_word)
@@ -622,8 +622,9 @@ class ControlUnit:
         self.__tick_inc()
 
     def __check_stack_pointer(self) -> bool:
-        assert self.__data_path.stack_pointer >= self.__data_path.heap_counter, \
-            f"stack pointer points to heap {self.__data_path.stack_pointer}"
+        assert (
+            self.__data_path.stack_pointer >= self.__data_path.heap_counter
+        ), f"stack pointer points to heap {self.__data_path.stack_pointer}"
         return True
 
     def __mem_to_alu(self, arg_word: str) -> None:
@@ -656,8 +657,9 @@ class ControlUnit:
 
     def __write_in_register(self, current_instruction_word: str) -> None:
         address_code_hex: str = current_instruction_word[:1]
-        assert address_code_hex == AddressCode.DIRECT_REG.value, \
-            f"address code doesn't reference to a register {address_code_hex}"
+        assert (
+            address_code_hex == AddressCode.DIRECT_REG.value
+        ), f"address code doesn't reference to a register {address_code_hex}"
         num_register: str = current_instruction_word[1:]
         instruction: str = self.__instruction_buffer
         match num_register:
@@ -673,8 +675,9 @@ class ControlUnit:
 
     def __prepare_register_to_output(self, current_instruction_word: str) -> None:
         address_code_hex: str = current_instruction_word[:1]
-        assert address_code_hex == AddressCode.DIRECT_REG.value, \
-            f"address code doesn't reference to a register {address_code_hex}"
+        assert (
+            address_code_hex == AddressCode.DIRECT_REG.value
+        ), f"address code doesn't reference to a register {address_code_hex}"
         num_register: str = current_instruction_word[1:]
         match num_register:
             case "000":
@@ -689,18 +692,14 @@ class ControlUnit:
 
     def __repr__(self) -> str:
         state_repr: str = "TICK: {} PC: {} IB {} ({})".format(
-            self.__tick,
-            self.__program_counter,
-            self.__instruction_buffer,
-            self.__data_path
+            self.__tick, self.__program_counter, self.__instruction_buffer, self.__data_path
         )
         return state_repr
 
 
 def simulation(
-        input_tokens: list[str],
-        instructions: list[str],
-        data_memory: list[str], limit: int) -> tuple[str, int, int]:
+    input_tokens: list[str], instructions: list[str], data_memory: list[str], limit: int
+) -> tuple[str, int, int]:
     data_path: DataPath = DataPath(input_tokens, data_memory)
     control_unit: ControlUnit = ControlUnit(instructions, data_path)
     instr_counter: int = 0

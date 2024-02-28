@@ -38,4 +38,3 @@ def test_translator_and_machine(golden, caplog):
         assert mnemonics == golden.out["out_mnemonics"]
         assert stdout.getvalue() == golden.out["out_stdout"]
         assert caplog.messages[-200:] == golden.out["out_log"]  # Работаем с последними 200 сообщениями
-

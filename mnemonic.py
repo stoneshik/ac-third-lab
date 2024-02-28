@@ -18,12 +18,13 @@ def get_register_string_from_hex_code(hex_code_string: str) -> str:
 
 class MnemonicCreator:
     def __init__(
-            self,
-            instruction_words: list[bytes],
-            vars_by_address: dict[str, str],
-            number_consts_by_address: dict[str, int],
-            string_consts_by_address: dict[str, str],
-            functions_by_address: dict[str, str]) -> None:
+        self,
+        instruction_words: list[bytes],
+        vars_by_address: dict[str, str],
+        number_consts_by_address: dict[str, int],
+        string_consts_by_address: dict[str, str],
+        functions_by_address: dict[str, str],
+    ) -> None:
         self.__instruction_words: list[bytes] = instruction_words
         self.__vars_by_address: dict[str, str] = vars_by_address
         self.__number_consts_by_address: dict[str, int] = number_consts_by_address
@@ -36,9 +37,7 @@ class MnemonicCreator:
             output_file.writelines(strings)
 
     def __create_mnemonics(self) -> list[str]:
-        strings: list[str] = [
-            "<address> - <hex_code> - <mnemonic>\n"
-        ]
+        strings: list[str] = ["<address> - <hex_code> - <mnemonic>\n"]
         address_string: str = ""
         hex_code_string: str = ""
         current_instruction_opcode: Opcode | None = None
@@ -58,7 +57,7 @@ class MnemonicCreator:
                             hex_code_string,
                             current_instruction_opcode,
                             first_arg_hex_word,
-                            second_arg_hex_word
+                            second_arg_hex_word,
                         )
                     )
                     hex_code_string = ""
@@ -78,22 +77,19 @@ class MnemonicCreator:
             counter += 1
         strings.append(
             self.__create_mnemonic_string(
-                address_string,
-                hex_code_string,
-                current_instruction_opcode,
-                first_arg_hex_word,
-                second_arg_hex_word
+                address_string, hex_code_string, current_instruction_opcode, first_arg_hex_word, second_arg_hex_word
             )
         )
         return strings
 
     def __create_mnemonic_string(
-            self,
-            address_string: str,
-            hex_code_string: str,
-            instruction_opcode: Opcode,
-            first_arg_hex_word: str | None,
-            second_arg_hex_word: str | None) -> str:
+        self,
+        address_string: str,
+        hex_code_string: str,
+        instruction_opcode: Opcode,
+        first_arg_hex_word: str | None,
+        second_arg_hex_word: str | None,
+    ) -> str:
         opcode_string: str = instruction_opcode.name.lower()
         match instruction_opcode.value:
             case Opcode.NOP.value | Opcode.HALT.value | Opcode.RET.value:
@@ -104,25 +100,22 @@ class MnemonicCreator:
             case Opcode.IES.value:
                 reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
                 mnemonic_string = f"{opcode_string} {reg_string}"
-            case Opcode.ADD.value | Opcode.SUB.value | Opcode.MUL.value | (
-                    Opcode.DIV.value) | Opcode.AND.value | Opcode.OR.value | Opcode.MOD.value:
+            case (
+                Opcode.ADD.value
+                | Opcode.SUB.value
+                | Opcode.MUL.value
+                | (Opcode.DIV.value)
+                | Opcode.AND.value
+                | Opcode.OR.value
+                | Opcode.MOD.value
+            ):
                 mnemonic_string: str = self.__two_args_math_mnemonic(
-                    opcode_string,
-                    first_arg_hex_word,
-                    second_arg_hex_word
+                    opcode_string, first_arg_hex_word, second_arg_hex_word
                 )
             case Opcode.LOAD.value:
-                mnemonic_string: str = self.__load_mnemonic(
-                    opcode_string,
-                    first_arg_hex_word,
-                    second_arg_hex_word
-                )
+                mnemonic_string: str = self.__load_mnemonic(opcode_string, first_arg_hex_word, second_arg_hex_word)
             case Opcode.STORE.value:
-                mnemonic_string: str = self.__store_mnemonic(
-                    opcode_string,
-                    first_arg_hex_word,
-                    second_arg_hex_word
-                )
+                mnemonic_string: str = self.__store_mnemonic(opcode_string, first_arg_hex_word, second_arg_hex_word)
             case Opcode.POP.value | Opcode.READ.value:
                 reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
                 mnemonic_string = f"{reg_string} <- {opcode_string}"
@@ -130,17 +123,14 @@ class MnemonicCreator:
                 reg_string: str = get_register_string_from_hex_code(first_arg_hex_word)
                 mnemonic_string = f"{opcode_string} {reg_string}"
             case Opcode.CMP.value:
-                mnemonic_string: str = self.__cmp_mnemonic(
-                    opcode_string,
-                    first_arg_hex_word,
-                    second_arg_hex_word
-                )
+                mnemonic_string: str = self.__cmp_mnemonic(opcode_string, first_arg_hex_word, second_arg_hex_word)
             case Opcode.JMP.value | Opcode.JZ.value | Opcode.JNZ.value:
                 mnemonic_string: str = self.__jmp_mnemonic(opcode_string, first_arg_hex_word)
             case Opcode.CALL.value:
                 function_address: str = first_arg_hex_word[1:]
-                assert function_address in self.__functions_by_address.keys(), \
-                    f"Not found function address - {function_address}"
+                assert (
+                    function_address in self.__functions_by_address.keys()
+                ), f"Not found function address - {function_address}"
                 function_name: str = self.__functions_by_address[function_address]
                 mnemonic_string = f"{opcode_string} {function_name} | {function_name} -> {function_address}"
             case _:
@@ -159,11 +149,11 @@ class MnemonicCreator:
         if var_name is None and var_value is None:
             mnemonic_string = f"{reg_string} <- {opcode_string} {reg_string}, {var_address}"
         elif var_name is None and var_value is not None:
-            mnemonic_string = \
+            mnemonic_string = (
                 f"{reg_string} <- {opcode_string} {reg_string}, {var_address} | {var_address} -> {var_value}"
+            )
         else:
-            mnemonic_string = \
-                f"{reg_string} <- {opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
+            mnemonic_string = f"{reg_string} <- {opcode_string} {reg_string}, {var_name} | {var_name} -> {var_address}"
         return mnemonic_string
 
     def __load_mnemonic(self, opcode_string: str, first_arg_hex_word: str, second_arg_hex_word: str) -> str:
