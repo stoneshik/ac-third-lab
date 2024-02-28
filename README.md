@@ -354,21 +354,21 @@ Hardwired (полностью реализован на Python).<br>
 В Golden тестах выводится последние 200 строк логирования.
 ### CI при помощи Github Actions
 ```
-name: CI
+name: Python CI
 
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - ".github/workflows/*"
-      - "./**"
+      - "**/*.py"
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - ".github/workflows/*"
-      - "./**"
+      - "**/*.py"
 
 defaults:
   run:
