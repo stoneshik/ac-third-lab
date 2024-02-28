@@ -251,7 +251,8 @@
 - `<input_file>` - текстовый файл с кодом на AbobaLisp.
 - `<output_instruction_file>` - бинарный файл с инструкциями.
 - `<output_data_file>` - бинарный файл с данными.
-- `<output_mnemonic_file>` - текстовый файл с понятным человеку отладочным выводом.
+- `<output_mnemonic_file>` - текстовый файл с понятным человеку отладочным выводом.<br>
+Реализовано в модуле [translator](./translator.py)
 ### Этапы трансляции
 1. Проверяется синтаксис языка AbobaLisp (закрываются ли все скобки, 
 не являются ли вложенными объявления функций или переменных и так далее).
@@ -273,6 +274,7 @@
 - `<input_file>` - текстовый файл с данными для имитации ввода в процессор.
 - `<input_instruction_file>` - бинарный файл с инструкциями.
 - `<input_data_file>` - бинарный файл с данными.<br>
+Реализовано в модуле [machine](./machine.py)<br>
 Флаги, которые используются в процессоре:
 - `zero` - флаг устанавливается при помощи специальных команд (`cmp` и `ies`), 
 1 означает что результат вычисления этих команд равен `0x0`, в остальных случаях флаг равен 0.
@@ -341,6 +343,233 @@ Hardwired (полностью реализован на Python).<br>
 в Instruction Buffer.
 
 ## Тестирование
+Реализованы [Golden тесты](./golden_test.py) программ:
+- [hello](./golden/hello_aboba.yml)
+- [hello_user_name](./golden/hello_user_name_aboba.yml)
+- [cat](./golden/cat_aboba.yml)
+- [prob1](./golden/prob1_aboba.yml)<br>
+Дополнительные Golden тесты
+- [print_max](./golden/print_max_aboba.yml) - выводит из переменной максимальное uint32 число
+- [print_zero](./golden/print_zero_aboba.yml) - выводит из переменной ноль<br>
+В Golden тестах выводится последние 200 строк логирования.
+### CI при помощи Github Actions
+```
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/*"
+      - "./**"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/*"
+      - "./**"
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Run tests and collect coverage
+        run: |
+          poetry run coverage run -m pytest .
+          poetry run coverage report -m
+        env:
+          CI: true
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Check code formatting with Ruff
+        run: poetry run ruff format --check .
+
+      - name: Run Ruff linters
+        run: poetry run ruff check .
+```
+### Пример использования и журнал работы процессора на примере `cat`:
+
+Исходный код
+```
+(var r 0)
+(read r 20)
+(print r)
+```
+
+Входные данные
+```
+foo
+```
+
+Содержимое выходного файла с мнемоникой машинного кода
+```
+<address> - <hex_code> - <mnemonic>
+000 - 7000 a002 - jmp $002
+002 - 4000 a11b d002 - R2 <- load $11b | $11b -> 263
+005 - 4100 a003 d002 - $r <- store R2 | $r -> $003
+008 - 4100 a0ff d002 - $0ff <- store R2
+00b - 4000 a100 d003 - R3 <- load $100 | $100 -> 0
+00e - 2800 d003 - R3 <- srb R3
+010 - 8000 d003 - R3 <- read
+012 - 2800 d003 - R3 <- srb R3
+014 - 8000 d003 - R3 <- read
+016 - 2800 d003 - R3 <- srb R3
+018 - 8000 d003 - R3 <- read
+01a - 2800 d003 - R3 <- srb R3
+01c - 8000 d003 - R3 <- read
+01e - 4100 b0ff d003 - $(0ff) <- store R3
+021 - 6100 d003 - ies R3
+023 - 2100 d002 - R2 <- inc R2
+025 - 4100 a0ff d002 - $0ff <- store R2
+028 - 7400 a00b - jnz $00b
+02a - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+02d - 5000 d000 - push R0
+02f - 5100 d000 - R0 <- pop
+031 - 4000 a003 d002 - R2 <- load $r | $r -> $003
+034 - 4100 a0ff d002 - $0ff <- store R2
+037 - 4000 b0ff d003 - R3 <- load $(0ff)
+03a - 8100 d003 - print R3
+03c - 2800 d003 - R3 <- srb R3
+03e - 8100 d003 - print R3
+040 - 2800 d003 - R3 <- srb R3
+042 - 8100 d003 - print R3
+044 - 2800 d003 - R3 <- srb R3
+046 - 8100 d003 - print R3
+048 - 2800 d003 - R3 <- srb R3
+04a - 4000 b0ff d003 - R3 <- load $(0ff)
+04d - 6100 d003 - ies R3
+04f - 2100 d002 - R2 <- inc R2
+051 - 4100 a0ff d002 - $0ff <- store R2
+054 - 7400 a037 - jnz $037
+056 - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+059 - 5000 d000 - push R0
+05b - 5100 d000 - R0 <- pop
+05d - 1000 - halt
+```
+
+Журнал работы процессора
+```
+DEBUG:root:0 | TICK: 0 PC: 000 IB 0000 (DataPath - AR: 000 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:1 | TICK: 3 PC: 002 IB 7000 (DataPath - AR: 000 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:2 | TICK: 12 PC: 005 IB 4000 (DataPath - AR: 11b SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:3 | TICK: 19 PC: 008 IB 4100 (DataPath - AR: 003 SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:4 | TICK: 26 PC: 00b IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:5 | TICK: 35 PC: 00e IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:6 | TICK: 41 PC: 010 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:input: 'f'
+DEBUG:root:7 | TICK: 46 PC: 012 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 66000000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:8 | TICK: 52 PC: 014 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00660000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:input: 'o'
+DEBUG:root:9 | TICK: 57 PC: 016 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f660000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:10 | TICK: 63 PC: 018 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6600 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:input: 'o'
+DEBUG:root:11 | TICK: 68 PC: 01a IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f6f6600 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:12 | TICK: 74 PC: 01c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+WARNING:root:Input buffer is empty!
+DEBUG:root:13 | TICK: 77 PC: 01d IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:14 | TICK: 78 PC: 01e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:15 | TICK: 87 PC: 021 IB 4100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:16 | TICK: 92 PC: 023 IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:17 | TICK: 98 PC: 025 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:18 | TICK: 105 PC: 028 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:19 | TICK: 108 PC: 02a IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:20 | TICK: 117 PC: 02d IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:21 | TICK: 123 PC: 02f IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:22 | TICK: 132 PC: 031 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:23 | TICK: 141 PC: 034 IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:24 | TICK: 148 PC: 037 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:25 | TICK: 159 PC: 03a IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:output:  << f
+DEBUG:root:26 | TICK: 164 PC: 03c IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:27 | TICK: 170 PC: 03e IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:output: f << o
+DEBUG:root:28 | TICK: 175 PC: 040 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:29 | TICK: 181 PC: 042 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:output: fo << o
+DEBUG:root:30 | TICK: 186 PC: 044 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:31 | TICK: 192 PC: 046 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:zero value skipped for output: foo << \0
+DEBUG:root:32 | TICK: 197 PC: 048 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:33 | TICK: 203 PC: 04a IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:34 | TICK: 214 PC: 04d IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:35 | TICK: 219 PC: 04f IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66 oer0: False oer1: False oer2: False oer3: True))
+DEBUG:root:36 | TICK: 225 PC: 051 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:37 | TICK: 232 PC: 054 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:38 | TICK: 235 PC: 056 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:39 | TICK: 244 PC: 059 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: False oer1: False oer2: True oer3: False))
+DEBUG:root:40 | TICK: 250 PC: 05b IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: True oer1: False oer2: False oer3: False))
+DEBUG:root:41 | TICK: 259 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66 oer0: True oer1: False oer2: False oer3: False))
+INFO:root:output_buffer: 'foo'
+```
+
+Результат работы
+```
+foo
+code_byte:  188 code_instr:  94 instr_counter:  41 ticks:  259
+```
+
+### Пример проверки исходного кода:
+```
+Run poetry run coverage run -m pytest .
+============================= test session starts ==============================
+platform linux -- Python 3.11.8, pytest-8.0.2, pluggy-1.4.0
+rootdir: /home/runner/work/ac-third-lab/ac-third-lab
+configfile: pyproject.toml
+plugins: golden-0.2.2
+collected 6 items
+
+golden_test.py ......                                                    [100%]
+
+============================== 6 passed in 8.54s ===============================
+Name               Stmts   Miss  Cover   Missing
+------------------------------------------------
+checker.py            60      0   100%
+golden_test.py        30      0   100%
+isa.py                98      7    93%   69, 110, 148-153
+machine.py           587     27    95%   68, 148, 163-164, 219-220, 232-233, 257-258, 438-439, 447-450, 461-462, 477-478, 653-654, 719, 758-761
+memory_config.py      17      0   100%
+mnemonic.py          156      9    94%   140, 156, 168, 175-176, 197, 202, 211-212
+translator.py        620     81    87%   116-120, 138-163, 185, 335-336, 343-347, 359, 399, 557-558, 567-575, 586-593, 606-607, 611, 624, 631-633, 649-655, 660, 673-682, 686, 697-701, 706-708, 782-783, 853-856
+------------------------------------------------
+TOTAL               1568    124    92%
+```
 
 ```text
 | Стрельбицкий Илья Павлович | hello            | 1   | 94        | 47          | 62     | 391    | lisp | cisc | harv | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |

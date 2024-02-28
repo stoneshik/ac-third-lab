@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1 \
   POETRY_VERSION=1.6.1
 
 WORKDIR /code
-COPY src/poetry.lock src/pyproject.toml /code
+COPY /poetry.lock /pyproject.toml /code
 
 RUN pip install --no-cache-dir --progress-bar off "poetry==$POETRY_VERSION"
 
