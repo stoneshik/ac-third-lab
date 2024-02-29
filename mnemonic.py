@@ -54,7 +54,7 @@ class MnemonicCreator:
                     first_arg_hex_word,
                     second_arg_hex_word,
                     current_instruction_opcode,
-                    strings
+                    strings,
                 ):
                     hex_code_string = ""
                     first_arg_hex_word = None
@@ -79,13 +79,13 @@ class MnemonicCreator:
         return strings
 
     def __inner_iter_string_append(
-            self,
-            address_string: str,
-            hex_code_string: str,
-            first_arg_hex_word: str,
-            second_arg_hex_word: str,
-            current_instruction_opcode: Opcode,
-            strings: list[str]
+        self,
+        address_string: str,
+        hex_code_string: str,
+        first_arg_hex_word: str,
+        second_arg_hex_word: str,
+        current_instruction_opcode: Opcode,
+        strings: list[str],
     ) -> bool:
         if address_string != "" and hex_code_string != "":
             if second_arg_hex_word is not None:
