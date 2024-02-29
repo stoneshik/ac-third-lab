@@ -193,8 +193,8 @@ class DataPath:
 
     def get_value_from_data_memory(self) -> str:
         address_index: int = int(self.__address_register, 16)
-        assert address_index == DataMemoryConfig.input_port, "reading from a memory cell mapped with an input port"
-        assert address_index == DataMemoryConfig.output_port, "reading from a memory cell mapped with an output port"
+        assert address_index != DataMemoryConfig.input_port, "reading from a memory cell mapped with an input port"
+        assert address_index != DataMemoryConfig.output_port, "reading from a memory cell mapped with an output port"
         return self.__data_memory[address_index]
 
     def signal_latch_stack_pointer(self, sel: str) -> None:
@@ -298,8 +298,8 @@ class DataPath:
 
     def signal_write_in_mem(self, sel: str, pc_value: str | None = None) -> None:
         address_index: int = int(self.__address_register, 16)
-        assert address_index == DataMemoryConfig.input_port, "writing to a memory cell mapped with an input port"
-        assert address_index == DataMemoryConfig.output_port, "writing to a memory cell mapped with an output port"
+        assert address_index != DataMemoryConfig.input_port, "writing to a memory cell mapped with an input port"
+        assert address_index != DataMemoryConfig.output_port, "writing to a memory cell mapped with an output port"
         opcode_hex: str = sel[:2]
         if opcode_hex == Opcode.CALL.value:
             self.__data_memory[address_index] = pc_value
