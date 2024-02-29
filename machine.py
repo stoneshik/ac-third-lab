@@ -125,7 +125,10 @@ class ALU:
                     DataMemoryConfig.word_hex_num, int(first_operand, 16) // int(second_operand, 16)
                 )
             case Opcode.SLB.value:
-                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8)
+                result: str = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8)
+                if len(result) > DataMemoryConfig.word_hex_num:
+                    result = result[2:]
+                self.__result = result
             case Opcode.SRB.value:
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) >> 8)
             case Opcode.MOD.value:
