@@ -688,6 +688,15 @@ class Translator:
 
     def __create_machine_code_for_call_expression(self, name_function: str, raw_args: list[str]) -> None:
         assert name_function in self.__functions.keys(), f"Undefined name function {name_function}"
+        self.__processed_args_for_call_expression(name_function, raw_args)
+        function_address: str = self.__functions[name_function]
+        self.__offset_params += 1
+        self.__add_unary_instruction_with_operand_address(Opcode.CALL, function_address)
+        for _ in raw_args:
+            self.__add_pop_instruction("1")
+        self.__add_push_instruction("0")
+
+    def __processed_args_for_call_expression(self, name_function: str, raw_args: list[str]) -> None:
         for raw_arg in reversed(raw_args):
             if LiteralPatterns.is_number(raw_arg):
                 arg: int = int(raw_arg)
@@ -707,12 +716,6 @@ class Translator:
                 raise IncorrectArgsPassedToFunctionError(name_function)
             self.__add_binary_instruction(Opcode.LOAD, "1", arg_address)
             self.__add_push_instruction("1")
-        function_address: str = self.__functions[name_function]
-        self.__offset_params += 1
-        self.__add_unary_instruction_with_operand_address(Opcode.CALL, function_address)
-        for _ in raw_args:
-            self.__add_pop_instruction("1")
-        self.__add_push_instruction("0")
 
     def __create_machine_code_for_iter_expression(
         self,

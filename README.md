@@ -359,16 +359,16 @@ name: Python CI
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - ".github/workflows/*"
-      - "**/*.py"
+      - "**.py"
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - ".github/workflows/*"
-      - "**/*.py"
+      - "**.py"
 
 defaults:
   run:
@@ -547,7 +547,7 @@ code_byte:  188 code_instr:  94 instr_counter:  41 ticks:  259
 
 ### Пример проверки исходного кода:
 ```
-Run poetry run coverage run -m pytest .
+$ poetry run coverage run -m pytest .
 ============================= test session starts ==============================
 platform linux -- Python 3.11.8, pytest-8.0.2, pluggy-1.4.0
 rootdir: /home/runner/work/ac-third-lab/ac-third-lab
@@ -557,18 +557,22 @@ collected 6 items
 
 golden_test.py ......                                                    [100%]
 
-============================== 6 passed in 8.54s ===============================
+============================== 6 passed in 8.30s ===============================
 Name               Stmts   Miss  Cover   Missing
 ------------------------------------------------
-checker.py            60      0   100%
+checker.py            61      0   100%
+exceptions.py         57     16    72%   10, 19, 24, 29, 34, 43, 48, 57, 62, 67, 72, 77, 82, 87, 92, 97
 golden_test.py        30      0   100%
-isa.py                98      7    93%   69, 110, 148-153
-machine.py           587     27    95%   68, 148, 163-164, 219-220, 232-233, 257-258, 438-439, 447-450, 461-462, 477-478, 653-654, 719, 758-761
-memory_config.py      17      0   100%
-mnemonic.py          156      9    94%   140, 156, 168, 175-176, 197, 202, 211-212
-translator.py        620     81    87%   116-120, 138-163, 185, 335-336, 343-347, 359, 399, 557-558, 567-575, 586-593, 606-607, 611, 624, 631-633, 649-655, 660, 673-682, 686, 697-701, 706-708, 782-783, 853-856
+isa.py                99      7    93%   72, 113, 150-155
+machine.py           589     27    95%   69, 140, 155-156, 208-209, 220-221, 246-247, 432-433, 441-444, 455-456, 478-479, 655-656, 719, 758-761
+memory_config.py      18      0   100%
+mnemonic.py          173      9    95%   136-137, 182, 194, 208, 226, 231, 240-241
+translator.py        623     81    87%   125-129, 148-172, 192, 334-335, 341-345, 357, 396, 549-550, 559-569, 582-591, 606-607, 611, 625, 632-634, 650-656, 661, 672-681, 685, 696-700, 705-707, 776-777, 840-844
 ------------------------------------------------
-TOTAL               1568    124    92%
+TOTAL               1650    140    92%
+$ poetry run ruff format --check .
+8 files already formatted
+$ poetry run ruff check .
 ```
 
 ```text

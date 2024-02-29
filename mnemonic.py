@@ -48,18 +48,14 @@ class MnemonicCreator:
             hex_code: str = instruction_word.hex()
             opcode_hex: str = hex_code[:2]
             if opcode_hex in opcode_by_hex_dict.keys():
-                if address_string != "" and hex_code_string != "":
-                    if second_arg_hex_word is not None:
-                        first_arg_hex_word, second_arg_hex_word = second_arg_hex_word, first_arg_hex_word
-                    strings.append(
-                        self.__create_mnemonic_string(
-                            address_string,
-                            hex_code_string,
-                            current_instruction_opcode,
-                            first_arg_hex_word,
-                            second_arg_hex_word,
-                        )
-                    )
+                if self.__inner_iter_string_append(
+                    address_string,
+                    hex_code_string,
+                    first_arg_hex_word,
+                    second_arg_hex_word,
+                    current_instruction_opcode,
+                    strings
+                ):
                     hex_code_string = ""
                     first_arg_hex_word = None
                     second_arg_hex_word = None
@@ -81,6 +77,30 @@ class MnemonicCreator:
             )
         )
         return strings
+
+    def __inner_iter_string_append(
+            self,
+            address_string: str,
+            hex_code_string: str,
+            first_arg_hex_word: str,
+            second_arg_hex_word: str,
+            current_instruction_opcode: Opcode,
+            strings: list[str]
+    ) -> bool:
+        if address_string != "" and hex_code_string != "":
+            if second_arg_hex_word is not None:
+                first_arg_hex_word, second_arg_hex_word = second_arg_hex_word, first_arg_hex_word
+            strings.append(
+                self.__create_mnemonic_string(
+                    address_string,
+                    hex_code_string,
+                    current_instruction_opcode,
+                    first_arg_hex_word,
+                    second_arg_hex_word,
+                )
+            )
+            return True
+        return False
 
     def __create_mnemonic_string(
         self,
@@ -104,7 +124,7 @@ class MnemonicCreator:
                 Opcode.ADD.value
                 | Opcode.SUB.value
                 | Opcode.MUL.value
-                | (Opcode.DIV.value)
+                | Opcode.DIV.value
                 | Opcode.AND.value
                 | Opcode.OR.value
                 | Opcode.MOD.value
