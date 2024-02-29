@@ -192,7 +192,10 @@ class DataPath:
         return self.__alu.zero
 
     def get_value_from_data_memory(self) -> str:
-        return self.__data_memory[int(self.__address_register, 16)]
+        address_index: int = int(self.__address_register, 16)
+        assert address_index == DataMemoryConfig.input_port, "reading from a memory cell mapped with an input port"
+        assert address_index == DataMemoryConfig.output_port, "reading from a memory cell mapped with an output port"
+        return self.__data_memory[address_index]
 
     def signal_latch_stack_pointer(self, sel: str) -> None:
         opcode_hex: str = sel[:2]
@@ -294,11 +297,14 @@ class DataPath:
         self.__registers.signal_oer3()
 
     def signal_write_in_mem(self, sel: str, pc_value: str | None = None) -> None:
+        address_index: int = int(self.__address_register, 16)
+        assert address_index == DataMemoryConfig.input_port, "writing to a memory cell mapped with an input port"
+        assert address_index == DataMemoryConfig.output_port, "writing to a memory cell mapped with an output port"
         opcode_hex: str = sel[:2]
         if opcode_hex == Opcode.CALL.value:
-            self.__data_memory[int(self.__address_register, 16)] = pc_value
+            self.__data_memory[address_index] = pc_value
             return
-        self.__data_memory[int(self.__address_register, 16)] = self.__registers.output_data()
+        self.__data_memory[address_index] = self.__registers.output_data()
 
     def signal_calc(self, instruction: str) -> None:
         first_operand: str = self.__registers.output_data()
