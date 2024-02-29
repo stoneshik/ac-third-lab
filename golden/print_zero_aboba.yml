@@ -113,240 +113,84 @@ out_mnemonics: |
   0fc - 5100 d000 - R0 <- pop
   0fe - 1000 - halt
 
-out_log:
-- '0 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '1 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '2 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '3 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '4 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '5 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '6 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '7 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '8 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '9 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '10 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '11 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '12 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '13 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '14 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '15 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '16 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '17 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '18 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '19 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '20 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '21 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '22 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '23 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '24 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '25 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '26 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '27 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '28 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '29 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '30 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '31 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '32 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '33 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '34 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '35 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '36 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '37 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '38 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '39 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '40 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '41 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '42 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '43 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '44 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '45 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '46 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '47 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '48 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '49 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '50 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '51 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '52 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '53 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '54 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '55 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '56 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '57 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '58 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '59 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '60 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '61 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '62 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '63 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '64 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '65 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '66 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '67 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '68 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '69 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '70 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '71 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '72 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- 'output:  << 0'
-- '73 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '74 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '75 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '76 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- '77 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB:
-  00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000
-  R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))'
-- "output_buffer: '0'"
+out_log: |
+  DEBUG   machine:simulation    0 | TICK: 0 PC: 000 IB 0000 (DataPath - AR: 000 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    1 | TICK: 3 PC: 002 IB 7000 (DataPath - AR: 000 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    2 | TICK: 12 PC: 005 IB 4000 (DataPath - AR: 10a SP: fff SB: 000 HC: 10b SOB: 0000010a (ALU - result: 0000010a zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    3 | TICK: 21 PC: 008 IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    4 | TICK: 30 PC: 00b IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    5 | TICK: 37 PC: 00e IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    6 | TICK: 46 PC: 011 IB 4000 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    7 | TICK: 56 PC: 014 IB 2900 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    8 | TICK: 62 PC: 016 IB 2000 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    9 | TICK: 69 PC: 019 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    10 | TICK: 75 PC: 01b IB 2700 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    11 | TICK: 85 PC: 01e IB 2300 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000030 (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    12 | TICK: 95 PC: 021 IB 2600 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    13 | TICK: 102 PC: 024 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    14 | TICK: 111 PC: 027 IB 4000 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    15 | TICK: 121 PC: 02a IB 2900 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00000030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    16 | TICK: 127 PC: 02c IB 2000 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    17 | TICK: 134 PC: 02f IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00000030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    18 | TICK: 140 PC: 031 IB 2700 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00003000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    19 | TICK: 150 PC: 034 IB 2300 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000030 (ALU - result: 00003030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    20 | TICK: 160 PC: 037 IB 2600 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    21 | TICK: 167 PC: 03a IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    22 | TICK: 176 PC: 03d IB 4000 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00003030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    23 | TICK: 186 PC: 040 IB 2900 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00003030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    24 | TICK: 192 PC: 042 IB 2000 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    25 | TICK: 199 PC: 045 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00003030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    26 | TICK: 205 PC: 047 IB 2700 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00303000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    27 | TICK: 215 PC: 04a IB 2300 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000030 (ALU - result: 00303030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    28 | TICK: 225 PC: 04d IB 2600 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    29 | TICK: 232 PC: 050 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    30 | TICK: 241 PC: 053 IB 4000 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    31 | TICK: 251 PC: 056 IB 2900 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000000 R3: 00303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    32 | TICK: 257 PC: 058 IB 2000 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    33 | TICK: 264 PC: 05b IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 00303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    34 | TICK: 270 PC: 05d IB 2700 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 30303000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 30303000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    35 | TICK: 280 PC: 060 IB 2300 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000030 (ALU - result: 30303030 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    36 | TICK: 290 PC: 063 IB 2600 (DataPath - AR: 101 SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    37 | TICK: 297 PC: 066 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 30303030 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    38 | TICK: 306 PC: 069 IB 4100 (DataPath - AR: 10a SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000000 zero: False) (Registers - R0: 0000010a R1: 00000000 R2: 00000030 R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    39 | TICK: 312 PC: 06b IB 2200 (DataPath - AR: 10a SP: fff SB: 000 HC: 10b SOB: 0000000a (ALU - result: 00000109 zero: False) (Registers - R0: 00000109 R1: 00000000 R2: 00000030 R3: 30303030 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    40 | TICK: 321 PC: 06e IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 00000030 R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    41 | TICK: 324 PC: 070 IB 7400 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 00000030 R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    42 | TICK: 333 PC: 073 IB 4000 (DataPath - AR: 102 SP: fff SB: 000 HC: 10b SOB: 00000004 (ALU - result: 00000004 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000030 R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    43 | TICK: 342 PC: 076 IB 4000 (DataPath - AR: 106 SP: fff SB: 000 HC: 10b SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000107 R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    44 | TICK: 348 PC: 078 IB 2200 (DataPath - AR: 106 SP: fff SB: 000 HC: 10b SOB: 00000107 (ALU - result: 00000106 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000106 R3: 30303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    45 | TICK: 354 PC: 07a IB 2100 (DataPath - AR: 106 SP: fff SB: 000 HC: 10b SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000107 R3: 30303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    46 | TICK: 361 PC: 07d IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000107 R3: 30303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    47 | TICK: 372 PC: 080 IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    48 | TICK: 381 PC: 083 IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000004 R2: 00000107 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    49 | TICK: 387 PC: 085 IB 2200 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000003 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000107 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    50 | TICK: 390 PC: 078 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000003 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000107 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    51 | TICK: 396 PC: 07a IB 2100 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000108 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    52 | TICK: 403 PC: 07d IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000108 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    53 | TICK: 414 PC: 080 IB 4000 (DataPath - AR: 108 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000108 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    54 | TICK: 423 PC: 083 IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000003 R2: 00000108 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    55 | TICK: 429 PC: 085 IB 2200 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000002 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000108 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    56 | TICK: 432 PC: 078 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000002 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000108 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    57 | TICK: 438 PC: 07a IB 2100 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000109 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000109 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    58 | TICK: 445 PC: 07d IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000109 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000109 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    59 | TICK: 456 PC: 080 IB 4000 (DataPath - AR: 109 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000109 R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    60 | TICK: 465 PC: 083 IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000002 R2: 00000109 R3: 00000000 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    61 | TICK: 471 PC: 085 IB 2200 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000001 zero: True) (Registers - R0: 00000109 R1: 00000001 R2: 00000109 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    62 | TICK: 474 PC: 078 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000001 zero: True) (Registers - R0: 00000109 R1: 00000001 R2: 00000109 R3: 00000000 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    63 | TICK: 480 PC: 07a IB 2100 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 0000010a zero: True) (Registers - R0: 00000109 R1: 00000001 R2: 0000010a R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    64 | TICK: 487 PC: 07d IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 0000010a zero: True) (Registers - R0: 00000109 R1: 00000001 R2: 0000010a R3: 00000000 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    65 | TICK: 498 PC: 080 IB 4000 (DataPath - AR: 10a SP: fff SB: 000 HC: 10b SOB: 30303030 (ALU - result: 30303030 zero: True) (Registers - R0: 00000109 R1: 00000001 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: True oer3: False))
+  DEBUG   machine:simulation    66 | TICK: 507 PC: 083 IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 30303030 zero: False) (Registers - R0: 00000109 R1: 00000001 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    67 | TICK: 513 PC: 085 IB 2200 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    68 | TICK: 516 PC: 087 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    69 | TICK: 525 PC: 08a IB 6000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    70 | TICK: 528 PC: 08c IB 7400 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: True oer2: False oer3: False))
+  DEBUG   machine:simulation    71 | TICK: 537 PC: 08f IB 6000 (DataPath - AR: 105 SP: fff SB: 000 HC: 10b SOB: 30303030 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    72 | TICK: 540 PC: 091 IB 7400 (DataPath - AR: 105 SP: fff SB: 000 HC: 10b SOB: 30303030 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:signal_output output:  << 0
+  DEBUG   machine:simulation    73 | TICK: 545 PC: 093 IB 8100 (DataPath - AR: 105 SP: fff SB: 000 HC: 10b SOB: 30303030 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    74 | TICK: 548 PC: 0f7 IB 7000 (DataPath - AR: 105 SP: fff SB: 000 HC: 10b SOB: 30303030 (ALU - result: 00000000 zero: True) (Registers - R0: 00000109 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    75 | TICK: 557 PC: 0fa IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010a R3: 30303030 oer0: False oer1: False oer2: False oer3: True))
+  DEBUG   machine:simulation    76 | TICK: 563 PC: 0fc IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))
+  DEBUG   machine:simulation    77 | TICK: 572 PC: 0fe IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10b SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010a R3: 30303030 oer0: True oer1: False oer2: False oer3: False))
+  INFO    machine:simulation    output_buffer: '0'

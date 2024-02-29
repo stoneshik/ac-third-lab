@@ -37,4 +37,8 @@ def test_translator_and_machine(golden, caplog):
         # Проверяем, что ожидания соответствуют реальности.
         assert mnemonics == golden.out["out_mnemonics"]
         assert stdout.getvalue() == golden.out["out_stdout"]
-        assert caplog.messages[-200:] == golden.out["out_log"]  # Работаем с последними 200 сообщениями
+        caplog_end_index: int = caplog.text.find("DEBUG   machine:simulation    201 | TICK:")
+        if caplog_end_index == -1:
+            assert caplog.text == golden.out["out_log"]
+        else:
+            assert caplog.text[:caplog_end_index] == golden.out["out_log"]  # Работаем с последними 200 сообщениями
