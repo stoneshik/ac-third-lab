@@ -107,6 +107,71 @@ class TestALU:
         alu.calc(Opcode.SRB.value + "00", "12345678", "00000000")
         assert alu.result == "00123456"
 
+    def test_calc_mod(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.MOD.value + "00", "00000008", "00000005")
+        assert alu.result == "00000003"
+
+    def test_calc_and(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.AND.value + "00", "12345678", "0000000a")
+        assert alu.result == "00000008"
+
+    def test_calc_or(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.OR.value + "00", "00005678", "00001111")
+        assert alu.result == "00005779"
+
+    def test_calc_load_and_pop(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.LOAD.value + "00", "00000000", "12345678")
+        assert alu.result == "12345678"
+        alu.calc(Opcode.POP.value + "00", "00000000", "12345678")
+        assert alu.result == "12345678"
+
+    def test_calc_cmp(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.CMP.value + "00", "00000025", "00000015")
+        assert alu.result == "00000010"
+        assert not alu.zero
+        alu.calc(Opcode.CMP.value + "00", "00000025", "00000025")
+        assert alu.result == "00000000"
+        assert alu.zero
+
+    def test_calc_ies(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.IES.value + "00", "12345678", "00000000")
+        assert alu.result == "12000000"
+        assert not alu.zero
+        alu.calc(Opcode.IES.value + "00", "00345678", "00000000")
+        assert alu.result == "00000000"
+        assert alu.zero
+
+    @pytest.mark.xfail(strict=True)
+    def test_calc_inc_overflow_error(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.INC.value + "00", "FFFFFFFF", "00000000")
+
+    @pytest.mark.xfail(strict=True)
+    def test_calc_add_overflow_error(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.ADD.value + "00", "FFFFFEEE", "0000C000")
+
+    @pytest.mark.xfail(strict=True)
+    def test_calc_mul_overflow_error(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.MUL.value + "00", "FFFFFEEE", "0000C000")
+
+    @pytest.mark.xfail(strict=True)
+    def test_calc_dec_negative_result_error(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.DEC.value + "00", "00000000", "00000000")
+
+    @pytest.mark.xfail(strict=True)
+    def test_calc_sub_negative_result_error(self) -> None:
+        alu: ALU = ALU()
+        alu.calc(Opcode.SUB.value + "00", "00000005", "00000010")
+
     @pytest.mark.xfail(strict=True, raises=AluNotSupportedInstrError)
     def test_calc_not_supported_error(self) -> None:
         alu: ALU = ALU()

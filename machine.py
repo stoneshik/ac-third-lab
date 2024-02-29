@@ -83,6 +83,9 @@ class Registers:
 
 
 class ALU:
+    MAX_NUMBER_VALUE: int = 4294967295
+    MIN_NUMBER_VALUE: int = 0
+
     def __init__(self) -> None:
         self.__result: str = "0" * DataMemoryConfig.word_hex_num
         self.__zero: bool = False
@@ -105,30 +108,34 @@ class ALU:
                 symbol_hex = number_to_hex(DataMemoryConfig.word_hex_num, symbol_code)
                 self.__result = symbol_hex
             case Opcode.INC.value:
-                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) + 1)
+                result: int = int(first_operand, 16) + 1
+                assert result <= self.MAX_NUMBER_VALUE, f"calculation overflow in instruction: {Opcode.INC.value}"
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.DEC.value:
-                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) - 1)
+                result: int = int(first_operand, 16) - 1
+                assert result >= self.MIN_NUMBER_VALUE, f"calculation negative result in instruction: {Opcode.DEC.value}"
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.ADD.value:
-                self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) + int(second_operand, 16)
-                )
+                result: int = int(first_operand, 16) + int(second_operand, 16)
+                assert result <= self.MAX_NUMBER_VALUE, f"calculation overflow in instruction: {Opcode.ADD.value}"
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.SUB.value:
-                self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) - int(second_operand, 16)
-                )
+                result: int = int(first_operand, 16) - int(second_operand, 16)
+                assert result >= self.MIN_NUMBER_VALUE, f"calculation negative result in instruction: {Opcode.SUB.value}"
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.MUL.value:
-                self.__result = number_to_hex(
-                    DataMemoryConfig.word_hex_num, int(first_operand, 16) * int(second_operand, 16)
-                )
+                result: int = int(first_operand, 16) * int(second_operand, 16)
+                assert result <= self.MAX_NUMBER_VALUE, f"calculation overflow in instruction: {Opcode.MUL.value}"
+                self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.DIV.value:
                 self.__result = number_to_hex(
                     DataMemoryConfig.word_hex_num, int(first_operand, 16) // int(second_operand, 16)
                 )
             case Opcode.SLB.value:
-                result: str = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8)
-                if len(result) > DataMemoryConfig.word_hex_num:
-                    result = result[2:]
-                self.__result = result
+                result_string: str = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) << 8)
+                if len(result_string) > DataMemoryConfig.word_hex_num:
+                    result_string = result_string[2:]
+                self.__result = result_string
             case Opcode.SRB.value:
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, int(first_operand, 16) >> 8)
             case Opcode.MOD.value:
