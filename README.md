@@ -344,7 +344,8 @@ Hardwired (полностью реализован на Python).<br>
 в Instruction Buffer.
 
 ## Тестирование
-Реализованы [Golden тесты](./golden_test.py) программ:
+Реализованы [unit тесты](./unit/test_machine.py) для модуля [machine](./machine.py).
+Реализованы [golden тесты](./golden_test.py) программ:
 - [hello](./golden/hello_aboba.yml)
 - [hello_user_name](./golden/hello_user_name_aboba.yml)
 - [cat](./golden/cat_aboba.yml)
@@ -364,12 +365,14 @@ on:
     paths:
       - ".github/workflows/*"
       - "**.py"
+      - "**.yml"
   pull_request:
     branches:
       - master
     paths:
       - ".github/workflows/*"
       - "**.py"
+      - "**.yml"
 
 defaults:
   run:
@@ -560,26 +563,30 @@ platform linux -- Python 3.11.8, pytest-8.0.2, pluggy-1.4.0
 rootdir: /home/runner/work/ac-third-lab/ac-third-lab
 configfile: pyproject.toml
 plugins: golden-0.2.2
-collected 6 items
+collected 71 items
 
-golden_test.py ......                                                    [100%]
+golden_test.py ......                                                    [  8%]
+unit/test_machine.py .....x...............xxxxxx.xx....x.xx.xx........x. [ 80%]
+..........xx..                                                           [100%]
 
-============================== 6 passed in 8.38s ===============================
-Name               Stmts   Miss  Cover   Missing
-------------------------------------------------
-checker.py            61      0   100%
-exceptions.py         57     16    72%   10, 19, 24, 29, 34, 43, 48, 57, 62, 67, 72, 77, 82, 87, 92, 97
-golden_test.py        30      0   100%
-isa.py                99      7    93%   72, 113, 150-155
-machine.py           589     27    95%   69, 140, 155-156, 208-209, 220-221, 246-247, 432-433, 441-444, 455-456, 478-479, 655-656, 719, 758-761
-memory_config.py      18      0   100%
-mnemonic.py          177      9    95%   156-157, 202, 214, 228, 246, 251, 260-261
-translator.py        625     81    87%   125-129, 148-172, 192, 334-335, 341-345, 357, 396, 549-550, 559-569, 582-591, 606-607, 611, 625, 632-634, 650-656, 661, 672-681, 685, 705-709, 714-716, 779-780, 843-847
-------------------------------------------------
-TOTAL               1656    140    92%
-$ poetry run ruff format --check .
-8 files already formatted
+======================== 54 passed, 17 xfailed in 8.44s ========================
+Name                   Stmts   Miss  Cover   Missing
+----------------------------------------------------
+checker.py                61      0   100%
+exceptions.py             57     13    77%   10, 34, 43, 48, 57, 62, 67, 72, 77, 82, 87, 92, 97
+golden_test.py            33      0   100%
+isa.py                    99      5    95%   150-155
+machine.py               610     17    97%   452-453, 461-464, 475-476, 498-499, 675-676, 739, 778-781
+memory_config.py          18      0   100%
+mnemonic.py              177      9    95%   156-157, 202, 214, 228, 246, 251, 260-261
+translator.py            625     81    87%   125-129, 148-172, 192, 334-335, 341-345, 357, 396, 549-550, 559-569, 582-591, 606-607, 611, 625, 632-634, 650-656, 661, 672-681, 685, 705-709, 714-716, 779-780, 843-847
+unit/__init__.py           0      0   100%
+unit/test_machine.py     362      0   100%
+----------------------------------------------------
+TOTAL                   2042    125    94%
 $ poetry run ruff check .
+$ poetry run ruff format --check .
+10 files already formatted
 ```
 
 ```text
