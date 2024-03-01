@@ -557,27 +557,27 @@ platform linux -- Python 3.11.8, pytest-8.0.2, pluggy-1.4.0
 rootdir: /home/runner/work/ac-third-lab/ac-third-lab
 configfile: pyproject.toml
 plugins: golden-0.2.2
-collected 71 items
+collected 68 items
 
 golden_test.py ......                                                    [  8%]
-unit/test_machine.py .....x...............xxxxxx.xx....x.xx.xx........x. [ 80%]
-..........xx..                                                           [100%]
+unit/test_machine.py .xx...............xxxxxx.xx....x.xx.xx........x.... [ 83%]
+.......xx..                                                              [100%]
 
-======================== 54 passed, 17 xfailed in 8.44s ========================
+======================== 50 passed, 18 xfailed in 7.84s ========================
 Name                   Stmts   Miss  Cover   Missing
 ----------------------------------------------------
 checker.py                61      0   100%
 exceptions.py             57     13    77%   10, 34, 43, 48, 57, 62, 67, 72, 77, 82, 87, 92, 97
 golden_test.py            33      0   100%
 isa.py                    99      5    95%   150-155
-machine.py               610     17    97%   452-453, 461-464, 475-476, 498-499, 675-676, 739, 778-781
+machine.py               563     17    97%   416-417, 425-428, 438-439, 460-461, 632-633, 679, 718-721
 memory_config.py          18      0   100%
 mnemonic.py              177      9    95%   156-157, 202, 214, 228, 246, 251, 260-261
 translator.py            625     81    87%   125-129, 148-172, 192, 334-335, 341-345, 357, 396, 549-550, 559-569, 582-591, 606-607, 611, 625, 632-634, 650-656, 661, 672-681, 685, 705-709, 714-716, 779-780, 843-847
 unit/__init__.py           0      0   100%
-unit/test_machine.py     362      0   100%
+unit/test_machine.py     336      0   100%
 ----------------------------------------------------
-TOTAL                   2042    125    94%
+TOTAL                   1969    125    94%
 $ poetry run ruff check .
 $ poetry run ruff format --check .
 10 files already formatted

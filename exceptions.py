@@ -31,7 +31,7 @@ class IncorrectSelectorError(MachineError):
 
 class InternalError(MachineError):
     def __init__(self) -> None:
-        super().__init__("internal error")
+        super().__init__("Internal error")
 
 
 class MnemonicError(Exception):
