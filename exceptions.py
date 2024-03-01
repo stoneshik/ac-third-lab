@@ -15,8 +15,8 @@ class MachineError(Exception):
 
 
 class RegisterReadingError(MachineError):
-    def __init__(self) -> None:
-        super().__init__("register from which data should be read has not been selected")
+    def __init__(self, num_register: str) -> None:
+        super().__init__(f"wrong register number {num_register}")
 
 
 class AluNotSupportedInstrError(MachineError):

@@ -16,10 +16,6 @@ class Registers:
         self.r1: str = "0" * DataMemoryConfig.word_hex_num
         self.r2: str = "0" * DataMemoryConfig.word_hex_num
         self.r3: str = "0" * DataMemoryConfig.word_hex_num
-        self.__oer0: bool = True
-        self.__oer1: bool = False
-        self.__oer2: bool = False
-        self.__oer3: bool = False
 
     def r0_setter(self, value: str) -> None:
         self.r0 = value
@@ -33,51 +29,31 @@ class Registers:
     def r3_setter(self, value: str) -> None:
         self.r3 = value
 
-    def signal_oer0(self) -> None:
-        self.__oer0 = True
-        self.__oer1 = False
-        self.__oer2 = False
-        self.__oer3 = False
-
-    def signal_oer1(self) -> None:
-        self.__oer0 = False
-        self.__oer1 = True
-        self.__oer2 = False
-        self.__oer3 = False
-
-    def signal_oer2(self) -> None:
-        self.__oer0 = False
-        self.__oer1 = False
-        self.__oer2 = True
-        self.__oer3 = False
-
-    def signal_oer3(self) -> None:
-        self.__oer0 = False
-        self.__oer1 = False
-        self.__oer2 = False
-        self.__oer3 = True
-
-    def output_data(self) -> str:
-        if self.__oer0:
-            return self.r0
-        if self.__oer1:
-            return self.r1
-        if self.__oer2:
-            return self.r2
-        if self.__oer3:
-            return self.r3
-        raise RegisterReadingError()
+    def output_data(self, sel: str) -> str:
+        address_code_hex: str = sel[:1]
+        assert (
+            address_code_hex == AddressCode.DIRECT_REG.value
+        ), f"address code doesn't reference to a register {address_code_hex}"
+        num_register: str = sel[1:]
+        match num_register:
+            case "000":
+                data_from_register: str = self.r0
+            case "001":
+                data_from_register: str = self.r1
+            case "002":
+                data_from_register: str = self.r2
+            case "003":
+                data_from_register: str = self.r3
+            case _:
+                raise RegisterReadingError(num_register)
+        return data_from_register
 
     def __repr__(self) -> str:
-        state_repr: str = "Registers - R0: {} R1: {} R2: {} R3: {} oer0: {} oer1: {} oer2: {} oer3: {}".format(
+        state_repr: str = "Registers - R0: {} R1: {} R2: {} R3: {}".format(
             self.r0,
             self.r1,
             self.r2,
             self.r3,
-            self.__oer0,
-            self.__oer1,
-            self.__oer2,
-            self.__oer3,
         )
         return state_repr
 
@@ -298,18 +274,6 @@ class DataPath:
             return
         r_setter(self.__alu.result)
 
-    def signal_oer0(self) -> None:
-        self.__registers.signal_oer0()
-
-    def signal_oer1(self) -> None:
-        self.__registers.signal_oer1()
-
-    def signal_oer2(self) -> None:
-        self.__registers.signal_oer2()
-
-    def signal_oer3(self) -> None:
-        self.__registers.signal_oer3()
-
     def signal_write_in_mem(self, sel: str, pc_value: str | None = None) -> None:
         address_index: int = int(self.__address_register, 16)
         assert address_index != DataMemoryConfig.input_port, "writing to a memory cell mapped with an input port"
@@ -318,18 +282,18 @@ class DataPath:
         if opcode_hex == Opcode.CALL.value:
             self.__data_memory[address_index] = pc_value
             return
-        self.__data_memory[address_index] = self.__registers.output_data()
+        self.__data_memory[address_index] = self.__registers.output_data(sel)
 
-    def signal_calc(self, instruction: str) -> None:
-        first_operand: str = self.__registers.output_data()
+    def signal_calc(self, instruction: str, sel: str) -> None:
+        first_operand: str = self.__registers.output_data(sel)
         second_operand: str = self.__second_operand_buffer
         self.__alu.calc(instruction, first_operand, second_operand)
 
     def signal_input(self) -> None:
         return
 
-    def signal_output(self) -> None:
-        value_output: ord = ord(bytes.fromhex(self.__registers.output_data()[6:]))
+    def signal_output(self, sel: str) -> None:
+        value_output: ord = ord(bytes.fromhex(self.__registers.output_data(sel)[6:]))
         if value_output == 0:
             logging.debug("zero value skipped for output: %s << \\0", str("".join(self.output_buffer)))
             return
@@ -469,8 +433,7 @@ class ControlUnit:
             case Opcode.INC.value | Opcode.DEC.value | Opcode.SLB.value | Opcode.SRB.value | Opcode.CHAR.value:
                 self.__save_instr_and_go_next(instruction)
                 arg_word: str = self.__get_current_instruction_word()
-                self.__prepare_register_to_output(arg_word)
-                self.__calc()
+                self.__calc(arg_word)
                 self.__write_in_register(arg_word)
             case _:
                 raise InternalError()
@@ -492,8 +455,7 @@ class ControlUnit:
                 self.__mem_to_alu(second_arg_word)
                 self.__next_instr_word()
                 first_arg_word: str = self.__get_current_instruction_word()
-                self.__prepare_register_to_output(first_arg_word)
-                self.__calc()
+                self.__calc(first_arg_word)
                 self.__write_in_register(first_arg_word)
             case _:
                 raise InternalError()
@@ -506,7 +468,7 @@ class ControlUnit:
         self.__mem_to_alu(second_arg_word)
         self.__next_instr_word()
         first_arg_word: str = self.__get_current_instruction_word()
-        self.__calc()
+        self.__calc(first_arg_word)
         self.__write_in_register(first_arg_word)
 
     def __execute_store_instruction(self, instruction: str) -> None:
@@ -517,7 +479,6 @@ class ControlUnit:
         self.__set_address_for_arg(second_arg_word)
         self.__next_instr_word()
         first_arg_word: str = self.__get_current_instruction_word()
-        self.__prepare_register_to_output(first_arg_word)
         self.__data_path.signal_write_in_mem(first_arg_word)
         self.__tick_inc()
 
@@ -532,8 +493,8 @@ class ControlUnit:
         self.__data_path.signal_latch_second_op_buf()
         self.__tick_inc()
         self.__next_instr_word()
-        self.__calc()
         arg_word: str = self.__get_current_instruction_word()
+        self.__calc(arg_word)
         self.__write_in_register(arg_word)
 
     def __execute_push_instruction(self, instruction: str) -> None:
@@ -544,7 +505,6 @@ class ControlUnit:
         self.__start_push_operation_with_stack(instruction)
         self.__next_instr_word()
         arg_word: str = self.__get_current_instruction_word()
-        self.__prepare_register_to_output(arg_word)
         self.__data_path.signal_write_in_mem(arg_word)
 
     def __execute_read_instruction(self, instruction: str) -> None:
@@ -561,8 +521,7 @@ class ControlUnit:
         assert opcode_hex == Opcode.PRINT.value, "internal error"
         self.__save_instr_and_go_next(instruction)
         arg_word: str = self.__get_current_instruction_word()
-        self.__prepare_register_to_output(arg_word)
-        self.__data_path.signal_output()
+        self.__data_path.signal_output(arg_word)
         self.__tick_inc()
 
     def __execute_ies_instruction(self, instruction: str) -> None:
@@ -570,8 +529,7 @@ class ControlUnit:
         assert opcode_hex == Opcode.IES.value, "internal error"
         self.__save_instr_and_go_next(instruction)
         arg_word: str = self.__get_current_instruction_word()
-        self.__prepare_register_to_output(arg_word)
-        self.__calc()
+        self.__calc(arg_word)
 
     def __execute_cmp_instruction(self, instruction: str) -> None:
         opcode_hex: str = instruction[:2]
@@ -581,8 +539,7 @@ class ControlUnit:
         self.__mem_to_alu(second_arg_word)
         self.__next_instr_word()
         first_arg_word: str = self.__get_current_instruction_word()
-        self.__prepare_register_to_output(first_arg_word)
-        self.__calc()
+        self.__calc(first_arg_word)
 
     # Сигналы
     def __signal_latch_program_counter(self, sel_next: bool) -> None:
@@ -618,8 +575,8 @@ class ControlUnit:
         self.__signal_latch_program_counter(sel_next=False)
         self.__tick_inc()
 
-    def __calc(self) -> None:
-        self.__data_path.signal_calc(self.__instruction_buffer)
+    def __calc(self, current_instr_word: str) -> None:
+        self.__data_path.signal_calc(self.__instruction_buffer, current_instr_word)
         self.__tick_inc()
 
     def __save_instr_and_go_next(self, instruction: str) -> None:
@@ -691,23 +648,6 @@ class ControlUnit:
                 self.__data_path.signal_latch_r2(instruction)
             case "003":
                 self.__data_path.signal_latch_r3(instruction)
-        self.__tick_inc()
-
-    def __prepare_register_to_output(self, current_instruction_word: str) -> None:
-        address_code_hex: str = current_instruction_word[:1]
-        assert (
-            address_code_hex == AddressCode.DIRECT_REG.value
-        ), f"address code doesn't reference to a register {address_code_hex}"
-        num_register: str = current_instruction_word[1:]
-        match num_register:
-            case "000":
-                self.__data_path.signal_oer0()
-            case "001":
-                self.__data_path.signal_oer1()
-            case "002":
-                self.__data_path.signal_oer2()
-            case "003":
-                self.__data_path.signal_oer3()
         self.__tick_inc()
 
     def __repr__(self) -> str:

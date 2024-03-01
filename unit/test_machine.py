@@ -9,58 +9,27 @@ from translator import Translator
 
 
 class TestRegisters:
-    def test_signal_oer0(self) -> None:
-        registers: Registers = Registers()
-        registers.signal_oer0()
-        assert registers.__getattribute__("_Registers__oer0")
-        assert not registers.__getattribute__("_Registers__oer1")
-        assert not registers.__getattribute__("_Registers__oer2")
-        assert not registers.__getattribute__("_Registers__oer3")
-
-    def test_signal_oer1(self) -> None:
-        registers: Registers = Registers()
-        registers.signal_oer1()
-        assert not registers.__getattribute__("_Registers__oer0")
-        assert registers.__getattribute__("_Registers__oer1")
-        assert not registers.__getattribute__("_Registers__oer2")
-        assert not registers.__getattribute__("_Registers__oer3")
-
-    def test_signal_oer2(self) -> None:
-        registers: Registers = Registers()
-        registers.signal_oer2()
-        assert not registers.__getattribute__("_Registers__oer0")
-        assert not registers.__getattribute__("_Registers__oer1")
-        assert registers.__getattribute__("_Registers__oer2")
-        assert not registers.__getattribute__("_Registers__oer3")
-
-    def test_signal_oer3(self) -> None:
-        registers: Registers = Registers()
-        registers.signal_oer3()
-        assert not registers.__getattribute__("_Registers__oer0")
-        assert not registers.__getattribute__("_Registers__oer1")
-        assert not registers.__getattribute__("_Registers__oer2")
-        assert registers.__getattribute__("_Registers__oer3")
-
     def test_output_data(self) -> None:
         registers: Registers = Registers()
         registers.r0_setter("00000000")
         registers.r1_setter("00000001")
         registers.r2_setter("00000002")
         registers.r3_setter("00000003")
-        registers.signal_oer0()
-        assert registers.output_data() == "00000000"
-        registers.signal_oer1()
-        assert registers.output_data() == "00000001"
-        registers.signal_oer2()
-        assert registers.output_data() == "00000002"
-        registers.signal_oer3()
-        assert registers.output_data() == "00000003"
+        assert registers.output_data(AddressCode.DIRECT_REG.value + "000") == "00000000"
+        assert registers.output_data(AddressCode.DIRECT_REG.value + "001") == "00000001"
+        assert registers.output_data(AddressCode.DIRECT_REG.value + "002") == "00000002"
+        assert registers.output_data(AddressCode.DIRECT_REG.value + "003") == "00000003"
+
+    @pytest.mark.xfail(strict=True)
+    def test_output_data_wrong_address_code_error(self) -> None:
+        registers: Registers = Registers()
+        registers.output_data("0000")
 
     @pytest.mark.xfail(strict=True, raises=RegisterReadingError)
-    def test_output_data_error(self) -> None:
+    def test_output_data_register_reading_error(self) -> None:
         registers: Registers = Registers()
-        registers.__setattr__("_Registers__oer0", False)
-        registers.output_data()
+        sel: str = AddressCode.DIRECT_REG.value + "0015"
+        registers.output_data(sel)
 
 
 class TestALU:
@@ -409,7 +378,7 @@ class TestDataPath:
         )
         registers: Registers = data_path.__getattribute__("_DataPath__registers")
         r_value: str = "00000005"
-        sel: str = "0000"
+        sel: str = AddressCode.DIRECT_REG.value + "000"
         registers.r0_setter(r_value)
         data_path.signal_write_in_mem(sel)
         assert data_path.__getattribute__("_DataPath__data_memory")[address_pointer] == r_value
@@ -445,14 +414,16 @@ class TestDataPath:
         data_path: DataPath = self.create_data_path([])
         registers: Registers = data_path.__getattribute__("_DataPath__registers")
         r_value: str = "12345678"
+        sel: str = AddressCode.DIRECT_REG.value + "000"
         registers.r0_setter(r_value)
-        data_path.signal_output()
+        data_path.signal_output(sel)
         assert data_path.output_buffer[-1] == "x"
 
     def test_signal_output_zero(self) -> None:
         data_path: DataPath = self.create_data_path([])
         registers: Registers = data_path.__getattribute__("_DataPath__registers")
         r_value: str = "12345600"
+        sel: str = AddressCode.DIRECT_REG.value + "000"
         registers.r0_setter(r_value)
-        data_path.signal_output()
+        data_path.signal_output(sel)
         assert len(data_path.output_buffer) == 0
