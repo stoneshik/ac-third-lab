@@ -352,7 +352,7 @@ Hardwired (полностью реализован на Python).<br>
 Дополнительные Golden тесты
 - [print_max](./golden/print_max_aboba.yml) - выводит из переменной максимальное uint32 число
 - [print_zero](./golden/print_zero_aboba.yml) - выводит из переменной ноль<br>
-В Golden тестах выводится последние 200 строк логирования.
+В Golden тестах выводятся сообщения 200 первых инструкций.
 ### CI при помощи Github Actions
 ```
 name: Python CI

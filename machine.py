@@ -113,7 +113,9 @@ class ALU:
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.DEC.value:
                 result: int = int(first_operand, 16) - 1
-                assert result >= self.MIN_NUMBER_VALUE, f"calculation negative result in instruction: {Opcode.DEC.value}"
+                assert (
+                    result >= self.MIN_NUMBER_VALUE
+                ), f"calculation negative result in instruction: {Opcode.DEC.value}"
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.ADD.value:
                 result: int = int(first_operand, 16) + int(second_operand, 16)
@@ -121,7 +123,9 @@ class ALU:
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.SUB.value:
                 result: int = int(first_operand, 16) - int(second_operand, 16)
-                assert result >= self.MIN_NUMBER_VALUE, f"calculation negative result in instruction: {Opcode.SUB.value}"
+                assert (
+                    result >= self.MIN_NUMBER_VALUE
+                ), f"calculation negative result in instruction: {Opcode.SUB.value}"
                 self.__result = number_to_hex(DataMemoryConfig.word_hex_num, result)
             case Opcode.MUL.value:
                 result: int = int(first_operand, 16) * int(second_operand, 16)
@@ -257,7 +261,7 @@ class DataPath:
             case AddressCode.INDIRECT_SP.value:
                 self.__address_register = self.__stack_buffer
             case _:
-                raise InternalError()
+                raise IncorrectSelectorError(sel)
 
     def signal_latch_second_op_buf(self) -> None:
         self.__second_operand_buffer = self.__data_memory[int(self.__address_register, 16)]

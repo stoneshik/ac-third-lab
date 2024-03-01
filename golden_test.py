@@ -41,4 +41,5 @@ def test_translator_and_machine(golden, caplog):
         if caplog_end_index == -1:
             assert caplog.text == golden.out["out_log"]
         else:
-            assert caplog.text[:caplog_end_index] == golden.out["out_log"]  # Работаем с последними 200 сообщениями
+            # Выводим первые сообщения первых 200 инструкций
+            assert caplog.text[:caplog_end_index] == golden.out["out_log"]
