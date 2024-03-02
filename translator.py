@@ -291,8 +291,8 @@ class Translator:
                 assert LiteralPatterns.is_name_var(name_var), f"Variable name is incorrectly specified - {name_var}"
                 second_raw_arg: str = exp[2]
                 assert LiteralPatterns.is_number(second_raw_arg), f"Second arg not number - {second_raw_arg}"
-                buffer_size: int = int(second_raw_arg)
-                self.__create_machine_code_for_read_expression(name_var, buffer_size, param_names)
+                buffer_size_bytes: int = int(second_raw_arg)
+                self.__create_machine_code_for_read_expression(name_var, buffer_size_bytes, param_names)
             case KeyWord.ADD.value | KeyWord.SUB.value | KeyWord.MUL.value | KeyWord.DIV.value:
                 assert len(exp) == 3, f"Incorrect amount arguments of expression - {len(exp)}"
                 first_raw_arg: str | list[str | list] = exp[1]
@@ -511,12 +511,13 @@ class Translator:
         self.__add_push_instruction("0")
 
     def __create_machine_code_for_read_expression(
-        self, name_var: str, buffer_size: int, param_names: tuple[str]
+        self, name_var: str, buffer_size_bytes: int, param_names: tuple[str]
     ) -> None:
         direct_buffer_address: str = get_direct_abs_address(self.__buffer_address)
         offset_buffer_address: str = get_direct_offset_address(self.__buffer_address)
         address_const_0: str = get_direct_abs_address(self.__number_consts[0])
         pointer_var_address: str = self.__get_variable_address(param_names, name_var)
+        buffer_size: int = math.ceil(buffer_size_bytes / 4)
         direct_start_string_address: str = self.__create_buffer(buffer_size)
         pointer_value_address: str = self.__create_pointer_value(int(direct_start_string_address, 16))
         self.__add_binary_instruction(Opcode.LOAD, "2", pointer_value_address)

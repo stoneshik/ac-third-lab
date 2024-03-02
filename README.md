@@ -21,8 +21,8 @@
 <atomic> ::= <number> | <string> | <name_var>
 <binary_operand> ::= "+" | "-" | "*" | "/"
 <ternary_operand> ::= "if"
-<print_number_exp> ::= "(" "print_number" " " <number> ")" | "(" "print_number" " " <name_var> " " <number> ")"
-<print_exp> ::= "(" "print" " " <string> ")" | "(" "print" " " <name_var> " " <number> ")"
+<print_number_exp> ::= "(" "print_number" " " <number> ")" | "(" "print_number" " " <name_var> ")"
+<print_exp> ::= "(" "print" " " <string> ")" | "(" "print" " " <name_var>")"
 <function_declaration> ::= "(" "aboba" " " <name_function> " " <params> " " <can_nested_exp> ")"
 <var_declaration> ::= "(" "var" " " <name_var> " " <atomic> ")"
 <keyword> ::= "print_number" | "print" | "read" | "+" | "-" | "*" | "/" | "if" | "aboba" | "var" | "set" | "call" | "iter"
@@ -35,29 +35,29 @@
 ```
 #### var - объявление переменной
 - 1 аргумент - название переменной.
-- 2 аргумент - выражение, инициализирующее переменную.
+- 2 аргумент - значение переменной.
 - Пример объявления переменной: `(var first 0)`
 - Выражение не может быть вложенным, поэтому ничего не возвращает.
 #### set - присвоение значения переменной
 - 1 аргумент - название переменной.
-- 2 аргумент - выражение, значение которого присваивается переменной, нельзя присвоить строковое значение.
+- 2 аргумент - выражение, значение которого присваивается переменной.
 - Пример присвоения значения переменной: `(set first 3)`
 - Выражение возвращает значение переменной.
 #### if - условный оператор
 - 1 аргумент - выражение-условие.
 - 2 аргумент - выражение, которое выполняется, если результат выражения условия равен нулю.
-- 3 аргумент - выражение, которое выполняется, если результат выражения условия не равен нулю, либо строка.
+- 3 аргумент - выражение, которое выполняется, если результат выражения условия не равен нулю.
 - Пример условного оператора: `(if (- a (* 2 (/ a 2))) (print ("a is even")) (print ("a is odd")))`
 - Возвращает значение аргумента 2, если результат выражения равен нулю. Возвращает значение аргумента 3, если не равен нулю.
 #### iter - оператор цикла
-- 1 аргумент - название переменной-итератора, переменная должна быть проинициализирована до этого.
+- 1 аргумент - название переменной-итератора, переменная должна быть проинициализирована заранее.
 - 2 аргумент - максимальное значение переменной-итератора. Когда значение переменной-итератора становится равным этому числу цикл завершается.
 - 3 аргумент - основное выражение - тело цикла, после выполнения тела цикла значение переменной-итератора увеличивается на 1.
 - Пример цикла: `(iter i 50 (print i 10))`
 - Выражение возвращает последнее значение тела цикла.
 #### aboba - определение функции
 - 1 аргумент - название функции.
-- 2 аргумент - аргументы функции в формате (имя_переменной_1 имя_переменной_2 ... имя_переменной_n).
+- 2 аргумент - параметры функции в формате (имя_переменной_1 имя_переменной_2 ... имя_переменной_n).
 - 3 аргумент - тело функции (выражение).
 - Пример определения функции: `(aboba sum (a b) (+ a b))`
 - Выражение не может быть вложенным, поэтому ничего не возвращает.
@@ -92,7 +92,7 @@
 - Каждое выражение выполняется только после выполнения внутренних элементов.
 - Передача аргументов в вызванную функцию только по значению для чисел и указателю для строк.
 - Если в качестве аргумента передана строка, то аргументом является указатель на начало этой строки.
-- Строки поддерживают специальные символы `\n` - перенос строки, `\t` - табуляция, `r` - возврат каретки.
+- Строки поддерживают специальные символы `\n` - перенос строки, `\t` - табуляция, `\r` - возврат каретки.
 
 ## Организация памяти
 Память разделена на память инструкций и память данных.
@@ -189,13 +189,13 @@
    - 0 аргументов - занимает 1 машинное слово.
    - 1 аргумент - занимает 2 машинных слова.
      - 1-й аргумент - операнд (значение из регистра), 2-е машинное слово.
-   - 2 аргумента (для остальных команд) - занимает 3 машинных слова.
+   - 2 аргумента - занимает 3 машинных слова.
      - 1-й аргумент - 2-й операнд (значение из памяти), 2-е машинное слово.
      - 2-й аргумент - 1-й операнд (значение из регистра), 3-е машинное слово.
 5. Организация 1-го машинного слова команды (нумерация битов справа налево):
    - Состоит из 2 байт (16 бит).
    - Биты [15; 8] - номер инструкции - занимает 1 байт (8 бит).
-   - Биты [7; 0] - зарезервированное место - занимает 1 байт (8 бит)
+   - Биты [7; 0] - зарезервированное место - занимает 1 байт (8 бит).
 6. Структура аргумента команды (нумерация битов справа налево):
    - Состоит из 2 байт (16 бит).
    - Биты [15, 12] - указание адресации команды - занимает 4 бита.
@@ -209,8 +209,8 @@
 8. Набор инструкций:
    - `0x00` - `nop` - ничего не делает (0 аргументов).
    - `0x10` - `halt` - завершить выполнение (0 аргументов).
-   - `0x20` - `char` - младший байт слова трактуется как число и преобразуется в символ ascii, после чего записывается
-в младший байт, остальные байты обнуляются (1 аргумент).
+   - `0x20` - `char` - младший байт слова трактуется как число и преобразуется в символ ascii, 
+после чего все остальные байты, кроме младшего обнуляются (1 аргумент).
    - `0x21` - `inc` - увеличивает значение на 1 (1 аргумент).
    - `0x22` - `dec` - уменьшает значение на 1 (1 аргумент).
    - `0x23` - `add` - сложение (2 аргумента).
@@ -299,7 +299,7 @@
 Число n является смещением относительно Stack Pointer, берется из текущего машинного слова (12 младших бит).
 - `signal_latch_heap_counter` - защелкнуть значение из памяти в Heap Counter, значение берется из 3-й ячейки Data Memory.
 - `signal_latch_address_reg` - защелкнуть выбранное значение в Address Register. За `arg_address` считается 
-указание адресации операнда `0xA`, `0xB` (текущее машинное слово). 
+указание адресации операнда `0xA`, `0xB`, `0xC` (текущее машинное слово). 
 При указании адресации операнда `0xC` загружается значение из Stack Buffer.
 Если установлен флаг `oea` в 1, то загружается адрес из памяти, после чего флаг `oea` сбрасывается в 0.
 - `signal_latch_second_op_buf` - защелкнуть значение из памяти данных, которое указано в Address Register, 
@@ -338,14 +338,14 @@ Hardwired (полностью реализован на Python).<br>
 в Instruction Buffer.
 
 ## Тестирование
-Реализованы [unit тесты](./unit/test_machine.py) для модуля [machine](./machine.py).
+Реализованы [unit тесты](./unit/test_machine.py) для модуля [machine](./machine.py).<br>
 Реализованы [golden тесты](./golden_test.py) программ:
 - [hello](./golden/hello_aboba.yml)
 - [hello_user_name](./golden/hello_user_name_aboba.yml)
 - [cat](./golden/cat_aboba.yml)
 - [prob1](./golden/prob1_aboba.yml)<br>
 Дополнительные Golden тесты
-- [print_max](./golden/print_max_aboba.yml) - выводит из переменной максимальное uint32 число
+- [print_max](./golden/print_max_aboba.yml) - выводит из переменной максимальное uint32 число (4294967295)
 - [print_zero](./golden/print_zero_aboba.yml) - выводит из переменной ноль<br>
 В Golden тестах выводятся сообщения 200 первых инструкций.
 ### CI при помощи Github Actions
@@ -446,7 +446,7 @@ foo
 ```
 <address> - <hex_code> - <mnemonic>
 000 - 7000 a002 - jmp $002
-002 - 4000 a11b d002 - R2 <- load $11b | $11b -> 263
+002 - 4000 a10c d002 - R2 <- load $10c | $10c -> 263
 005 - 4100 a003 d002 - $r <- store R2 | $r -> $003
 008 - 4100 a0ff d002 - $0ff <- store R2
 00b - 4000 a100 d003 - R3 <- load $100 | $100 -> 0
@@ -490,56 +490,56 @@ foo
 
 Журнал работы процессора
 ```
-DEBUG:root:0 | TICK: 0 PC: 000 IB 0000 (DataPath - AR: 000 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000))
-DEBUG:root:1 | TICK: 3 PC: 002 IB 7000 (DataPath - AR: 000 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000))
-DEBUG:root:2 | TICK: 12 PC: 005 IB 4000 (DataPath - AR: 11b SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:3 | TICK: 18 PC: 008 IB 4100 (DataPath - AR: 003 SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:4 | TICK: 24 PC: 00b IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:5 | TICK: 33 PC: 00e IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:6 | TICK: 38 PC: 010 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:0 | TICK: 0 PC: 000 IB 0000 (DataPath - AR: 000 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000))
+DEBUG:root:1 | TICK: 3 PC: 002 IB 7000 (DataPath - AR: 000 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000))
+DEBUG:root:2 | TICK: 12 PC: 005 IB 4000 (DataPath - AR: 10c SP: fff SB: 000 HC: 10d SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:3 | TICK: 18 PC: 008 IB 4100 (DataPath - AR: 003 SP: fff SB: 000 HC: 10d SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:4 | TICK: 24 PC: 00b IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 00000107 (ALU - result: 00000107 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:5 | TICK: 33 PC: 00e IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:6 | TICK: 38 PC: 010 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
 DEBUG:root:input: 'f'
-DEBUG:root:7 | TICK: 43 PC: 012 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 66000000))
-DEBUG:root:8 | TICK: 48 PC: 014 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00660000))
+DEBUG:root:7 | TICK: 43 PC: 012 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 66000000))
+DEBUG:root:8 | TICK: 48 PC: 014 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00660000))
 DEBUG:root:input: 'o'
-DEBUG:root:9 | TICK: 53 PC: 016 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f660000))
-DEBUG:root:10 | TICK: 58 PC: 018 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6600))
+DEBUG:root:9 | TICK: 53 PC: 016 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00660000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f660000))
+DEBUG:root:10 | TICK: 58 PC: 018 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6600))
 DEBUG:root:input: 'o'
-DEBUG:root:11 | TICK: 63 PC: 01a IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f6f6600))
-DEBUG:root:12 | TICK: 68 PC: 01c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:11 | TICK: 63 PC: 01a IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6600 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 6f6f6600))
+DEBUG:root:12 | TICK: 68 PC: 01c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
 WARNING:root:Input buffer is empty!
-DEBUG:root:13 | TICK: 71 PC: 01d IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:14 | TICK: 72 PC: 01e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:15 | TICK: 80 PC: 021 IB 4100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:16 | TICK: 84 PC: 023 IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:17 | TICK: 89 PC: 025 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:18 | TICK: 95 PC: 028 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:19 | TICK: 98 PC: 02a IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:20 | TICK: 107 PC: 02d IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:21 | TICK: 112 PC: 02f IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:22 | TICK: 121 PC: 031 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:23 | TICK: 130 PC: 034 IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:24 | TICK: 136 PC: 037 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:25 | TICK: 147 PC: 03a IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:13 | TICK: 71 PC: 01d IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:14 | TICK: 72 PC: 01e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:15 | TICK: 80 PC: 021 IB 4100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 006f6f66 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:16 | TICK: 84 PC: 023 IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:17 | TICK: 89 PC: 025 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:18 | TICK: 95 PC: 028 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:19 | TICK: 98 PC: 02a IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:20 | TICK: 107 PC: 02d IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:21 | TICK: 112 PC: 02f IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:22 | TICK: 121 PC: 031 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:23 | TICK: 130 PC: 034 IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 10d SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:24 | TICK: 136 PC: 037 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 00000107 (ALU - result: 00000107 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:25 | TICK: 147 PC: 03a IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
 DEBUG:root:output:  << f
-DEBUG:root:26 | TICK: 151 PC: 03c IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:27 | TICK: 156 PC: 03e IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f))
+DEBUG:root:26 | TICK: 151 PC: 03c IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:27 | TICK: 156 PC: 03e IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f))
 DEBUG:root:output: f << o
-DEBUG:root:28 | TICK: 160 PC: 040 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f))
-DEBUG:root:29 | TICK: 165 PC: 042 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f))
+DEBUG:root:28 | TICK: 160 PC: 040 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00006f6f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00006f6f))
+DEBUG:root:29 | TICK: 165 PC: 042 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f))
 DEBUG:root:output: fo << o
-DEBUG:root:30 | TICK: 169 PC: 044 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f))
-DEBUG:root:31 | TICK: 174 PC: 046 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:30 | TICK: 169 PC: 044 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 0000006f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 0000006f))
+DEBUG:root:31 | TICK: 174 PC: 046 IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
 DEBUG:root:zero value skipped for output: foo << \0
-DEBUG:root:32 | TICK: 178 PC: 048 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:33 | TICK: 183 PC: 04a IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
-DEBUG:root:34 | TICK: 194 PC: 04d IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:35 | TICK: 198 PC: 04f IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
-DEBUG:root:36 | TICK: 203 PC: 051 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:37 | TICK: 209 PC: 054 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:38 | TICK: 212 PC: 056 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 11c SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:39 | TICK: 221 PC: 059 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:40 | TICK: 226 PC: 05b IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
-DEBUG:root:41 | TICK: 235 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 11c SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:32 | TICK: 178 PC: 048 IB 8100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:33 | TICK: 183 PC: 04a IB 2800 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 00000000))
+DEBUG:root:34 | TICK: 194 PC: 04d IB 4000 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 006f6f66 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:35 | TICK: 198 PC: 04f IB 6100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000107 R3: 006f6f66))
+DEBUG:root:36 | TICK: 203 PC: 051 IB 2100 (DataPath - AR: 107 SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:37 | TICK: 209 PC: 054 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:38 | TICK: 212 PC: 056 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 10d SOB: 006f6f66 (ALU - result: 00000108 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:39 | TICK: 221 PC: 059 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:40 | TICK: 226 PC: 05b IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
+DEBUG:root:41 | TICK: 235 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 10d SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000108 R3: 006f6f66))
 INFO:root:output_buffer: 'foo'
 ```
 
