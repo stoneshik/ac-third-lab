@@ -526,9 +526,15 @@ class Translator:
         # Начало цикла чтения
         jnz_argument_address: str = number_to_hex(InstrMemoryConfig.address_hex_num, len(self.__instruction_words))
         self.__add_binary_instruction(Opcode.LOAD, "3", address_const_0)
+        jz_address_end_indexes: list[int] = []
         for _ in range(DataMemoryConfig.word_size):
             self.__add_unary_instruction(Opcode.SRB, "3")
             self.__add_unary_instruction(Opcode.READ, "3")
+            self.__add_unary_instruction(Opcode.IES, "3")
+            self.__add_unary_instruction_with_operand_address(Opcode.JZ, "000")
+            jz_address_end_indexes.append(len(self.__instruction_words) - 1)
+        for jz_address_end_index in jz_address_end_indexes:
+            self.__update_arg_for_jmp_instruction(jz_address_end_index)
         self.__add_binary_instruction(Opcode.STORE, "3", offset_buffer_address)
         self.__add_unary_instruction(Opcode.IES, "3")
         self.__add_unary_instruction(Opcode.INC, "2")

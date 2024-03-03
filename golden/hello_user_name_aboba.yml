@@ -13,7 +13,7 @@ out_stdout: |
   ============================================================
   What is your name?
   Hello, Ilya!
-  code_byte:  452 code_instr:  226 instr_counter:  199 ticks:  1105
+  code_byte:  484 code_instr:  242 instr_counter:  199 ticks:  1114
 
 out_mnemonics: |
   <address> - <hex_code> - <mnemonic>
@@ -43,78 +43,86 @@ out_mnemonics: |
   037 - 4000 a100 d003 - R3 <- load $100 | $100 -> 0
   03a - 2800 d003 - R3 <- srb R3
   03c - 8000 d003 - R3 <- read
-  03e - 2800 d003 - R3 <- srb R3
-  040 - 8000 d003 - R3 <- read
+  03e - 6100 d003 - ies R3
+  040 - 7300 a05a - jz $05a
   042 - 2800 d003 - R3 <- srb R3
   044 - 8000 d003 - R3 <- read
-  046 - 2800 d003 - R3 <- srb R3
-  048 - 8000 d003 - R3 <- read
-  04a - 4100 b0ff d003 - $(0ff) <- store R3
-  04d - 6100 d003 - ies R3
-  04f - 2100 d002 - R2 <- inc R2
-  051 - 4100 a0ff d002 - $0ff <- store R2
-  054 - 7400 a037 - jnz $037
-  056 - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
-  059 - 5000 d000 - push R0
-  05b - 5100 d000 - R0 <- pop
-  05d - 4000 a11e d002 - R2 <- load $11e | $11e -> 268
-  060 - 4100 a0ff d002 - $0ff <- store R2
-  063 - 4000 b0ff d003 - R3 <- load $(0ff)
-  066 - 8100 d003 - print R3
-  068 - 2800 d003 - R3 <- srb R3
-  06a - 8100 d003 - print R3
-  06c - 2800 d003 - R3 <- srb R3
-  06e - 8100 d003 - print R3
-  070 - 2800 d003 - R3 <- srb R3
-  072 - 8100 d003 - print R3
-  074 - 2800 d003 - R3 <- srb R3
-  076 - 4000 b0ff d003 - R3 <- load $(0ff)
-  079 - 6100 d003 - ies R3
-  07b - 2100 d002 - R2 <- inc R2
-  07d - 4100 a0ff d002 - $0ff <- store R2
-  080 - 7400 a063 - jnz $063
-  082 - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
-  085 - 5000 d000 - push R0
-  087 - 5100 d000 - R0 <- pop
-  089 - 4000 a003 d002 - R2 <- load $name | $name -> $003
-  08c - 4100 a0ff d002 - $0ff <- store R2
-  08f - 4000 b0ff d003 - R3 <- load $(0ff)
-  092 - 8100 d003 - print R3
-  094 - 2800 d003 - R3 <- srb R3
-  096 - 8100 d003 - print R3
-  098 - 2800 d003 - R3 <- srb R3
-  09a - 8100 d003 - print R3
-  09c - 2800 d003 - R3 <- srb R3
-  09e - 8100 d003 - print R3
-  0a0 - 2800 d003 - R3 <- srb R3
-  0a2 - 4000 b0ff d003 - R3 <- load $(0ff)
-  0a5 - 6100 d003 - ies R3
-  0a7 - 2100 d002 - R2 <- inc R2
-  0a9 - 4100 a0ff d002 - $0ff <- store R2
-  0ac - 7400 a08f - jnz $08f
-  0ae - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
-  0b1 - 5000 d000 - push R0
-  0b3 - 5100 d000 - R0 <- pop
-  0b5 - 4000 a11f d002 - R2 <- load $11f | $11f -> 270
-  0b8 - 4100 a0ff d002 - $0ff <- store R2
-  0bb - 4000 b0ff d003 - R3 <- load $(0ff)
-  0be - 8100 d003 - print R3
-  0c0 - 2800 d003 - R3 <- srb R3
-  0c2 - 8100 d003 - print R3
-  0c4 - 2800 d003 - R3 <- srb R3
-  0c6 - 8100 d003 - print R3
-  0c8 - 2800 d003 - R3 <- srb R3
-  0ca - 8100 d003 - print R3
-  0cc - 2800 d003 - R3 <- srb R3
-  0ce - 4000 b0ff d003 - R3 <- load $(0ff)
-  0d1 - 6100 d003 - ies R3
-  0d3 - 2100 d002 - R2 <- inc R2
-  0d5 - 4100 a0ff d002 - $0ff <- store R2
-  0d8 - 7400 a0bb - jnz $0bb
-  0da - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
-  0dd - 5000 d000 - push R0
-  0df - 5100 d000 - R0 <- pop
-  0e1 - 1000 - halt
+  046 - 6100 d003 - ies R3
+  048 - 7300 a05a - jz $05a
+  04a - 2800 d003 - R3 <- srb R3
+  04c - 8000 d003 - R3 <- read
+  04e - 6100 d003 - ies R3
+  050 - 7300 a05a - jz $05a
+  052 - 2800 d003 - R3 <- srb R3
+  054 - 8000 d003 - R3 <- read
+  056 - 6100 d003 - ies R3
+  058 - 7300 a05a - jz $05a
+  05a - 4100 b0ff d003 - $(0ff) <- store R3
+  05d - 6100 d003 - ies R3
+  05f - 2100 d002 - R2 <- inc R2
+  061 - 4100 a0ff d002 - $0ff <- store R2
+  064 - 7400 a037 - jnz $037
+  066 - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+  069 - 5000 d000 - push R0
+  06b - 5100 d000 - R0 <- pop
+  06d - 4000 a11e d002 - R2 <- load $11e | $11e -> 268
+  070 - 4100 a0ff d002 - $0ff <- store R2
+  073 - 4000 b0ff d003 - R3 <- load $(0ff)
+  076 - 8100 d003 - print R3
+  078 - 2800 d003 - R3 <- srb R3
+  07a - 8100 d003 - print R3
+  07c - 2800 d003 - R3 <- srb R3
+  07e - 8100 d003 - print R3
+  080 - 2800 d003 - R3 <- srb R3
+  082 - 8100 d003 - print R3
+  084 - 2800 d003 - R3 <- srb R3
+  086 - 4000 b0ff d003 - R3 <- load $(0ff)
+  089 - 6100 d003 - ies R3
+  08b - 2100 d002 - R2 <- inc R2
+  08d - 4100 a0ff d002 - $0ff <- store R2
+  090 - 7400 a073 - jnz $073
+  092 - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+  095 - 5000 d000 - push R0
+  097 - 5100 d000 - R0 <- pop
+  099 - 4000 a003 d002 - R2 <- load $name | $name -> $003
+  09c - 4100 a0ff d002 - $0ff <- store R2
+  09f - 4000 b0ff d003 - R3 <- load $(0ff)
+  0a2 - 8100 d003 - print R3
+  0a4 - 2800 d003 - R3 <- srb R3
+  0a6 - 8100 d003 - print R3
+  0a8 - 2800 d003 - R3 <- srb R3
+  0aa - 8100 d003 - print R3
+  0ac - 2800 d003 - R3 <- srb R3
+  0ae - 8100 d003 - print R3
+  0b0 - 2800 d003 - R3 <- srb R3
+  0b2 - 4000 b0ff d003 - R3 <- load $(0ff)
+  0b5 - 6100 d003 - ies R3
+  0b7 - 2100 d002 - R2 <- inc R2
+  0b9 - 4100 a0ff d002 - $0ff <- store R2
+  0bc - 7400 a09f - jnz $09f
+  0be - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+  0c1 - 5000 d000 - push R0
+  0c3 - 5100 d000 - R0 <- pop
+  0c5 - 4000 a11f d002 - R2 <- load $11f | $11f -> 270
+  0c8 - 4100 a0ff d002 - $0ff <- store R2
+  0cb - 4000 b0ff d003 - R3 <- load $(0ff)
+  0ce - 8100 d003 - print R3
+  0d0 - 2800 d003 - R3 <- srb R3
+  0d2 - 8100 d003 - print R3
+  0d4 - 2800 d003 - R3 <- srb R3
+  0d6 - 8100 d003 - print R3
+  0d8 - 2800 d003 - R3 <- srb R3
+  0da - 8100 d003 - print R3
+  0dc - 2800 d003 - R3 <- srb R3
+  0de - 4000 b0ff d003 - R3 <- load $(0ff)
+  0e1 - 6100 d003 - ies R3
+  0e3 - 2100 d002 - R2 <- inc R2
+  0e5 - 4100 a0ff d002 - $0ff <- store R2
+  0e8 - 7400 a0cb - jnz $0cb
+  0ea - 4000 a100 d000 - R0 <- load $100 | $100 -> 0
+  0ed - 5000 d000 - push R0
+  0ef - 5100 d000 - R0 <- pop
+  0f1 - 1000 - halt
 
 out_log: |
   DEBUG   machine:simulation    0 | TICK: 0 PC: 000 IB 0000 (DataPath - AR: 000 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000000 R3: 00000000))
@@ -223,168 +231,165 @@ out_log: |
   DEBUG   machine:simulation    81 | TICK: 456 PC: 03c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000000))
   DEBUG   machine:__signal_latch input: 'I'
   DEBUG   machine:simulation    82 | TICK: 461 PC: 03e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 49000000))
-  DEBUG   machine:simulation    83 | TICK: 466 PC: 040 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00490000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00490000))
+  DEBUG   machine:simulation    83 | TICK: 465 PC: 040 IB 6100 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 49000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 49000000))
+  DEBUG   machine:simulation    84 | TICK: 468 PC: 042 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 49000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 49000000))
+  DEBUG   machine:simulation    85 | TICK: 473 PC: 044 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00490000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00490000))
   DEBUG   machine:__signal_latch input: 'l'
-  DEBUG   machine:simulation    84 | TICK: 471 PC: 042 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00490000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 6c490000))
-  DEBUG   machine:simulation    85 | TICK: 476 PC: 044 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 006c4900 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 006c4900))
+  DEBUG   machine:simulation    86 | TICK: 478 PC: 046 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00490000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 6c490000))
+  DEBUG   machine:simulation    87 | TICK: 482 PC: 048 IB 6100 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 6c000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 6c490000))
+  DEBUG   machine:simulation    88 | TICK: 485 PC: 04a IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 6c000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 6c490000))
+  DEBUG   machine:simulation    89 | TICK: 490 PC: 04c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 006c4900 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 006c4900))
   DEBUG   machine:__signal_latch input: 'y'
-  DEBUG   machine:simulation    86 | TICK: 481 PC: 046 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 006c4900 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 796c4900))
-  DEBUG   machine:simulation    87 | TICK: 486 PC: 048 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00796c49))
+  DEBUG   machine:simulation    90 | TICK: 495 PC: 04e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 006c4900 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 796c4900))
+  DEBUG   machine:simulation    91 | TICK: 499 PC: 050 IB 6100 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 79000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 796c4900))
+  DEBUG   machine:simulation    92 | TICK: 502 PC: 052 IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 79000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 796c4900))
+  DEBUG   machine:simulation    93 | TICK: 507 PC: 054 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00796c49 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00796c49))
   DEBUG   machine:__signal_latch input: 'a'
-  DEBUG   machine:simulation    88 | TICK: 491 PC: 04a IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    89 | TICK: 499 PC: 04d IB 4100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    90 | TICK: 503 PC: 04f IB 6100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    91 | TICK: 508 PC: 051 IB 2100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    92 | TICK: 514 PC: 054 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    93 | TICK: 517 PC: 037 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    94 | TICK: 526 PC: 03a IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    95 | TICK: 531 PC: 03c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  WARNING machine:simulation    Input buffer is empty!
-  DEBUG   machine:simulation    96 | TICK: 534 PC: 03d IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    97 | TICK: 535 PC: 03e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    98 | TICK: 540 PC: 040 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  WARNING machine:simulation    Input buffer is empty!
-  DEBUG   machine:simulation    99 | TICK: 543 PC: 041 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    100 | TICK: 544 PC: 042 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    101 | TICK: 549 PC: 044 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  WARNING machine:simulation    Input buffer is empty!
-  DEBUG   machine:simulation    102 | TICK: 552 PC: 045 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    103 | TICK: 553 PC: 046 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    104 | TICK: 558 PC: 048 IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  WARNING machine:simulation    Input buffer is empty!
-  DEBUG   machine:simulation    105 | TICK: 561 PC: 049 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    106 | TICK: 562 PC: 04a IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    107 | TICK: 570 PC: 04d IB 4100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    108 | TICK: 574 PC: 04f IB 6100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    109 | TICK: 579 PC: 051 IB 2100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    110 | TICK: 585 PC: 054 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    111 | TICK: 588 PC: 056 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    112 | TICK: 597 PC: 059 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    113 | TICK: 602 PC: 05b IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    114 | TICK: 611 PC: 05d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    115 | TICK: 620 PC: 060 IB 4000 (DataPath - AR: 11e SP: fff SB: 000 HC: 120 SOB: 0000010c (ALU - result: 0000010c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
-  DEBUG   machine:simulation    116 | TICK: 626 PC: 063 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 0000010c (ALU - result: 0000010c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
-  DEBUG   machine:simulation    117 | TICK: 637 PC: 066 IB 4000 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
+  DEBUG   machine:simulation    94 | TICK: 512 PC: 056 IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00796c49 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    95 | TICK: 516 PC: 058 IB 6100 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    96 | TICK: 519 PC: 05a IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    97 | TICK: 527 PC: 05d IB 4100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    98 | TICK: 531 PC: 05f IB 6100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    99 | TICK: 536 PC: 061 IB 2100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    100 | TICK: 542 PC: 064 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    101 | TICK: 545 PC: 037 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    102 | TICK: 554 PC: 03a IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    103 | TICK: 559 PC: 03c IB 2800 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:__signal_latch input: '\x00'
+  DEBUG   machine:simulation    104 | TICK: 564 PC: 03e IB 8000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    105 | TICK: 568 PC: 040 IB 6100 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    106 | TICK: 571 PC: 05a IB 7300 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    107 | TICK: 579 PC: 05d IB 4100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    108 | TICK: 583 PC: 05f IB 6100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    109 | TICK: 588 PC: 061 IB 2100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    110 | TICK: 594 PC: 064 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    111 | TICK: 597 PC: 066 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    112 | TICK: 606 PC: 069 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    113 | TICK: 611 PC: 06b IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    114 | TICK: 620 PC: 06d IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    115 | TICK: 629 PC: 070 IB 4000 (DataPath - AR: 11e SP: fff SB: 000 HC: 120 SOB: 0000010c (ALU - result: 0000010c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
+  DEBUG   machine:simulation    116 | TICK: 635 PC: 073 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 0000010c (ALU - result: 0000010c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
+  DEBUG   machine:simulation    117 | TICK: 646 PC: 076 IB 4000 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
   DEBUG   machine:signal_output output: What is your name?
    << H
-  DEBUG   machine:simulation    118 | TICK: 641 PC: 068 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
-  DEBUG   machine:simulation    119 | TICK: 646 PC: 06a IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 006c6c65 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 006c6c65))
+  DEBUG   machine:simulation    118 | TICK: 650 PC: 078 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
+  DEBUG   machine:simulation    119 | TICK: 655 PC: 07a IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 006c6c65 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 006c6c65))
   DEBUG   machine:signal_output output: What is your name?
   H << e
-  DEBUG   machine:simulation    120 | TICK: 650 PC: 06c IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 006c6c65 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 006c6c65))
-  DEBUG   machine:simulation    121 | TICK: 655 PC: 06e IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00006c6c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00006c6c))
+  DEBUG   machine:simulation    120 | TICK: 659 PC: 07c IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 006c6c65 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 006c6c65))
+  DEBUG   machine:simulation    121 | TICK: 664 PC: 07e IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00006c6c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00006c6c))
   DEBUG   machine:signal_output output: What is your name?
   He << l
-  DEBUG   machine:simulation    122 | TICK: 659 PC: 070 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00006c6c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00006c6c))
-  DEBUG   machine:simulation    123 | TICK: 664 PC: 072 IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000006c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 0000006c))
+  DEBUG   machine:simulation    122 | TICK: 668 PC: 080 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00006c6c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00006c6c))
+  DEBUG   machine:simulation    123 | TICK: 673 PC: 082 IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000006c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 0000006c))
   DEBUG   machine:signal_output output: What is your name?
   Hel << l
-  DEBUG   machine:simulation    124 | TICK: 668 PC: 074 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000006c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 0000006c))
-  DEBUG   machine:simulation    125 | TICK: 673 PC: 076 IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
-  DEBUG   machine:simulation    126 | TICK: 684 PC: 079 IB 4000 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
-  DEBUG   machine:simulation    127 | TICK: 688 PC: 07b IB 6100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
-  DEBUG   machine:simulation    128 | TICK: 693 PC: 07d IB 2100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
-  DEBUG   machine:simulation    129 | TICK: 699 PC: 080 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
-  DEBUG   machine:simulation    130 | TICK: 702 PC: 063 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
-  DEBUG   machine:simulation    131 | TICK: 713 PC: 066 IB 4000 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
+  DEBUG   machine:simulation    124 | TICK: 677 PC: 084 IB 8100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000006c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 0000006c))
+  DEBUG   machine:simulation    125 | TICK: 682 PC: 086 IB 2800 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 00000000))
+  DEBUG   machine:simulation    126 | TICK: 693 PC: 089 IB 4000 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c6c6548 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
+  DEBUG   machine:simulation    127 | TICK: 697 PC: 08b IB 6100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 6c000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010c R3: 6c6c6548))
+  DEBUG   machine:simulation    128 | TICK: 702 PC: 08d IB 2100 (DataPath - AR: 10c SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
+  DEBUG   machine:simulation    129 | TICK: 708 PC: 090 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
+  DEBUG   machine:simulation    130 | TICK: 711 PC: 073 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 6c6c6548 (ALU - result: 0000010d zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 6c6c6548))
+  DEBUG   machine:simulation    131 | TICK: 722 PC: 076 IB 4000 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
   DEBUG   machine:signal_output output: What is your name?
   Hell << o
-  DEBUG   machine:simulation    132 | TICK: 717 PC: 068 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
-  DEBUG   machine:simulation    133 | TICK: 722 PC: 06a IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000202c zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 0000202c))
+  DEBUG   machine:simulation    132 | TICK: 726 PC: 078 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
+  DEBUG   machine:simulation    133 | TICK: 731 PC: 07a IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000202c zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 0000202c))
   DEBUG   machine:signal_output output: What is your name?
   Hello << ,
-  DEBUG   machine:simulation    134 | TICK: 726 PC: 06c IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000202c zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 0000202c))
-  DEBUG   machine:simulation    135 | TICK: 731 PC: 06e IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000020 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000020))
+  DEBUG   machine:simulation    134 | TICK: 735 PC: 07c IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000202c zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 0000202c))
+  DEBUG   machine:simulation    135 | TICK: 740 PC: 07e IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000020 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000020))
   DEBUG   machine:signal_output output: What is your name?
   Hello, <<  
-  DEBUG   machine:simulation    136 | TICK: 735 PC: 070 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000020 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000020))
-  DEBUG   machine:simulation    137 | TICK: 740 PC: 072 IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
+  DEBUG   machine:simulation    136 | TICK: 744 PC: 080 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000020 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000020))
+  DEBUG   machine:simulation    137 | TICK: 749 PC: 082 IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello,  << \0
-  DEBUG   machine:simulation    138 | TICK: 744 PC: 074 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
-  DEBUG   machine:simulation    139 | TICK: 749 PC: 076 IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
-  DEBUG   machine:simulation    140 | TICK: 760 PC: 079 IB 4000 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
-  DEBUG   machine:simulation    141 | TICK: 764 PC: 07b IB 6100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
-  DEBUG   machine:simulation    142 | TICK: 769 PC: 07d IB 2100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    143 | TICK: 775 PC: 080 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    144 | TICK: 778 PC: 082 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    145 | TICK: 787 PC: 085 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    146 | TICK: 792 PC: 087 IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    147 | TICK: 801 PC: 089 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
-  DEBUG   machine:simulation    148 | TICK: 810 PC: 08c IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 120 SOB: 00000110 (ALU - result: 00000110 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00202c6f))
-  DEBUG   machine:simulation    149 | TICK: 816 PC: 08f IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000110 (ALU - result: 00000110 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00202c6f))
-  DEBUG   machine:simulation    150 | TICK: 827 PC: 092 IB 4000 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    138 | TICK: 753 PC: 084 IB 8100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
+  DEBUG   machine:simulation    139 | TICK: 758 PC: 086 IB 2800 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00000000))
+  DEBUG   machine:simulation    140 | TICK: 769 PC: 089 IB 4000 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00202c6f zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
+  DEBUG   machine:simulation    141 | TICK: 773 PC: 08b IB 6100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010d R3: 00202c6f))
+  DEBUG   machine:simulation    142 | TICK: 778 PC: 08d IB 2100 (DataPath - AR: 10d SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    143 | TICK: 784 PC: 090 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    144 | TICK: 787 PC: 092 IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00202c6f (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    145 | TICK: 796 PC: 095 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    146 | TICK: 801 PC: 097 IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    147 | TICK: 810 PC: 099 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00202c6f))
+  DEBUG   machine:simulation    148 | TICK: 819 PC: 09c IB 4000 (DataPath - AR: 003 SP: fff SB: 000 HC: 120 SOB: 00000110 (ALU - result: 00000110 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00202c6f))
+  DEBUG   machine:simulation    149 | TICK: 825 PC: 09f IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000110 (ALU - result: 00000110 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00202c6f))
+  DEBUG   machine:simulation    150 | TICK: 836 PC: 0a2 IB 4000 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
   DEBUG   machine:signal_output output: What is your name?
   Hello,  << I
-  DEBUG   machine:simulation    151 | TICK: 831 PC: 094 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    152 | TICK: 836 PC: 096 IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 0061796c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 0061796c))
+  DEBUG   machine:simulation    151 | TICK: 840 PC: 0a4 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    152 | TICK: 845 PC: 0a6 IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 0061796c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 0061796c))
   DEBUG   machine:signal_output output: What is your name?
   Hello, I << l
-  DEBUG   machine:simulation    153 | TICK: 840 PC: 098 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 0061796c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 0061796c))
-  DEBUG   machine:simulation    154 | TICK: 845 PC: 09a IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00006179 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00006179))
+  DEBUG   machine:simulation    153 | TICK: 849 PC: 0a8 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 0061796c zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 0061796c))
+  DEBUG   machine:simulation    154 | TICK: 854 PC: 0aa IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00006179 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00006179))
   DEBUG   machine:signal_output output: What is your name?
   Hello, Il << y
-  DEBUG   machine:simulation    155 | TICK: 849 PC: 09c IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00006179 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00006179))
-  DEBUG   machine:simulation    156 | TICK: 854 PC: 09e IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000061 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000061))
+  DEBUG   machine:simulation    155 | TICK: 858 PC: 0ac IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00006179 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00006179))
+  DEBUG   machine:simulation    156 | TICK: 863 PC: 0ae IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000061 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000061))
   DEBUG   machine:signal_output output: What is your name?
   Hello, Ily << a
-  DEBUG   machine:simulation    157 | TICK: 858 PC: 0a0 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000061 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000061))
-  DEBUG   machine:simulation    158 | TICK: 863 PC: 0a2 IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000000))
-  DEBUG   machine:simulation    159 | TICK: 874 PC: 0a5 IB 4000 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    160 | TICK: 878 PC: 0a7 IB 6100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
-  DEBUG   machine:simulation    161 | TICK: 883 PC: 0a9 IB 2100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    162 | TICK: 889 PC: 0ac IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    163 | TICK: 892 PC: 08f IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
-  DEBUG   machine:simulation    164 | TICK: 903 PC: 092 IB 4000 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    157 | TICK: 867 PC: 0b0 IB 8100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000061 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000061))
+  DEBUG   machine:simulation    158 | TICK: 872 PC: 0b2 IB 2800 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 00000000))
+  DEBUG   machine:simulation    159 | TICK: 883 PC: 0b5 IB 4000 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61796c49 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    160 | TICK: 887 PC: 0b7 IB 6100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 61000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000110 R3: 61796c49))
+  DEBUG   machine:simulation    161 | TICK: 892 PC: 0b9 IB 2100 (DataPath - AR: 110 SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    162 | TICK: 898 PC: 0bc IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    163 | TICK: 901 PC: 09f IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 61796c49 (ALU - result: 00000111 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 61796c49))
+  DEBUG   machine:simulation    164 | TICK: 912 PC: 0a2 IB 4000 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya << \0
-  DEBUG   machine:simulation    165 | TICK: 907 PC: 094 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    166 | TICK: 912 PC: 096 IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    165 | TICK: 916 PC: 0a4 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    166 | TICK: 921 PC: 0a6 IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya << \0
-  DEBUG   machine:simulation    167 | TICK: 916 PC: 098 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    168 | TICK: 921 PC: 09a IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    167 | TICK: 925 PC: 0a8 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    168 | TICK: 930 PC: 0aa IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya << \0
-  DEBUG   machine:simulation    169 | TICK: 925 PC: 09c IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    170 | TICK: 930 PC: 09e IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    169 | TICK: 934 PC: 0ac IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    170 | TICK: 939 PC: 0ae IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya << \0
-  DEBUG   machine:simulation    171 | TICK: 934 PC: 0a0 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    172 | TICK: 939 PC: 0a2 IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    173 | TICK: 950 PC: 0a5 IB 4000 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    174 | TICK: 954 PC: 0a7 IB 6100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
-  DEBUG   machine:simulation    175 | TICK: 959 PC: 0a9 IB 2100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    176 | TICK: 965 PC: 0ac IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    177 | TICK: 968 PC: 0ae IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    178 | TICK: 977 PC: 0b1 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    179 | TICK: 982 PC: 0b3 IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    180 | TICK: 991 PC: 0b5 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
-  DEBUG   machine:simulation    181 | TICK: 1000 PC: 0b8 IB 4000 (DataPath - AR: 11f SP: fff SB: 000 HC: 120 SOB: 0000010e (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    182 | TICK: 1006 PC: 0bb IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 0000010e (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    183 | TICK: 1017 PC: 0be IB 4000 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
+  DEBUG   machine:simulation    171 | TICK: 943 PC: 0b0 IB 8100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    172 | TICK: 948 PC: 0b2 IB 2800 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    173 | TICK: 959 PC: 0b5 IB 4000 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: False) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    174 | TICK: 963 PC: 0b7 IB 6100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000111 R3: 00000000))
+  DEBUG   machine:simulation    175 | TICK: 968 PC: 0b9 IB 2100 (DataPath - AR: 111 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    176 | TICK: 974 PC: 0bc IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    177 | TICK: 977 PC: 0be IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000112 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    178 | TICK: 986 PC: 0c1 IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    179 | TICK: 991 PC: 0c3 IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    180 | TICK: 1000 PC: 0c5 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 00000112 R3: 00000000))
+  DEBUG   machine:simulation    181 | TICK: 1009 PC: 0c8 IB 4000 (DataPath - AR: 11f SP: fff SB: 000 HC: 120 SOB: 0000010e (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    182 | TICK: 1015 PC: 0cb IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 0000010e (ALU - result: 0000010e zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    183 | TICK: 1026 PC: 0ce IB 4000 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
   DEBUG   machine:signal_output output: What is your name?
   Hello, Ilya << !
-  DEBUG   machine:simulation    184 | TICK: 1021 PC: 0c0 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
-  DEBUG   machine:simulation    185 | TICK: 1026 PC: 0c2 IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    184 | TICK: 1030 PC: 0d0 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
+  DEBUG   machine:simulation    185 | TICK: 1035 PC: 0d2 IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya! << \0
-  DEBUG   machine:simulation    186 | TICK: 1030 PC: 0c4 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    187 | TICK: 1035 PC: 0c6 IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    186 | TICK: 1039 PC: 0d4 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    187 | TICK: 1044 PC: 0d6 IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya! << \0
-  DEBUG   machine:simulation    188 | TICK: 1039 PC: 0c8 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    189 | TICK: 1044 PC: 0ca IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    188 | TICK: 1048 PC: 0d8 IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    189 | TICK: 1053 PC: 0da IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
   DEBUG   machine:signal_output zero value skipped for output: What is your name?
   Hello, Ilya! << \0
-  DEBUG   machine:simulation    190 | TICK: 1048 PC: 0cc IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    191 | TICK: 1053 PC: 0ce IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
-  DEBUG   machine:simulation    192 | TICK: 1064 PC: 0d1 IB 4000 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
-  DEBUG   machine:simulation    193 | TICK: 1068 PC: 0d3 IB 6100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
-  DEBUG   machine:simulation    194 | TICK: 1073 PC: 0d5 IB 2100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
-  DEBUG   machine:simulation    195 | TICK: 1079 PC: 0d8 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
-  DEBUG   machine:simulation    196 | TICK: 1082 PC: 0da IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
-  DEBUG   machine:simulation    197 | TICK: 1091 PC: 0dd IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
-  DEBUG   machine:simulation    198 | TICK: 1096 PC: 0df IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
-  DEBUG   machine:simulation    199 | TICK: 1105 PC: 0e1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    190 | TICK: 1057 PC: 0dc IB 8100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    191 | TICK: 1062 PC: 0de IB 2800 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000000))
+  DEBUG   machine:simulation    192 | TICK: 1073 PC: 0e1 IB 4000 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000021 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
+  DEBUG   machine:simulation    193 | TICK: 1077 PC: 0e3 IB 6100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010e R3: 00000021))
+  DEBUG   machine:simulation    194 | TICK: 1082 PC: 0e5 IB 2100 (DataPath - AR: 10e SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    195 | TICK: 1088 PC: 0e8 IB 4100 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    196 | TICK: 1091 PC: 0ea IB 7400 (DataPath - AR: 0ff SP: fff SB: 000 HC: 120 SOB: 00000021 (ALU - result: 0000010f zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    197 | TICK: 1100 PC: 0ed IB 4000 (DataPath - AR: 100 SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    198 | TICK: 1105 PC: 0ef IB 5000 (DataPath - AR: ffe SP: ffe SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
+  DEBUG   machine:simulation    199 | TICK: 1114 PC: 0f1 IB 5100 (DataPath - AR: ffe SP: fff SB: 000 HC: 120 SOB: 00000000 (ALU - result: 00000000 zero: True) (Registers - R0: 00000000 R1: 00000000 R2: 0000010f R3: 00000021))
   INFO    machine:simulation    output_buffer: 'What is your name?\nHello, Ilya!'

@@ -667,14 +667,13 @@ def simulation(
     logging.debug("%s | %s", instr_counter, control_unit)
     try:
         while instr_counter < limit:
-            try:
-                control_unit.decode_and_execute_instruction()
-            except EOFError:
-                logging.warning("Input buffer is empty!")
+            control_unit.decode_and_execute_instruction()
             instr_counter += 1
             logging.debug("%s | %s", instr_counter, control_unit)
     except StopIteration:
         pass
+    except EOFError:
+        logging.warning("Input buffer is empty!")
     if instr_counter >= limit:
         logging.warning("Limit exceeded!")
     logging.info("output_buffer: %s", repr("".join(data_path.output_buffer)))
@@ -685,6 +684,7 @@ def read_input_file(input_file_name: str) -> list[str]:
     with open(input_file_name, encoding="utf-8") as source_file:
         source: str = source_file.read()
     chars: list[str] = processed_special_symbols_in_string(source)
+    chars.append("\0")
     return chars
 
 
